@@ -3,21 +3,30 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
 
+
 ApplicationWindow {
     id:mainWindow   //если к объекту не планиуется обращаться, то id можно не задавать, название должно начинаться с маленькой буквы
     visible: true
-    width: 480
-    height: 640
+    width: 375
+    height: 667
     title: qsTr("MainWindow")   //qsTr - функция для перключения языка строки
+    Material.background: "white"
+    font.capitalization: Font.MixedCase
 
     header: ToolBar {
+        anchors.leftMargin: 10
+        anchors.left: parent.left;
+        layer.enabled: true
+        Material.background: "white"
+        Text {
+            font.family: "SF UI Display Bold"
+            text: "Элементы GUI"
+            font.pointSize: 23
+            color: "black"
+            anchors.bottom: parent.bottom
 
-        ToolButton{
-            text: "PLHFCN"
+
         }
-
-        Material.background: "WHITE"
-        font.pointSize: 20
     }
 
 
@@ -98,9 +107,10 @@ ApplicationWindow {
         Page{
             Button {
                 id: button1
-                text: "Button"
-                font.family: "SF"
+                text: "Привет"
+                font.family: "SF UI Display Regular"
                 font.pixelSize: 15
+
             }
         }
 
@@ -117,10 +127,10 @@ ApplicationWindow {
     footer: TabBar {
         id: tabBar
         currentIndex: swipeView.currentIndex
+        font.family: "SF UI Display Light"
 
         TabButton {
             text: qsTr("Page 1")
-
         }
         TabButton {
             text: qsTr("Page 2")
