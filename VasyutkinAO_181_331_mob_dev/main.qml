@@ -12,8 +12,10 @@ ApplicationWindow {
     title: qsTr("MainWindow")   //qsTr - функция для перключения языка строки
     Material.background: "white"
     font.capitalization: Font.MixedCase
+    //Material.accent: "#0479fn"
 
     header: ToolBar {
+        id: toolbar
         anchors.leftMargin: 10
         anchors.left: parent.left;
         layer.enabled: true
@@ -105,12 +107,61 @@ ApplicationWindow {
             //anchors запрещены
         }*/
         Page{
-            Button {
+            scale: 1
+            /*Button {
                 id: button1
                 text: "Привет"
                 font.family: "SF UI Display Regular"
                 font.pixelSize: 15
 
+            }*/
+
+            BusyIndicator {
+                id: busyindicator
+                anchors.leftMargin: 10
+                anchors.topMargin: 40
+                anchors.top: parent.top
+                anchors.left: parent.left;
+                layer.enabled: true
+                running: image.status === Image.Loading
+
+            }
+            Dial {
+                id: dial
+                Keys.onLeftPressed: {}
+                anchors.leftMargin: 10
+                anchors.topMargin: 40
+                anchors.top: parent.top
+                anchors.left: busyindicator.right;
+            }
+
+            ColumnLayout {
+                Keys.onLeftPressed: {}
+                anchors.leftMargin: 10
+                anchors.topMargin: 40
+                anchors.top: parent.top
+                anchors.left: dial.right;
+                Switch {
+                    text: qsTr("Wi-Fi")
+
+                }
+            }
+            Slider {
+                from: 1
+                value: 56
+                to: 100
+
+            }
+
+            Text {
+                text: "Hello World!"
+                font.family: "Helvetica"
+                font.pointSize: 24
+                color: "red"
+            }
+
+            TextArea {
+                placeholderText: qsTr("Enter description")
             }
         }
 
