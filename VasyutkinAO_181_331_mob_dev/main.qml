@@ -12,7 +12,7 @@ ApplicationWindow {
     title: qsTr("MainWindow")   //qsTr - функция для перключения языка строки
     Material.background: "white"
     font.capitalization: Font.MixedCase
-    //Material.accent: "#0479fn"
+    Material.accent: "#007DFA"
 
     header: ToolBar {
         id: toolbar
@@ -119,49 +119,74 @@ ApplicationWindow {
             BusyIndicator {
                 id: busyindicator
                 anchors.leftMargin: 10
-                anchors.topMargin: 40
+                anchors.topMargin: 35
                 anchors.top: parent.top
-                anchors.left: parent.left;
+                anchors.horizontalCenter: parent.horizontalCenter
                 layer.enabled: true
                 running: image.status === Image.Loading
+                Material.accent: "#99999b"
+
 
             }
             Dial {
                 id: dial
-                Keys.onLeftPressed: {}
+
+                to: 100
                 anchors.leftMargin: 10
                 anchors.topMargin: 40
-                anchors.top: parent.top
-                anchors.left: busyindicator.right;
+                anchors.top: slider.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
             }
 
             ColumnLayout {
-                Keys.onLeftPressed: {}
                 anchors.leftMargin: 10
-                anchors.topMargin: 40
-                anchors.top: parent.top
-                anchors.left: dial.right;
+                anchors.topMargin: 90
+                anchors.top: dial.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                Material.accent: "#32c656"
+
                 Switch {
-                    text: qsTr("Wi-Fi")
+                    text: qsTr("Включить хорошее настроение")
+                    Material.foreground: "#000"
+                    font.family: "SF UI Text Regular"
+
 
                 }
             }
             Slider {
+                id:slider
                 from: 1
-                value: 56
                 to: 100
+                anchors.leftMargin: 10
+                anchors.topMargin: 40
+                anchors.top: busyindicator.bottom
+                anchors.left: parent.left;
+                anchors.horizontalCenter: parent.horizontalCenter
+
 
             }
 
             Text {
-                text: "Hello World!"
-                font.family: "Helvetica"
-                font.pointSize: 24
-                color: "red"
+                text: "Загрузка..."
+                font.family: "SF UI Text Regular"
+                font.pointSize: 10
+                color: "#000"
+                anchors.leftMargin: 10
+                anchors.top: busyindicator.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
             }
 
             TextArea {
-                placeholderText: qsTr("Enter description")
+                color: "#000"
+                placeholderText: qsTr("Введите какой-нибудь текст")
+                placeholderTextColor: "#99999b"
+                font.family: "SF UI Text Regular"
+                font.pointSize: 12
+                Material.accent: "#007DFA"
+                anchors.bottom: parent.bottom
+                anchors.leftMargin: 10
+                anchors.left: parent.left
+
             }
         }
 
