@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
-
+import QtMultimedia 5.14 //для камеры
 
 ApplicationWindow {
     id:mainWindow   //если к объекту не планиуется обращаться, то id можно не задавать, название должно начинаться с маленькой буквы
@@ -13,24 +13,6 @@ ApplicationWindow {
     Material.background: "white"
     font.capitalization: Font.MixedCase
     Material.accent: "#007DFA"
-
-    header: ToolBar {
-        id: toolbar
-        anchors.leftMargin: 10
-        anchors.left: parent.left;
-        layer.enabled: true
-        Material.background: "white"
-        Text {
-            font.family: "SF UI Display Bold"
-            text: "Элементы GUI"
-            font.pointSize: 23
-            color: "black"
-            anchors.bottom: parent.bottom
-
-
-        }
-    }
-
 
     SwipeView {
         id: swipeView
@@ -108,6 +90,22 @@ ApplicationWindow {
         }*/
         Page{
             scale: 1
+            header: ToolBar {
+                id: toolbar
+                anchors.leftMargin: 10
+                anchors.left: parent.left;
+                layer.enabled: true
+                Material.background: "white"
+                Text {
+                    font.family: "SF UI Display Bold"
+                    text: "Элементы GUI"
+                    font.pointSize: 23
+                    color: "black"
+                    anchors.bottom: parent.bottom
+
+
+                }
+            }
             /*Button {
                 id: button1
                 text: "Привет"
@@ -130,12 +128,12 @@ ApplicationWindow {
             }
             Dial {
                 id: dial
-
                 to: 100
                 anchors.leftMargin: 10
                 anchors.topMargin: 40
                 anchors.top: slider.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
+                anchors.centerIn: parent
             }
 
             ColumnLayout {
@@ -191,6 +189,53 @@ ApplicationWindow {
         }
 
         Page{
+            scale: 1
+            header: ToolBar {
+                anchors.leftMargin: 10
+                anchors.left: parent.left;
+                layer.enabled: true
+                Material.background: "black"
+                Text {
+                    font.family: "SF UI Display Bold"
+                    text: "Камера. Фото и видео"
+                    font.pointSize: 23
+                    color: "white"
+                    anchors.bottom: parent.bottom
+
+
+                }
+            }
+            Material.background: "black"
+            Item {
+                width: 375
+                height: 667
+
+                Camera {
+                    id: camera
+                    imageCapture {
+                        onImageCaptured: {
+                            photoPreview.source = preview
+                        }
+                    }
+                }
+
+                VideoOutput {
+                    id: photocam
+                    source: camera //показывает на экарне во время записи
+                    anchors.fill: parent
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Image {
+                    id: photoPreview
+                }
+            }
+            RoundButton {
+                Material.background: "white"
+                anchors.top: camera.bottom
+                height: 65
+                width: 65
+            }
 
         }
 
@@ -206,10 +251,10 @@ ApplicationWindow {
         font.family: "SF UI Display Light"
 
         TabButton {
-            text: qsTr("Page 1")
+            text: qsTr("Lab_1")
         }
         TabButton {
-            text: qsTr("Page 2")
+            text: qsTr("Lab_2")
         }
         TabButton {
             text: qsTr("Page 3")
