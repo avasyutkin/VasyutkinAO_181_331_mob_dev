@@ -206,7 +206,7 @@ ApplicationWindow {
                 }
             }
             Material.background: "black"
-            Item {
+           Item {
                 width: 375
                 height: 667
 
@@ -223,7 +223,7 @@ ApplicationWindow {
                     id: photocam
                     source: camera //показывает на экарне во время записи
                     anchors.fill: parent
-                    anchors.verticalCenter: parent.verticalCenter
+                    //anchors.verticalCenter: parent.verticalCenter
                 }
 
                 Image {
@@ -237,6 +237,24 @@ ApplicationWindow {
                 width: 65
             }
 
+            Rectangle {
+                width: 375
+                height: 667
+                color: "black"
+
+                MediaPlayer {
+                    id: player
+                    source: "/sample (1).avi"
+                    autoPlay: true
+                    volume: 1
+                }
+
+                VideoOutput {
+                    id: videoOutput
+                    source: player
+                    anchors.fill: parent
+                }
+            }
         }
 
         Page{
