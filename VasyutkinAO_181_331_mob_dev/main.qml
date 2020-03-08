@@ -3,6 +3,8 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
 import QtMultimedia 5.14 //для камеры
+import QtQuick 2.0
+import QtMultimedia 5.4
 
 ApplicationWindow {
     id:mainWindow   //если к объекту не планиуется обращаться, то id можно не задавать, название должно начинаться с маленькой буквы
@@ -13,6 +15,7 @@ ApplicationWindow {
     Material.background: "white"
     font.capitalization: Font.MixedCase
     Material.accent: "#007DFA"
+
 
     SwipeView {
         id: swipeView
@@ -206,47 +209,70 @@ ApplicationWindow {
                 }
             }
             Material.background: "black"
-           Item {
+            Item {
                 width: 375
                 height: 667
 
                 Camera {
                     id: camera
+                    videoRecorder.mediaContainer: "mp4"
                     imageCapture {
                         onImageCaptured: {
+                            // Show the preview in an Image
                             photoPreview.source = preview
                         }
                     }
                 }
 
+
                 VideoOutput {
                     id: photocam
                     source: camera //показывает на экарне во время записи
                     anchors.fill: parent
-                    //anchors.verticalCenter: parent.verticalCenter
                 }
+
 
                 Image {
                     id: photoPreview
+                    height: 40
+                    width: 40
+                    anchors.right: parent.right
+                }
+
+                RoundButton {
+                    Material.background: "white"
+                    height: 65
+                    width: 65
+                    onClicked: camera.imageCapture.capture()
+                }
+                RoundButton {
+                    Material.background: "white"
+                    anchors.bottom: camera.top
+                    anchors.right: parent.right
+                    height: 65
+                    width: 200
+                    onClicked: camera.videoRecorder.record()
                 }
             }
-            RoundButton {
+            /*RoundButton {
                 Material.background: "white"
                 anchors.top: camera.bottom
                 height: 65
                 width: 65
-            }
+                onClicked: camera.videoRecorder.record()
+                onDoubleClicked: camera.videoRecorder.stop()
+            }*/
 
-            Rectangle {
-                width: 375
-                height: 667
+            /*  Rectangle {
+                width: 320
+                height: 240
                 color: "black"
 
                 MediaPlayer {
                     id: player
-                    source: "/sample (1).avi"
+                    source: "/video/sample (1).avi"
                     autoPlay: true
-                    volume: 1
+                    volume: 0
                 }
 
                 VideoOutput {
@@ -254,7 +280,7 @@ ApplicationWindow {
                     source: player
                     anchors.fill: parent
                 }
-            }
+            }*/
         }
 
         Page{
