@@ -233,6 +233,7 @@ ApplicationWindow {
                     MouseArea {
                         anchors.fill: parent;
                         onClicked: photoPreview.width = 375, photoPreview.height = 200
+
                     }
                 }
 
