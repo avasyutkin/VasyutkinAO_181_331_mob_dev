@@ -232,29 +232,29 @@ ApplicationWindow {
                     anchors.bottomMargin: 50
 
 
-                        Image {
-                            id: photoPreview
-                            height: 40
-                            width: 75
-                            anchors.right: parent.right
-                            MouseArea {
-                                anchors.fill: parent;
-                                onClicked: photoPreview.width = 375, photoPreview.height = 200
-                                onDoubleClicked: photoPreview.width = 75, photoPreview.height = 40
-                            }
-                            }
+                    Image {
+                        id: photoPreview
+                        height: 40
+                        width: 75
+                        anchors.right: parent.right
+                        MouseArea {
+                            anchors.fill: parent;
+                            onClicked: photoPreview.width = 375, photoPreview.height = 200
+                            onDoubleClicked: photoPreview.width = 75, photoPreview.height = 40
+                        }
+                        }
                         }
 
-                        RoundButton {
-                            id: capturebutton
-                            Material.background: "white"
-                            height: 65
-                            width: 65
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.top: parent.bottom
-                            onClicked: camera.imageCapture.capture()
-                        }
-                        /*RoundButton {
+                            RoundButton {
+                                id: capturebutton
+                                Material.background: "white"
+                                height: 65
+                                width: 65
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.top: parent.bottom
+                                onClicked: camera.imageCapture.capture()
+                            }
+                            /*RoundButton {
                     Material.background: "white"
                     anchors.bottom: camera.top
                     anchors.right: parent.right
@@ -262,8 +262,8 @@ ApplicationWindow {
                     width: 200
                     onClicked: camera.videoRecorder.record()
                 }*/
-                    }
-                    /*RoundButton {
+                        }
+                        /*RoundButton {
                 Material.background: "white"
                 anchors.top: camera.bottom
                 height: 65
@@ -272,7 +272,7 @@ ApplicationWindow {
                 onDoubleClicked: camera.videoRecorder.stop()
             }*/
 
-                    /*  Rectangle {
+                        /*  Rectangle {
                 width: 320
                 height: 240
                 color: "black"
@@ -290,27 +290,27 @@ ApplicationWindow {
                     anchors.fill: parent
                 }
             }*/
+                    }
+
+                    Page{
+
+
+                    }
                 }
 
-                Page{
+                footer: TabBar {
+                    id: tabBar
+                    currentIndex: swipeView.currentIndex
+                    font.family: "SF UI Display Light"
 
-
+                    TabButton {
+                        text: qsTr("Lab_1")
+                    }
+                    TabButton {
+                        text: qsTr("Lab_2")
+                    }
+                    TabButton {
+                        text: qsTr("Page 3")
+                    }
                 }
             }
-
-            footer: TabBar {
-                id: tabBar
-                currentIndex: swipeView.currentIndex
-                font.family: "SF UI Display Light"
-
-                TabButton {
-                    text: qsTr("Lab_1")
-                }
-                TabButton {
-                    text: qsTr("Lab_2")
-                }
-                TabButton {
-                    text: qsTr("Page 3")
-                }
-            }
-        }
