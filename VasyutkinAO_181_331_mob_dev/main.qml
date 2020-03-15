@@ -159,7 +159,7 @@ ApplicationWindow {
                 anchors.leftMargin: 10
                 anchors.topMargin: 40
                 anchors.top: busyindicator.bottom
-                anchors.left: parent.left;
+                anchors.left: parent.left
                 anchors.horizontalCenter: parent.horizontalCenter
 
 
@@ -202,11 +202,11 @@ ApplicationWindow {
                     font.pointSize: 23
                     color: "white"
                     anchors.bottom: parent.bottom
-
-
                 }
             }
+
             Material.background: "black"
+
             RowLayout{
                 id: rowforradio
                 RadioButton{
@@ -257,7 +257,6 @@ ApplicationWindow {
                     anchors.bottom: capturebutton.top
                     anchors.bottomMargin: 50
 
-
                     Image {
                         id: photoPreview
                         height: 40
@@ -300,6 +299,8 @@ ApplicationWindow {
 
                         Item{
                             visible: false
+                            width: 375
+                            height: 470
                             id: page2
                             Rectangle {
 
@@ -312,25 +313,40 @@ ApplicationWindow {
                                     id: player
                                     source: "/video/sample (1).avi"
                                     autoPlay: true
-
                                     volume: 0
                                 }
 
                                 VideoOutput {
                                     id: videoOutput
                                     source: player
-                                    anchors.fill: parent
+                                    anchors.bottom: parent.bottom
+                                    anchors.horizontalCenter: parent.horizontalCenter
                                 }
                             }
                             Slider {
                                 id:sliderforvideo
                                 from: 1
                                 to: 100
-                                anchors.bottom: parent.bottom
-                                anchors.left: parent.left;
+                                anchors.topMargin: 10
+                                anchors.top: parent.bottom
                                 anchors.horizontalCenter: parent.horizontalCenter
+                            }
+                            Button{
+                                id: buttonplay
+                                text: "плей"
+                                onClicked: player.play(), this.visible = false, buttonpause.visible = true
+                                anchors.right: sliderforvideo.left
+                                anchors.top: parent.bottom
+                                anchors.topMargin: 10
+                            }
 
-
+                            Button{
+                                id: buttonpause
+                                text: "пауза"
+                                onClicked: player.pause(), this.visible = false, buttonplay.visible = true
+                                anchors.right: sliderforvideo.left
+                                anchors.top: parent.bottom
+                                anchors.topMargin: 10
                             }
                         }
                     }
