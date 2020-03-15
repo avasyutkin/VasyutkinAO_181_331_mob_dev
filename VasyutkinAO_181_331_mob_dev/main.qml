@@ -1,4 +1,4 @@
-import QtQuick 2.12
+﻿import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
@@ -207,7 +207,33 @@ ApplicationWindow {
                 }
             }
             Material.background: "black"
+            RowLayout{
+                id: rowforradio
+                RadioButton{
+
+                    id: radio1
+                    text: "Видео"
+                    checked: true
+                    onClicked: {
+                        page1.visible = true
+                        page2.visible = false
+
+                    }
+                }
+
+                RadioButton{
+                    id: radio2
+                    text: "камера"
+                    onClicked: {
+                        page1.visible = false
+                        page2.visible = true
+
+                    }
+                }
+            }
+
             Item {
+                id: page1
                 width: 375
                 height: 470
 
@@ -272,24 +298,41 @@ ApplicationWindow {
                 onDoubleClicked: camera.videoRecorder.stop()
             }*/
 
-                        /*  Rectangle {
-                width: 320
-                height: 240
-                color: "black"
+                        Item{
+                            visible: false
+                            id: page2
+                            Rectangle {
 
-                MediaPlayer {
-                    id: player
-                    source: "/video/sample (1).avi"
-                    autoPlay: true
-                    volume: 0
-                }
+                                width: 320
+                                height: 240
+                                color: "black"
+                                //anchors.centerIn: parent.Center
+                                anchors.bottom: parent.bottom
+                                MediaPlayer {
+                                    id: player
+                                    source: "/video/sample (1).avi"
+                                    autoPlay: true
 
-                VideoOutput {
-                    id: videoOutput
-                    source: player
-                    anchors.fill: parent
-                }
-            }*/
+                                    volume: 0
+                                }
+
+                                VideoOutput {
+                                    id: videoOutput
+                                    source: player
+                                    anchors.fill: parent
+                                }
+                            }
+                            Slider {
+                                id:sliderforvideo
+                                from: 1
+                                to: 100
+                                anchors.bottom: parent.bottom
+                                anchors.left: parent.left;
+                                anchors.horizontalCenter: parent.horizontalCenter
+
+
+                            }
+                        }
                     }
 
                     Page{
