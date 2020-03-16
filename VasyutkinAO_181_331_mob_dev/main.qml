@@ -5,6 +5,8 @@ import QtQuick.Layouts 1.12
 import QtMultimedia 5.14 //для камеры
 import QtQuick 2.0
 import QtMultimedia 5.4
+import QtGraphicalEffects 1.14
+import QtQuick.Window 2.12
 
 ApplicationWindow {
     id:mainWindow   //если к объекту не планиуется обращаться, то id можно не задавать, название должно начинаться с маленькой буквы
@@ -15,6 +17,7 @@ ApplicationWindow {
     Material.background: "white"
     font.capitalization: Font.MixedCase
     Material.accent: "#007DFA"
+
 
 
     SwipeView {
@@ -92,6 +95,7 @@ ApplicationWindow {
             //anchors запрещены
         }*/
         Page{
+            id: page01
             scale: 1
             header: ToolBar {
                 id: toolbar
@@ -190,6 +194,7 @@ ApplicationWindow {
         }
 
         Page{
+            id: page02
             scale: 1
             header: ToolBar {
                 anchors.leftMargin: 10
@@ -352,12 +357,67 @@ ApplicationWindow {
                     }
 
                     Page{
+                        id: page03
+                        header: ToolBar {
+                            anchors.leftMargin: 10
+                            anchors.left: parent.left;
+                            layer.enabled: true
+                            Material.background: "white"
+                            Text {
+                                font.family: "SF UI Display Bold"
+                                text: "Графические эффекты"
+                                font.pointSize: 23
+                                color: "black"
+                                anchors.bottom: parent.bottom
+                            }
+                        }
 
+                        Image {
+                            source: "/image/p4ZBKSVeTFY.jpg"
+                        }
+
+
+                    }
+
+                    Page{
 
                     }
                 }
 
-                footer: TabBar {
+                Drawer{
+                    id: drawer
+                    width: 0.80 * parent.width
+                          height: parent.height
+                          dragMargin: 20 * Screen.pixelDensity
+                          GridLayout{
+                              //anchors.fill: parent
+                              width: parent.width
+                              columns: 1
+                              Button{
+                                  text: "Элементы GUI"
+                                  flat: true
+                                  onClicked: {swipeView.currentIndex = 0
+                                  drawer.close()}
+
+
+                              }
+                              Button{
+                                   text: "Камера. Фото и видео"
+                                   flat: true
+                                   onClicked: {swipeView.currentIndex = 1
+                                   drawer.close()}
+                              }
+                              Button{
+                                  text: "Графические эффекты"
+                                  flat: true
+                                  onClicked: {swipeView.currentIndex = 2
+                                  drawer.close()}
+                              }
+
+                          }
+                }
+
+               /* footer: TabBar {
                     id: tabBar
                     currentIndex: swipeView.currentIndex
                     font.family: "SF UI Display Light"
@@ -371,5 +431,5 @@ ApplicationWindow {
                     TabButton {
                         text: qsTr("Page 3")
                     }
-                }
+                }*/
             }
