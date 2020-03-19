@@ -10,6 +10,9 @@ import QtGraphicalEffects 1.14
 import QtQuick.Window 2.12
 
 ApplicationWindow {
+
+    signal signalMakeRequestHTTP()
+
     id:mainWindow   //если к объекту не планиуется обращаться, то id можно не задавать, название должно начинаться с маленькой буквы
     visible: true
     width: 375
@@ -19,82 +22,17 @@ ApplicationWindow {
     font.capitalization: Font.MixedCase
     Material.accent: "#007DFA"
 
-
+    Connections{
+        target: httpController  //объект - источник сигнала, его нужно сделать видимым в QML
+        function onSignalSendToQML(pString){
+            textAreaforHTTP.append(pString)
+        }
+    }
 
     SwipeView {
         id: swipeView
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
-
-        /*Page {
-            Button {
-                id: button1
-                text: "Button"
-                font.family: ""
-                font.bold: true
-                font.pixelSize: 30
-                font.italic: true
-
-            }
-
-            Button {   //страница демонстрации anchor
-                text: "Button"
-                anchors.right: parent.right
-                anchors.left: button1.right
-                anchors.margins: 10
-                anchors.top: button1.bottom
-                font.pixelSize: 30
-            }
-
-            Button {
-                text: "Button"
-                width: 100
-                height: 100
-                anchors.centerIn: parent
-                font.pixelSize: 30
-            }
-
-        }
-
-        Page {   //страница демонстрации layout
-
-            GridLayout {
-            anchors.fill: parent   //привязываем по всем фронтам
-            columns: 3
-
-            Button {
-                id: button2
-                text: "Button"
-                font.family: ""
-                font.bold: true
-                font.pixelSize: 30
-                font.italic: true
-
-            }
-
-            Button {
-                text: "Button"
-                anchors.right: parent.right
-                anchors.left: button1.right
-                anchors.margins: 10
-                anchors.top: button1.bottom
-                font.pixelSize: 30
-            }
-
-            Button {
-                text: "Button"
-                width: 100
-                height: 100
-                font.pixelSize: 30
-                Layout.row: 2   //напрямую объявляем для кнопки строку
-                Layout.column: 2   //напрямую объявляем для кнопки столбец
-                Layout.preferredHeight: 200   //настраиваем предпочтительную высоту
-                Layout.preferredWidth: 200   //настраиваем предпочтительную ширину
-            }
-
-            }
-            //anchors запрещены
-        }*/
 
         Page{
             id: page01
@@ -688,8 +626,56 @@ ApplicationWindow {
 
                                     }
 
-                                        Page{
 
+
+
+
+
+
+
+                                        Page{
+                                            header: ToolBar {
+                                                id: headerforhttp
+                                                anchors.leftMargin: 10
+                                                anchors.left: parent.left;
+                                                layer.enabled: true
+                                                Material.background: "white"
+                                                Text {
+                                                    font.family: "SF UI Display Bold"
+                                                    text: "HTTP запросы"
+                                                    font.pointSize: 23
+                                                    color: "black"
+                                                    anchors.bottom: parent.bottom
+
+
+                                                }
+                                            }
+
+                                            Button{
+                                                id: buttonforHTTP
+                                                anchors.top: parent.top
+                                                anchors.topMargin: 20
+                                                anchors.horizontalCenter: parent.horizontalCenter
+                                                onClicked: {
+                                                    signalMakeRequestHTTP()
+                                                }
+
+                                            }
+
+                                            TextArea{
+                                                id: textAreaforHTTP
+                                                width: 375
+                                                anchors.horizontalCenter: parent.horizontalCenter
+                                                anchors.verticalCenter: parent.verticalCenter
+                                            }
+
+                                            TextField{
+                                                readOnly: true
+                                                text: "плак"
+                                                anchors.horizontalCenter: parent.horizontalCenter
+                                                anchors.bottom: parent.bottom
+
+                                            }
                                         }
                                     }
 
@@ -697,7 +683,7 @@ ApplicationWindow {
                                         id: drawer
                                         width: 0.80 * parent.width
                                         height: parent.height
-                                        dragMargin: 20 * Screen.pixelDensity
+                                        dragMargin: 10 * Screen.pixelDensity
                                         GridLayout{
                                             width: parent.width
                                             columns: 1
@@ -728,6 +714,14 @@ ApplicationWindow {
                                                 }
                                             }
 
+                                            Button{
+                                                text: "HTTP запросы"
+                                                flat: true
+                                                onClicked: {
+                                                    swipeView.currentIndex = 3
+                                                    drawer.close()
+                                                }
+                                            }
                                         }
                                     }
 

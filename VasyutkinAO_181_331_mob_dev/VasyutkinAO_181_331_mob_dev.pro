@@ -1,4 +1,4 @@
-QT += quick   #список подключенных разделов библиотеки QT
+QT += quick network   #список подключенных разделов библиотеки QT
 
 CONFIG += c++11   #настройки компиляции
 
@@ -14,7 +14,8 @@ DEFINES += QT_DEPRECATED_WARNINGS   #объявление переменных �
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \   #раздел файлов исходного кода на С++ (здесь прописаны все файлы из дерева файлов)
-        main.cpp
+        main.cpp \
+        qhttpcontroller.cpp
 
 
 #HEADERS - раздел файлов заголовков С++
@@ -37,3 +38,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     ../../films/Kriminal'noe.mkv \
     ../../films/Kriminal'noe.mkv
+
+HEADERS += \
+    qhttpcontroller.h
