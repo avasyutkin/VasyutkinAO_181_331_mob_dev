@@ -34,7 +34,7 @@ ApplicationWindow {
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
 
-        Page{
+        Page{  //СТРАНИЦА ДЛЯ ПЕРВОЙ ЛАБОРАТОРНОЙ - ЭЛЕМЕНТЫ GUI
             id: page01
             scale: 1
             header: ToolBar {
@@ -173,7 +173,7 @@ ApplicationWindow {
             }
         }
 
-        Page{
+        Page{  //СТРАНИЦА ДЛЯ ВТОРОЙ ЛАБОРАТОРНОЙ - СЪЕМКА И ВОСПРОИЗВЕДЕНИЕ ВИДЕО
             id: page02
             scale: 1
             header: ToolBar {
@@ -336,7 +336,7 @@ ApplicationWindow {
                         }
                     }
 
-                    Page{
+                    Page{  //СТРАНИЦА ДЛЯ ТРЕТЬЕЙ ЛАБОРАТОРНОЙ - ГРАФИЧЕСКИЕ ЭФФЕКТЫ - IT IS MY PHOTOSHOP
                         id: page03
                         header: ToolBar {
                             anchors.leftMargin: 10
@@ -633,7 +633,7 @@ ApplicationWindow {
 
 
 
-                                        Page{
+                                        Page{  //СТРАНИЦА ДЛЯ ЧЕТВЕРТОЙ ЛАБОРАТОРНОЙ - HTTP-ЗАПРОСЫ
                                             header: ToolBar {
                                                 id: headerforhttp
                                                 anchors.leftMargin: 10
@@ -646,8 +646,6 @@ ApplicationWindow {
                                                     font.pointSize: 23
                                                     color: "black"
                                                     anchors.bottom: parent.bottom
-
-
                                                 }
                                             }
 
@@ -659,14 +657,18 @@ ApplicationWindow {
                                                 onClicked: {
                                                     signalMakeRequestHTTP()
                                                 }
-
                                             }
 
-                                            TextArea{
+                                            TextArea {
                                                 id: textAreaforHTTP
                                                 width: 375
                                                 anchors.horizontalCenter: parent.horizontalCenter
                                                 anchors.verticalCenter: parent.verticalCenter
+                                                anchors.left:parent.left
+                                                textFormat: Text.RichText
+                                                TextArea.flickable: textAreaforHTTP
+                                                wrapMode: textAreaforHTTP.Wrap
+
                                             }
 
                                             TextField{
@@ -674,7 +676,6 @@ ApplicationWindow {
                                                 text: "плак"
                                                 anchors.horizontalCenter: parent.horizontalCenter
                                                 anchors.bottom: parent.bottom
-
                                             }
                                         }
                                     }
@@ -694,9 +695,8 @@ ApplicationWindow {
                                                     swipeView.currentIndex = 0
                                                     drawer.close()
                                                 }
-
-
                                             }
+
                                             Button{
                                                 text: "Камера. Фото и видео"
                                                 flat: true

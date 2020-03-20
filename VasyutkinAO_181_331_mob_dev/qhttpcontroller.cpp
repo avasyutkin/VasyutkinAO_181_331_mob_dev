@@ -14,7 +14,7 @@ void QHTTPController::GetNetworkValue()
 {
     QNetworkRequest request;
     //request.setUrl(QUrl("https://meduza.io/"));
-    request.setUrl(QUrl("http://rutor.info/"));
+    request.setUrl(QUrl("http://scratchpads.eu/explore/sites-list"));
     QNetworkReply * reply;
     QEventLoop eventloop;
     connect(nam, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
