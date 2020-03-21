@@ -1,5 +1,6 @@
 ﻿import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
 import QtMultimedia 5.14 //для камеры
@@ -8,6 +9,8 @@ import QtQuick 2.14
 import QtMultimedia 5.4
 import QtGraphicalEffects 1.14
 import QtQuick.Window 2.12
+import QtQuick 2.2
+import QtQuick.Dialogs 1.0
 
 ApplicationWindow {
 
@@ -175,78 +178,76 @@ ApplicationWindow {
 
         Page{  //СТРАНИЦА ДЛЯ ВТОРОЙ ЛАБОРАТОРНОЙ - СЪЕМКА И ВОСПРОИЗВЕДЕНИЕ ВИДЕО
             id: page02
-            scale: 1
             header: ToolBar {
                 anchors.leftMargin: 10
                 anchors.left: parent.left;
                 layer.enabled: true
-                Material.background: "black"
+                Material.background: "white"
                 Text {
                     font.family: "SF UI Display Bold"
                     text: "Камера. Фото и видео"
                     font.pointSize: 23
-                    color: "white"
+                    color: "black"
                     anchors.bottom: parent.bottom
                 }
             }
 
-            Material.background: "black"
-
             RowLayout{
                 id: rowforradio
-                RadioButton{
+                spacing: 50
+                anchors.top: parent.top
+                anchors.topMargin: 20
+                anchors.horizontalCenter: parent.horizontalCenter
 
+                RadioButton{
                     id: radio1
-                    text: "Видео"
+                    text: "Камера"
                     checked: true
                     onClicked: {
                         page1.visible = true
                         page2.visible = false
-
                     }
                 }
 
                 RadioButton{
                     id: radio2
-                    text: "камера"
+                    text: "Фотопоток"
                     onClicked: {
                         page1.visible = false
                         page2.visible = true
-
                     }
                 }
             }
 
-            Item {
+
+            Item{  //СТРАНИЦА С КАМЕРОЙ
                 id: page1
                 width: 375
                 height: 470
-
-                Camera {
+                anchors.horizontalCenter: parent.horizontalCenter
+                Camera{
                     id: camera
-                    videoRecorder.mediaContainer: "mp4"
-                    imageCapture {
+                    imageCapture{
                         onImageCaptured: {
                             photoPreview.source = preview
-
                         }
                     }
                 }
 
-
-                VideoOutput {
+                VideoOutput{
                     id: photocam
-                    source: camera //показывает на экарне во время записи
+                    source: camera  //показывает на экране во время записи
+                    anchors.bottom: rowforbnt.top
+                    anchors.bottomMargin: 50
                     width: 375
                     height: 200
-                    anchors.bottom: capturebutton.top
-                    anchors.bottomMargin: 50
 
                     Image {
                         id: photoPreview
                         height: 40
                         width: 75
                         anchors.right: parent.right
+
                         MouseArea {
                             anchors.fill: parent;
                             onClicked: photoPreview.width = 375, photoPreview.height = 200
@@ -254,46 +255,42 @@ ApplicationWindow {
                         }
                         }
                         }
-
-                            RoundButton {
-                                id: capturebutton
-                                Material.background: "white"
-                                height: 65
-                                width: 65
+                            RowLayout{
+                                id: rowforbnt
+                                spacing: 20
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 anchors.top: parent.bottom
-                                onClicked: camera.imageCapture.capture()
+                                RoundButton{
+                                    id: capturebutton
+                                    Material.background: "grey"
+                                    text: "C"
+                                    onClicked: camera.imageCapture.capture()
+                                }
+                                RoundButton {
+                                    id: videobutton
+                                    Material.background: "red"
+                                    text: "R"
+                                    onClicked:
+                                        if(camera.videoRecorder.StoppedState)
+                                            camera.videoRecorder.record()
+                                        else
+                                            camera.videoRecorder.stop()
+                                }
                             }
-                            /*RoundButton {
-                    Material.background: "white"
-                    anchors.bottom: camera.top
-                    anchors.right: parent.right
-                    height: 65
-                    width: 200
-                    onClicked: camera.videoRecorder.record()
-                }*/
                         }
-                        /*RoundButton {
-                Material.background: "white"
-                anchors.top: camera.bottom
-                height: 65
-                width: 65
-                onClicked: camera.videoRecorder.record()
-                onDoubleClicked: camera.videoRecorder.stop()
-            }*/
 
-                        Item{
+                        Item{  //страница с просмотром видео
+                            id: page2
                             visible: false
                             width: 375
                             height: 470
-                            id: page2
-                            Rectangle {
+                            anchors.horizontalCenter: parent.horizontalCenter
 
+                            Rectangle{
                                 width: 320
                                 height: 240
-                                color: "black"
-                                //anchors.centerIn: parent.Center
-                                anchors.bottom: parent.bottom
+                                anchors.horizontalCenter: parent.horizontalCenter
+
                                 MediaPlayer {
                                     id: player
                                     source: "/video/sample (1).avi"
@@ -307,16 +304,25 @@ ApplicationWindow {
                                     anchors.bottom: parent.bottom
                                     anchors.horizontalCenter: parent.horizontalCenter
                                 }
+
+                                Slider{
+                                    id:sliderforvideo
+                                    anchors.topMargin: 10
+                                    value: player.position
+                                    to: player.duration
+                                    anchors.left: parent.left
+                                    anchors.top: parent.bottom
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    onPressedChanged: {
+                                        player.seek(sliderforvideo.value)
+                                    }
+                                }
                             }
-                            Slider {
-                                id:sliderforvideo
-                                from: 1
-                                to: 100
-                                anchors.topMargin: 10
-                                anchors.top: parent.bottom
-                                anchors.horizontalCenter: parent.horizontalCenter
-                            }
-                            Button{
+                        }
+                    }
+
+
+                    /*  Button{
                                 id: buttonplay
                                 text: "плей"
                                 onClicked: player.play(), this.visible = false, buttonpause.visible = true
@@ -334,7 +340,8 @@ ApplicationWindow {
                                 anchors.topMargin: 10
                             }
                         }
-                    }
+                    }*/
+
 
                     Page{  //СТРАНИЦА ДЛЯ ТРЕТЬЕЙ ЛАБОРАТОРНОЙ - ГРАФИЧЕСКИЕ ЭФФЕКТЫ - IT IS MY PHOTOSHOP
                         id: page03
@@ -634,6 +641,7 @@ ApplicationWindow {
 
 
                                         Page{  //СТРАНИЦА ДЛЯ ЧЕТВЕРТОЙ ЛАБОРАТОРНОЙ - HTTP-ЗАПРОСЫ
+                                            id: page04
                                             header: ToolBar {
                                                 id: headerforhttp
                                                 anchors.leftMargin: 10
@@ -651,25 +659,82 @@ ApplicationWindow {
 
                                             Button{
                                                 id: buttonforHTTP
-                                                anchors.top: parent.top
-                                                anchors.topMargin: 20
                                                 anchors.horizontalCenter: parent.horizontalCenter
+                                                anchors.bottom: parent.bottom
+                                                anchors.bottomMargin: 50
                                                 onClicked: {
                                                     signalMakeRequestHTTP()
                                                 }
                                             }
 
-                                            TextArea {
-                                                id: textAreaforHTTP
+                                            /*TextArea {
+                                                //id: textAreaforHTTP
                                                 width: 375
                                                 anchors.horizontalCenter: parent.horizontalCenter
                                                 anchors.verticalCenter: parent.verticalCenter
                                                 anchors.left:parent.left
                                                 textFormat: Text.RichText
-                                                TextArea.flickable: textAreaforHTTP
-                                                wrapMode: textAreaforHTTP.Wrap
+                                                //TextArea.flickable: textAreaforHTTP
+                                                //wrapMode: textAreaforHTTP.Wrap
+                                            }*/
 
+
+
+
+
+
+
+
+
+
+
+                                            Pane {
+                                                height: 500
+                                                width: parent.width
+
+                                                ScrollView {
+                                                    height: 500
+                                                    width: parent.width
+
+                                                    RowLayout {
+                                                        spacing: 0
+                                                        width: parent.parent.width
+
+                                                        ColumnLayout {
+                                                            id: lineNumbers
+
+                                                            Repeater {
+                                                                id: lineNumberRepeater
+                                                                model: textAreaforHTTP.lineCount
+                                                                Layout.fillHeight: true
+                                                            }
+                                                        }
+
+                                                        TextArea {
+                                                            height: 500
+                                                            width: parent.width
+                                                            id: textAreaforHTTP
+                                                            Layout.fillWidth: true
+                                                            focus: true
+                                                            persistentSelection: true
+                                                            selectByMouse: true
+                                                            textMargin: 10
+                                                            textFormat: Text.RichText
+                                                            wrapMode: textAreaforHTTP.WrapAtWordBoundaryOrAnywhere
+                                                        }
+                                                    }
+                                                }
                                             }
+
+
+
+
+
+
+
+
+
+
 
                                             TextField{
                                                 readOnly: true
