@@ -298,6 +298,7 @@ ApplicationWindow {
                                     source: "/video/sample (1).avi"
                                     autoPlay: true
                                     volume: 0
+                                    loops: 5
                                 }
 
                                 VideoOutput {
@@ -320,361 +321,360 @@ ApplicationWindow {
                                     }
                                 }
 
-                                Button {
-                                    id: bntplayorstop
-                                    flat: true
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    icon.color: "white"
-                                    icon.height: 55
-                                    icon.width: 55
-                                    icon.source:
-                                        player.playbackState == MediaPlayer.PlayingState ? "/image/iconfinder_205_CircledPause_183322.png" : "/image/iconfinder_ic_play_circle_filled_white_48px_3669295.png"
-                                    onClicked:
-                                        player.playbackState == MediaPlayer.PlayingState ? player.pause() : player.play()
-
-                                }
-
-                                /*MouseArea {
+                                MouseArea {
                                     anchors.fill: parent
                                     onClicked:
-                                        bntplayorstop.visible == false ? bntplayorstop.visible = true : bntplayorstop.visible = false
-                                }
-
-                                Timer {
-                                    interval: 5000; running: true; repeat: true
-                                    onTriggered: bntplayorstop.visible = false, sliderforvideo.visible = false
-                                }*/
-                            }
-                        }
-                    }
-
-
-                    Page{  //СТРАНИЦА ДЛЯ ТРЕТЬЕЙ ЛАБОРАТОРНОЙ - ГРАФИЧЕСКИЕ ЭФФЕКТЫ - IT IS MY PHOTOSHOP
-                        id: page03
-                        header: ToolBar {
-                            anchors.leftMargin: 10
-                            anchors.left: parent.left;
-                            layer.enabled: true
-                            Material.background: "white"
-                            Text {
-                                font.family: "SF UI Display Bold"
-                                text: "Графические эффекты"
-                                font.pointSize: 23
-                                color: "black"
-                                anchors.bottom: parent.bottom
-                            }
-                        }
-
-                        Image {
-                            id: imageforchange
-                            source: "/image/p4ZBKSVeTFY.jpg"
-                            width: 340
-                            height: 338
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.top: parent.top
-                            anchors.topMargin: 35
-                        }
-
-                        RecursiveBlur {
-                            id: recursiveblur
-                            anchors.fill: imageforchange
-                            source: imageforchange
-                            radius: sliderforradius.value
-                            loops: sliderforloops.value
-                        }
-
-                        Slider {
-                            id: sliderforradius
-                            from: 0
-                            to: 15
-                            anchors.bottom: sliderforloops.top
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.left:parent.left
-                            anchors.leftMargin: 20
-
-                        }
-
-                        Text {
-                            font.family: "SF UI Display"
-                            font.pointSize: 10
-                            id: textsliderforradius
-                            text: qsTr("radius  " + sliderforradius.value.toFixed(1))
-                            anchors.bottom: sliderforradius.top
-                            anchors.left: parent.left
-                            anchors.leftMargin: 20
-                            anchors.bottomMargin: -10
-
-                        }
-
-                        Slider {
-                            id: sliderforloops
-                            from: 0
-                            to: 80
-                            anchors.bottom: barforlab3.top
-                            anchors.bottomMargin: 30
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.left:parent.left
-                            anchors.leftMargin: 20
-                            enabled: if(sliderforradius.value == 0)
-                                         false
-                                     else
-                                         true
-                            value: if(sliderforradius.value == 0)
-                                       0
-                        }
-
-                        Text {
-                            id: textsliderforloops
-                            font.family: "SF UI Display"
-                            font.pointSize: 10
-                            text: qsTr("loops  " + sliderforloops.value.toFixed(1))
-                            anchors.bottom: sliderforloops.top
-                            anchors.bottomMargin: -10
-                            anchors.left: parent.left
-                            anchors.leftMargin: 20
-
-                        }
-
-                        HueSaturation {
-                            id: huesaturation
-                            anchors.fill: recursiveblur
-                            source: recursiveblur
-                            hue: sliderforhue.value
-                            saturation: sliderforsaturation.value
-                            lightness: sliderforlightness.value
-                        }
-
-                        Slider{
-                            visible: false
-                            id: sliderforhue
-                            from: -1
-                            to: 1
-                            anchors.bottom: barforlab3.top
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.left:parent.left
-                            anchors.leftMargin: 20
-
-                        }
-
-                        Text {
-                            visible: false
-                            id: sliderforhuetext
-                            font.family: "SF UI Display"
-                            font.pointSize: 10
-                            text: qsTr("hue  " + sliderforhue.value.toFixed(1))
-                            anchors.bottom: sliderforhue.top
-                            anchors.bottomMargin: -10
-                            anchors.left: parent.left
-                            anchors.leftMargin: 20
-                        }
-
-                        Slider{
-                            visible: false
-                            id: sliderforlightness
-                            from: -1
-                            to: 1
-                            anchors.bottom: sliderforhue.top
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.left:parent.left
-                            anchors.leftMargin: 20
-                        }
-
-                        Text {
-                            visible: false
-                            id: sliderforlightnesstexxt
-                            font.family: "SF UI Display"
-                            font.pointSize: 10
-                            text: qsTr("lightness  " + sliderforlightness.value.toFixed(1))
-                            anchors.bottom: sliderforlightness.top
-                            anchors.bottomMargin: -10
-                            anchors.left: parent.left
-                            anchors.leftMargin: 20
-                        }
-
-                        Slider{
-                            visible: false
-                            id: sliderforsaturation
-                            from: -1
-                            to: 1
-                            anchors.bottom: sliderforlightness.top
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.left:parent.left
-                            anchors.leftMargin: 20
-
-                        }
-
-                        Text {
-                            visible: false
-                            id: sliderforsaturationtext
-                            font.family: "SF UI Display"
-                            font.pointSize: 10
-                            text: qsTr("saturation  " + sliderforsaturation.value.toFixed(1))
-                            anchors.bottom: sliderforsaturation.top
-                            anchors.bottomMargin: -10
-                            anchors.left: parent.left
-                            anchors.leftMargin: 20
-                        }
-
-                        Glow {
-                            anchors.fill: huesaturation
-                            radius: sliderforradiusglow.value
-                            spread: sliderforspread.value
-                            color: "red"
-                            source: huesaturation
-                        }
-
-                        Slider{
-                            visible: false
-                            id: sliderforradiusglow
-                            from: 1
-                            to: 10
-                            anchors.bottom: barforlab3.top
-                            anchors.bottomMargin: 30
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.left:parent.left
-                            anchors.leftMargin: 20
-                        }
-
-                        Text {
-                            visible: false
-                            id: sliderforradiusglowtext
-                            font.family: "SF UI Display"
-                            font.pointSize: 10
-                            text: qsTr("saturation  " + sliderforradiusglow.value.toFixed(1))
-                            anchors.bottom: sliderforradiusglow.top
-                            anchors.bottomMargin: -10
-                            anchors.left: parent.left
-                            anchors.leftMargin: 20
-                        }
-
-                        Slider{
-                            visible: false
-                            id: sliderforspread
-                            from: 0
-                            to: 1
-                            anchors.bottom: sliderforradiusglow.top
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.left:parent.left
-                            anchors.leftMargin: 20
-
-                        }
-
-                        Text {
-                            visible: false
-                            id: sliderforspreadtext
-                            font.family: "SF UI Display"
-                            font.pointSize: 10
-                            text: qsTr("saturation  " + sliderforspread.value.toFixed(1))
-                            anchors.bottom: sliderforspread.top
-                            anchors.bottomMargin: -10
-                            anchors.left: parent.left
-                            anchors.leftMargin: 20
-                        }
-
-                        TabBar {
-                            id: barforlab3
-                            width: parent.width
-                            anchors.bottom: parent.bottom
-                            font.family: "SF UI Display Light"
-                            TabButton {
-                                text: qsTr("RecursiveBlur")
-                                onClicked: sliderforradius.visible = true,
-                                textsliderforradius.visible = true,
-                                sliderforloops.visible = true,
-                                textsliderforloops.visible = true,
-
-                                sliderforhue.visible = false,
-                                sliderforhuetext.visible = false,
-                                sliderforlightness.visible = false,
-                                sliderforlightnesstexxt.visible = false,
-                                sliderforsaturation.visible = false,
-                                sliderforsaturationtext.visible = false,
-
-                                sliderforradiusglow.visible = false,
-                                sliderforradiusglowtext.visible = false,
-                                sliderforspread.visible = false,
-                                sliderforspreadtext.visible = false
-                            }
-
-                                TabButton {
-                                    text: qsTr("HueSaturation")
-                                    onClicked: sliderforradius.visible  = false,
-                                    textsliderforradius.visible  = false,
-                                    sliderforloops.visible = false,
-                                    textsliderforloops.visible = false,
-
-                                    sliderforhue.visible = true,
-                                    sliderforhuetext.visible = true,
-                                    sliderforlightness.visible = true,
-                                    sliderforlightnesstexxt.visible = true,
-                                    sliderforsaturation.visible = true,
-                                    sliderforsaturationtext.visible = true,
-
-                                    sliderforradiusglow.visible = false,
-                                    sliderforradiusglowtext.visible = false,
-                                    sliderforspread.visible = false,
-                                    sliderforspreadtext.visible = false
-
-                                }
-                                    TabButton {
-                                        text: qsTr("Glow")
-                                        onClicked:sliderforradius.visible  = false,
-                                        textsliderforradius.visible  = false,
-                                        sliderforloops.visible = false,
-                                        textsliderforloops.visible = false,
-
-                                        sliderforhue.visible = false,
-                                        sliderforhuetext.visible = false,
-                                        sliderforlightness.visible = false,
-                                        sliderforlightnesstexxt.visible = false,
-                                        sliderforsaturation.visible = false,
-                                        sliderforsaturationtext.visible = false,
-
-                                        sliderforradiusglow.visible = true,
-                                        sliderforradiusglowtext.visible = true,
-                                        sliderforspread.visible = true,
-                                        sliderforspreadtext.visible = true
+                                        bntplayorstop.visible = true, sliderforvideo.visible = true, timerforguivideo.start()
+                                    Button {
+                                        id: bntplayorstop
+                                        flat: true
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        icon.color: "white"
+                                        icon.height: 55
+                                        icon.width: 55
+                                        icon.source:
+                                            player.playbackState == MediaPlayer.PlayingState ? "/image/iconfinder_205_CircledPause_183322.png" : "/image/iconfinder_ic_play_circle_filled_white_48px_3669295.png"
+                                        onClicked:
+                                            player.playbackState == MediaPlayer.PlayingState ? player.pause() : player.play(), timerforguivideo.restart()
                                     }
                                     }
 
-                                    }
+                                        Timer {
+                                            id: timerforguivideo
+                                            interval: 5000; running: true; repeat: true
+                                            onTriggered: bntplayorstop.visible = false, sliderforvideo.visible = false
+                                        }
+                                        }
+                                        }
+                                        }
 
 
+                                            Page{  //СТРАНИЦА ДЛЯ ТРЕТЬЕЙ ЛАБОРАТОРНОЙ - ГРАФИЧЕСКИЕ ЭФФЕКТЫ - IT IS MY PHOTOSHOP
+                                                id: page03
+                                                header: ToolBar {
+                                                    anchors.leftMargin: 10
+                                                    anchors.left: parent.left;
+                                                    layer.enabled: true
+                                                    Material.background: "white"
+                                                    Text {
+                                                        font.family: "SF UI Display Bold"
+                                                        text: "Графические эффекты"
+                                                        font.pointSize: 23
+                                                        color: "black"
+                                                        anchors.bottom: parent.bottom
+                                                    }
+                                                }
 
+                                                Image {
+                                                    id: imageforchange
+                                                    source: "/image/p4ZBKSVeTFY.jpg"
+                                                    width: 340
+                                                    height: 338
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    anchors.top: parent.top
+                                                    anchors.topMargin: 35
+                                                }
 
+                                                RecursiveBlur {
+                                                    id: recursiveblur
+                                                    anchors.fill: imageforchange
+                                                    source: imageforchange
+                                                    radius: sliderforradius.value
+                                                    loops: sliderforloops.value
+                                                }
 
+                                                Slider {
+                                                    id: sliderforradius
+                                                    from: 0
+                                                    to: 15
+                                                    anchors.bottom: sliderforloops.top
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    anchors.left:parent.left
+                                                    anchors.leftMargin: 20
 
+                                                }
 
-
-                                        Page{  //СТРАНИЦА ДЛЯ ЧЕТВЕРТОЙ ЛАБОРАТОРНОЙ - HTTP-ЗАПРОСЫ
-                                            id: page04
-                                            header: ToolBar {
-                                                id: headerforhttp
-                                                anchors.leftMargin: 10
-                                                anchors.left: parent.left;
-                                                layer.enabled: true
-                                                Material.background: "white"
                                                 Text {
-                                                    font.family: "SF UI Display Bold"
-                                                    text: "HTTP запросы"
-                                                    font.pointSize: 23
-                                                    color: "black"
+                                                    font.family: "SF UI Display"
+                                                    font.pointSize: 10
+                                                    id: textsliderforradius
+                                                    text: qsTr("radius  " + sliderforradius.value.toFixed(1))
+                                                    anchors.bottom: sliderforradius.top
+                                                    anchors.left: parent.left
+                                                    anchors.leftMargin: 20
+                                                    anchors.bottomMargin: -10
+
+                                                }
+
+                                                Slider {
+                                                    id: sliderforloops
+                                                    from: 0
+                                                    to: 80
+                                                    anchors.bottom: barforlab3.top
+                                                    anchors.bottomMargin: 30
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    anchors.left:parent.left
+                                                    anchors.leftMargin: 20
+                                                    enabled: if(sliderforradius.value == 0)
+                                                                 false
+                                                             else
+                                                                 true
+                                                    value: if(sliderforradius.value == 0)
+                                                               0
+                                                }
+
+                                                Text {
+                                                    id: textsliderforloops
+                                                    font.family: "SF UI Display"
+                                                    font.pointSize: 10
+                                                    text: qsTr("loops  " + sliderforloops.value.toFixed(1))
+                                                    anchors.bottom: sliderforloops.top
+                                                    anchors.bottomMargin: -10
+                                                    anchors.left: parent.left
+                                                    anchors.leftMargin: 20
+
+                                                }
+
+                                                HueSaturation {
+                                                    id: huesaturation
+                                                    anchors.fill: recursiveblur
+                                                    source: recursiveblur
+                                                    hue: sliderforhue.value
+                                                    saturation: sliderforsaturation.value
+                                                    lightness: sliderforlightness.value
+                                                }
+
+                                                Slider{
+                                                    visible: false
+                                                    id: sliderforhue
+                                                    from: -1
+                                                    to: 1
+                                                    anchors.bottom: barforlab3.top
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    anchors.left:parent.left
+                                                    anchors.leftMargin: 20
+
+                                                }
+
+                                                Text {
+                                                    visible: false
+                                                    id: sliderforhuetext
+                                                    font.family: "SF UI Display"
+                                                    font.pointSize: 10
+                                                    text: qsTr("hue  " + sliderforhue.value.toFixed(1))
+                                                    anchors.bottom: sliderforhue.top
+                                                    anchors.bottomMargin: -10
+                                                    anchors.left: parent.left
+                                                    anchors.leftMargin: 20
+                                                }
+
+                                                Slider{
+                                                    visible: false
+                                                    id: sliderforlightness
+                                                    from: -1
+                                                    to: 1
+                                                    anchors.bottom: sliderforhue.top
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    anchors.left:parent.left
+                                                    anchors.leftMargin: 20
+                                                }
+
+                                                Text {
+                                                    visible: false
+                                                    id: sliderforlightnesstexxt
+                                                    font.family: "SF UI Display"
+                                                    font.pointSize: 10
+                                                    text: qsTr("lightness  " + sliderforlightness.value.toFixed(1))
+                                                    anchors.bottom: sliderforlightness.top
+                                                    anchors.bottomMargin: -10
+                                                    anchors.left: parent.left
+                                                    anchors.leftMargin: 20
+                                                }
+
+                                                Slider{
+                                                    visible: false
+                                                    id: sliderforsaturation
+                                                    from: -1
+                                                    to: 1
+                                                    anchors.bottom: sliderforlightness.top
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    anchors.left:parent.left
+                                                    anchors.leftMargin: 20
+
+                                                }
+
+                                                Text {
+                                                    visible: false
+                                                    id: sliderforsaturationtext
+                                                    font.family: "SF UI Display"
+                                                    font.pointSize: 10
+                                                    text: qsTr("saturation  " + sliderforsaturation.value.toFixed(1))
+                                                    anchors.bottom: sliderforsaturation.top
+                                                    anchors.bottomMargin: -10
+                                                    anchors.left: parent.left
+                                                    anchors.leftMargin: 20
+                                                }
+
+                                                Glow {
+                                                    anchors.fill: huesaturation
+                                                    radius: sliderforradiusglow.value
+                                                    spread: sliderforspread.value
+                                                    color: "red"
+                                                    source: huesaturation
+                                                }
+
+                                                Slider{
+                                                    visible: false
+                                                    id: sliderforradiusglow
+                                                    from: 1
+                                                    to: 10
+                                                    anchors.bottom: barforlab3.top
+                                                    anchors.bottomMargin: 30
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    anchors.left:parent.left
+                                                    anchors.leftMargin: 20
+                                                }
+
+                                                Text {
+                                                    visible: false
+                                                    id: sliderforradiusglowtext
+                                                    font.family: "SF UI Display"
+                                                    font.pointSize: 10
+                                                    text: qsTr("saturation  " + sliderforradiusglow.value.toFixed(1))
+                                                    anchors.bottom: sliderforradiusglow.top
+                                                    anchors.bottomMargin: -10
+                                                    anchors.left: parent.left
+                                                    anchors.leftMargin: 20
+                                                }
+
+                                                Slider{
+                                                    visible: false
+                                                    id: sliderforspread
+                                                    from: 0
+                                                    to: 1
+                                                    anchors.bottom: sliderforradiusglow.top
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    anchors.left:parent.left
+                                                    anchors.leftMargin: 20
+
+                                                }
+
+                                                Text {
+                                                    visible: false
+                                                    id: sliderforspreadtext
+                                                    font.family: "SF UI Display"
+                                                    font.pointSize: 10
+                                                    text: qsTr("saturation  " + sliderforspread.value.toFixed(1))
+                                                    anchors.bottom: sliderforspread.top
+                                                    anchors.bottomMargin: -10
+                                                    anchors.left: parent.left
+                                                    anchors.leftMargin: 20
+                                                }
+
+                                                TabBar {
+                                                    id: barforlab3
+                                                    width: parent.width
                                                     anchors.bottom: parent.bottom
-                                                }
-                                            }
+                                                    font.family: "SF UI Display Light"
+                                                    TabButton {
+                                                        text: qsTr("RecursiveBlur")
+                                                        onClicked: sliderforradius.visible = true,
+                                                        textsliderforradius.visible = true,
+                                                        sliderforloops.visible = true,
+                                                        textsliderforloops.visible = true,
 
-                                            Button{
-                                                id: buttonforHTTP
-                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                anchors.bottom: parent.bottom
-                                                anchors.bottomMargin: 50
-                                                onClicked: {
-                                                    signalMakeRequestHTTP()
-                                                }
-                                            }
+                                                        sliderforhue.visible = false,
+                                                        sliderforhuetext.visible = false,
+                                                        sliderforlightness.visible = false,
+                                                        sliderforlightnesstexxt.visible = false,
+                                                        sliderforsaturation.visible = false,
+                                                        sliderforsaturationtext.visible = false,
 
-                                            /*TextArea {
+                                                        sliderforradiusglow.visible = false,
+                                                        sliderforradiusglowtext.visible = false,
+                                                        sliderforspread.visible = false,
+                                                        sliderforspreadtext.visible = false
+                                                    }
+
+                                                        TabButton {
+                                                            text: qsTr("HueSaturation")
+                                                            onClicked: sliderforradius.visible  = false,
+                                                            textsliderforradius.visible  = false,
+                                                            sliderforloops.visible = false,
+                                                            textsliderforloops.visible = false,
+
+                                                            sliderforhue.visible = true,
+                                                            sliderforhuetext.visible = true,
+                                                            sliderforlightness.visible = true,
+                                                            sliderforlightnesstexxt.visible = true,
+                                                            sliderforsaturation.visible = true,
+                                                            sliderforsaturationtext.visible = true,
+
+                                                            sliderforradiusglow.visible = false,
+                                                            sliderforradiusglowtext.visible = false,
+                                                            sliderforspread.visible = false,
+                                                            sliderforspreadtext.visible = false
+
+                                                        }
+                                                            TabButton {
+                                                                text: qsTr("Glow")
+                                                                onClicked:sliderforradius.visible  = false,
+                                                                textsliderforradius.visible  = false,
+                                                                sliderforloops.visible = false,
+                                                                textsliderforloops.visible = false,
+
+                                                                sliderforhue.visible = false,
+                                                                sliderforhuetext.visible = false,
+                                                                sliderforlightness.visible = false,
+                                                                sliderforlightnesstexxt.visible = false,
+                                                                sliderforsaturation.visible = false,
+                                                                sliderforsaturationtext.visible = false,
+
+                                                                sliderforradiusglow.visible = true,
+                                                                sliderforradiusglowtext.visible = true,
+                                                                sliderforspread.visible = true,
+                                                                sliderforspreadtext.visible = true
+                                                            }
+                                                            }
+
+                                                            }
+
+
+
+
+
+
+
+
+                                                                Page{  //СТРАНИЦА ДЛЯ ЧЕТВЕРТОЙ ЛАБОРАТОРНОЙ - HTTP-ЗАПРОСЫ
+                                                                    id: page04
+                                                                    header: ToolBar {
+                                                                        id: headerforhttp
+                                                                        anchors.leftMargin: 10
+                                                                        anchors.left: parent.left;
+                                                                        layer.enabled: true
+                                                                        Material.background: "white"
+                                                                        Text {
+                                                                            font.family: "SF UI Display Bold"
+                                                                            text: "HTTP запросы"
+                                                                            font.pointSize: 23
+                                                                            color: "black"
+                                                                            anchors.bottom: parent.bottom
+                                                                        }
+                                                                    }
+
+                                                                    Button{
+                                                                        id: buttonforHTTP
+                                                                        anchors.horizontalCenter: parent.horizontalCenter
+                                                                        anchors.bottom: parent.bottom
+                                                                        anchors.bottomMargin: 50
+                                                                        onClicked: {
+                                                                            signalMakeRequestHTTP()
+                                                                        }
+                                                                    }
+
+                                                                    /*TextArea {
                                                 //id: textAreaforHTTP
                                                 width: 375
                                                 anchors.horizontalCenter: parent.horizontalCenter
@@ -695,109 +695,109 @@ ApplicationWindow {
 
 
 
-                                            Pane {
-                                                height: 500
-                                                width: parent.width
+                                                                    Pane {
+                                                                        height: 500
+                                                                        width: parent.width
 
-                                                ScrollView {
-                                                    height: 500
-                                                    width: parent.width
+                                                                        ScrollView {
+                                                                            height: 500
+                                                                            width: parent.width
 
-                                                    RowLayout {
-                                                        spacing: 0
-                                                        width: parent.parent.width
+                                                                            RowLayout {
+                                                                                spacing: 0
+                                                                                width: parent.parent.width
 
-                                                        ColumnLayout {
-                                                            id: lineNumbers
+                                                                                ColumnLayout {
+                                                                                    id: lineNumbers
 
-                                                            Repeater {
-                                                                id: lineNumberRepeater
-                                                                model: textAreaforHTTP.lineCount
-                                                                Layout.fillHeight: true
+                                                                                    Repeater {
+                                                                                        id: lineNumberRepeater
+                                                                                        model: textAreaforHTTP.lineCount
+                                                                                        Layout.fillHeight: true
+                                                                                    }
+                                                                                }
+
+                                                                                TextArea {
+                                                                                    height: 500
+                                                                                    width: parent.width
+                                                                                    id: textAreaforHTTP
+                                                                                    Layout.fillWidth: true
+                                                                                    focus: true
+                                                                                    persistentSelection: true
+                                                                                    selectByMouse: true
+                                                                                    textMargin: 10
+                                                                                    textFormat: Text.RichText
+                                                                                    wrapMode: textAreaforHTTP.WrapAtWordBoundaryOrAnywhere
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+
+
+
+
+
+
+
+
+
+
+
+                                                                    TextField{
+                                                                        readOnly: true
+                                                                        text: "плак"
+                                                                        anchors.horizontalCenter: parent.horizontalCenter
+                                                                        anchors.bottom: parent.bottom
+                                                                    }
+                                                                }
                                                             }
-                                                        }
 
-                                                        TextArea {
-                                                            height: 500
-                                                            width: parent.width
-                                                            id: textAreaforHTTP
-                                                            Layout.fillWidth: true
-                                                            focus: true
-                                                            persistentSelection: true
-                                                            selectByMouse: true
-                                                            textMargin: 10
-                                                            textFormat: Text.RichText
-                                                            wrapMode: textAreaforHTTP.WrapAtWordBoundaryOrAnywhere
-                                                        }
-                                                    }
-                                                }
-                                            }
+                                                            Drawer{
+                                                                id: drawer
+                                                                width: 0.80 * parent.width
+                                                                height: parent.height
+                                                                dragMargin: 10 * Screen.pixelDensity
+                                                                GridLayout{
+                                                                    width: parent.width
+                                                                    columns: 1
+                                                                    Button{
+                                                                        text: "Элементы GUI"
+                                                                        flat: true
+                                                                        onClicked: {
+                                                                            swipeView.currentIndex = 0
+                                                                            drawer.close()
+                                                                        }
+                                                                    }
 
+                                                                    Button{
+                                                                        text: "Камера. Фото и видео"
+                                                                        flat: true
+                                                                        onClicked: {
+                                                                            swipeView.currentIndex = 1
+                                                                            drawer.close()
+                                                                        }
+                                                                    }
+                                                                    Button{
+                                                                        text: "Графические эффекты"
+                                                                        flat: true
+                                                                        onClicked: {
+                                                                            swipeView.currentIndex = 2
+                                                                            drawer.close()
+                                                                        }
+                                                                    }
 
+                                                                    Button{
+                                                                        text: "HTTP запросы"
+                                                                        flat: true
+                                                                        onClicked: {
+                                                                            swipeView.currentIndex = 3
+                                                                            drawer.close()
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
 
-
-
-
-
-
-
-
-
-                                            TextField{
-                                                readOnly: true
-                                                text: "плак"
-                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                anchors.bottom: parent.bottom
-                                            }
-                                        }
-                                    }
-
-                                    Drawer{
-                                        id: drawer
-                                        width: 0.80 * parent.width
-                                        height: parent.height
-                                        dragMargin: 10 * Screen.pixelDensity
-                                        GridLayout{
-                                            width: parent.width
-                                            columns: 1
-                                            Button{
-                                                text: "Элементы GUI"
-                                                flat: true
-                                                onClicked: {
-                                                    swipeView.currentIndex = 0
-                                                    drawer.close()
-                                                }
-                                            }
-
-                                            Button{
-                                                text: "Камера. Фото и видео"
-                                                flat: true
-                                                onClicked: {
-                                                    swipeView.currentIndex = 1
-                                                    drawer.close()
-                                                }
-                                            }
-                                            Button{
-                                                text: "Графические эффекты"
-                                                flat: true
-                                                onClicked: {
-                                                    swipeView.currentIndex = 2
-                                                    drawer.close()
-                                                }
-                                            }
-
-                                            Button{
-                                                text: "HTTP запросы"
-                                                flat: true
-                                                onClicked: {
-                                                    swipeView.currentIndex = 3
-                                                    drawer.close()
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    /* footer: TabBar {
+                                                            /* footer: TabBar {
                     id: tabBar
                     currentIndex: swipeView.currentIndex
                     font.family: "SF UI Display Light"
@@ -811,4 +811,4 @@ ApplicationWindow {
                         text: qsTr("Page 3")
                     }
                 }*/
-                                }
+                                                        }
