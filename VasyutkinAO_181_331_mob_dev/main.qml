@@ -184,6 +184,7 @@ ApplicationWindow {
                 anchors.left: parent.left;
                 layer.enabled: true
                 Material.background: "white"
+
                 Text {
                     font.family: "SF UI Display Bold"
                     text: "Камера. Фото и видео"
@@ -220,12 +221,12 @@ ApplicationWindow {
                 }
             }
 
-
             Item{  //СТРАНИЦА С КАМЕРОЙ
                 id: page1
                 width: 375
                 height: 470
                 anchors.horizontalCenter: parent.horizontalCenter
+
                 Camera{
                     id: camera
                     imageCapture{
@@ -261,12 +262,14 @@ ApplicationWindow {
                                 spacing: 20
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 anchors.top: parent.bottom
+
                                 RoundButton{
                                     id: capturebutton
                                     Material.background: "grey"
                                     text: "C"
                                     onClicked: camera.imageCapture.capture()
                                 }
+
                                 RoundButton {
                                     id: videobutton
                                     Material.background: "red"
@@ -287,7 +290,24 @@ ApplicationWindow {
                             height: 667
                             anchors.horizontalCenter: parent.horizontalCenter
 
+                            Button {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.bottom: rectangleforvideo.top
+                                anchors.bottomMargin: 40
+                                flat: true
+                                text: "Открыть видео"
+                                onClicked: fileDialog.open()
+
+                                FileDialog {
+                                    id: fileDialog
+                                    folder: shortcuts.home
+                                    nameFilters: [ "Music files (*.mp4 *.avi *.mkv *.mov)"]
+
+                                }
+                            }
+
                             Rectangle{
+                                id: rectangleforvideo
                                 width: 320
                                 height: 240
                                 anchors.horizontalCenter: parent.horizontalCenter
@@ -295,7 +315,7 @@ ApplicationWindow {
 
                                 MediaPlayer {
                                     id: player
-                                    source: "/video/sample (1).avi"
+                                    source: fileDialog.fileUrl
                                     autoPlay: true
                                     volume: 0
                                     loops: 5
@@ -311,6 +331,7 @@ ApplicationWindow {
                                 Slider{
                                     id:sliderforvideo
                                     anchors.topMargin: 10
+                                    visible: false
                                     value: player.position
                                     to: player.duration
                                     anchors.left: parent.left
@@ -325,6 +346,7 @@ ApplicationWindow {
                                     anchors.fill: parent
                                     onClicked:
                                         bntplayorstop.visible = true, sliderforvideo.visible = true, timerforguivideo.start()
+
                                     Button {
                                         id: bntplayorstop
                                         flat: true
@@ -332,6 +354,7 @@ ApplicationWindow {
                                         anchors.verticalCenter: parent.verticalCenter
                                         icon.color: "white"
                                         icon.height: 55
+                                        visible: false
                                         icon.width: 55
                                         icon.source:
                                             player.playbackState == MediaPlayer.PlayingState ? "/image/iconfinder_205_CircledPause_183322.png" : "/image/iconfinder_ic_play_circle_filled_white_48px_3669295.png"
@@ -348,7 +371,6 @@ ApplicationWindow {
                                         }
                                         }
                                         }
-
 
                                             Page{  //СТРАНИЦА ДЛЯ ТРЕТЬЕЙ ЛАБОРАТОРНОЙ - ГРАФИЧЕСКИЕ ЭФФЕКТЫ - IT IS MY PHOTOSHOP
                                                 id: page03
