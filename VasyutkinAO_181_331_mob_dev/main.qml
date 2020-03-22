@@ -283,13 +283,14 @@ ApplicationWindow {
                             id: page2
                             visible: false
                             width: 375
-                            height: 470
+                            height: 667
                             anchors.horizontalCenter: parent.horizontalCenter
 
                             Rectangle{
                                 width: 320
                                 height: 240
                                 anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.verticalCenter: parent.verticalCenter
 
                                 MediaPlayer {
                                     id: player
@@ -330,7 +331,6 @@ ApplicationWindow {
                                 anchors.top: parent.bottom
                                 anchors.topMargin: 10
                             }
-
                             Button{
                                 id: buttonpause
                                 text: "пауза"
@@ -794,7 +794,6 @@ ApplicationWindow {
                     id: tabBar
                     currentIndex: swipeView.currentIndex
                     font.family: "SF UI Display Light"
-
                     TabButton {
                         text: qsTr("Lab_1")
                     }
