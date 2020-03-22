@@ -11,6 +11,7 @@ import QtGraphicalEffects 1.14
 import QtQuick.Window 2.12
 import QtQuick 2.2
 import QtQuick.Dialogs 1.0
+import QtQml 2.14
 
 ApplicationWindow {
 
@@ -318,29 +319,35 @@ ApplicationWindow {
                                         player.seek(sliderforvideo.value)
                                     }
                                 }
+
+                                Button {
+                                    id: bntplayorstop
+                                    flat: true
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    icon.color: "white"
+                                    icon.height: 55
+                                    icon.width: 55
+                                    icon.source:
+                                        player.playbackState == MediaPlayer.PlayingState ? "/image/iconfinder_205_CircledPause_183322.png" : "/image/iconfinder_ic_play_circle_filled_white_48px_3669295.png"
+                                    onClicked:
+                                        player.playbackState == MediaPlayer.PlayingState ? player.pause() : player.play()
+
+                                }
+
+                                /*MouseArea {
+                                    anchors.fill: parent
+                                    onClicked:
+                                        bntplayorstop.visible == false ? bntplayorstop.visible = true : bntplayorstop.visible = false
+                                }
+
+                                Timer {
+                                    interval: 5000; running: true; repeat: true
+                                    onTriggered: bntplayorstop.visible = false, sliderforvideo.visible = false
+                                }*/
                             }
                         }
                     }
-
-
-                    /*  Button{
-                                id: buttonplay
-                                text: "плей"
-                                onClicked: player.play(), this.visible = false, buttonpause.visible = true
-                                anchors.right: sliderforvideo.left
-                                anchors.top: parent.bottom
-                                anchors.topMargin: 10
-                            }
-                            Button{
-                                id: buttonpause
-                                text: "пауза"
-                                onClicked: player.pause(), this.visible = false, buttonplay.visible = true
-                                anchors.right: sliderforvideo.left
-                                anchors.top: parent.bottom
-                                anchors.topMargin: 10
-                            }
-                        }
-                    }*/
 
 
                     Page{  //СТРАНИЦА ДЛЯ ТРЕТЬЕЙ ЛАБОРАТОРНОЙ - ГРАФИЧЕСКИЕ ЭФФЕКТЫ - IT IS MY PHOTOSHOP
