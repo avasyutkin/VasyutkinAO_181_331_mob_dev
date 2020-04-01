@@ -13,7 +13,7 @@ QHTTPController::QHTTPController(QObject *parent) : QObject(parent)
 void QHTTPController::GetNetworkValue()
 {
     QNetworkRequest request;
-    request.setUrl(QUrl("https://www.cbr.ru/currency_base/daily/"));
+    request.setUrl(QUrl("https://www.rbc.ru/crypto/currency/btcusd"));
     QNetworkReply * reply;
     QEventLoop eventloop;
     connect(nam, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);

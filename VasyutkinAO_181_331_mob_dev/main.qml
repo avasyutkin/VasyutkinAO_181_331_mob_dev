@@ -697,42 +697,42 @@ ApplicationWindow {
 
 
 
-                                                                                ScrollView {
-                                                                                    height: 500
-                                                                                    width: parent.width
-                                                                                    anchors.bottom: rectanglefortextandbntlab4.top
-                                                                                    anchors.bottomMargin: -1
+                                                                            ScrollView {
+                                                                                height: 500
+                                                                                width: parent.width
+                                                                                anchors.bottom: rectanglefortextandbntlab4.top
+                                                                                anchors.bottomMargin: -1
 
-                                                                                    RowLayout {
-                                                                                        spacing: 0
-                                                                                        width: parent.parent.width
+                                                                                RowLayout {
+                                                                                    spacing: 0
+                                                                                    width: parent.parent.width
 
-                                                                                        ColumnLayout {
-                                                                                            id: lineNumbers
+                                                                                    ColumnLayout {
+                                                                                        id: lineNumbers
 
-                                                                                            Repeater {
-                                                                                                id: lineNumberRepeater
-                                                                                                model: textAreaforHTTP.lineCount
-                                                                                                Layout.fillHeight: true
-                                                                                            }
-                                                                                        }
-
-                                                                                        TextArea {
-
-                                                                                            width: parent.width
-                                                                                            height: 500
-                                                                                            id: textAreaforHTTP
-                                                                                            Layout.fillWidth: true
+                                                                                        Repeater {
+                                                                                            id: lineNumberRepeater
+                                                                                            model: textAreaforHTTP.lineCount
                                                                                             Layout.fillHeight: true
-                                                                                            focus: true
-                                                                                            persistentSelection: true
-                                                                                            selectByMouse: true
-                                                                                            textMargin: 10
-                                                                                            textFormat: Text.RichText
-                                                                                            wrapMode: textAreaforHTTP.WrapAtWordBoundaryOrAnywhere
                                                                                         }
                                                                                     }
+
+                                                                                    TextArea {
+
+                                                                                        width: parent.width
+                                                                                        height: 500
+                                                                                        id: textAreaforHTTP
+                                                                                        Layout.fillWidth: true
+                                                                                        Layout.fillHeight: true
+                                                                                        focus: true
+                                                                                        persistentSelection: true
+                                                                                        selectByMouse: true
+                                                                                        textMargin: 10
+                                                                                        textFormat: Text.RichText
+                                                                                        wrapMode: textAreaforHTTP.WrapAtWordBoundaryOrAnywhere
+                                                                                    }
                                                                                 }
+                                                                            }
 
                                                                             Rectangle {
                                                                                 id: rectanglefortextandbntlab4
