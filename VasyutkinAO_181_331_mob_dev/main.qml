@@ -692,44 +692,16 @@ ApplicationWindow {
                                                                                 }
                                                                             }
 
-                                                                            Button{
-                                                                                id: buttonforHTTP
-                                                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                                                anchors.bottom: parent.bottom
-                                                                                anchors.bottomMargin: 50
-                                                                                onClicked: {
-                                                                                    signalMakeRequestHTTP()
-                                                                                }
-                                                                            }
-
-                                                                            /*TextArea {
-                                                //id: textAreaforHTTP
-                                                width: 375
-                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                anchors.left:parent.left
-                                                textFormat: Text.RichText
-                                                //TextArea.flickable: textAreaforHTTP
-                                                //wrapMode: textAreaforHTTP.Wrap
-                                            }*/
 
 
 
 
-
-
-
-
-
-
-
-                                                                            Pane {
-                                                                                height: 500
-                                                                                width: parent.width
 
                                                                                 ScrollView {
                                                                                     height: 500
                                                                                     width: parent.width
+                                                                                    anchors.bottom: rectanglefortextandbntlab4.top
+                                                                                    anchors.bottomMargin: -1
 
                                                                                     RowLayout {
                                                                                         spacing: 0
@@ -761,23 +733,34 @@ ApplicationWindow {
                                                                                         }
                                                                                     }
                                                                                 }
-                                                                            }
 
-
-
-
-
-
-
-
-
-
-
-                                                                            TextField{
-                                                                                readOnly: true
-                                                                                text: "плак"
+                                                                            Rectangle {
+                                                                                id: rectanglefortextandbntlab4
                                                                                 anchors.horizontalCenter: parent.horizontalCenter
+                                                                                width: parent.width
+                                                                                height: 109
                                                                                 anchors.bottom: parent.bottom
+                                                                                color: "white"
+
+                                                                                TextField {
+                                                                                    readOnly: true
+                                                                                    placeholderText: qsTr("$$$")
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    anchors.bottom: parent.bottom
+                                                                                    activeFocusOnPress: false
+                                                                                    horizontalAlignment: TextInput.AlignHCenter
+                                                                                }
+
+                                                                                Button {
+                                                                                    id: buttonforHTTP
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    anchors.bottom: parent.bottom
+                                                                                    text: "Узнать курс доллара"
+                                                                                    anchors.bottomMargin: 50
+                                                                                    onClicked: {
+                                                                                        signalMakeRequestHTTP()
+                                                                                    }
+                                                                                }
                                                                             }
                                                                         }
 
