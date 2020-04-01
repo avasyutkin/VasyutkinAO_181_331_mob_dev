@@ -13,8 +13,7 @@ QHTTPController::QHTTPController(QObject *parent) : QObject(parent)
 void QHTTPController::GetNetworkValue()
 {
     QNetworkRequest request;
-    //request.setUrl(QUrl("https://meduza.io/"));
-    request.setUrl(QUrl("http://go.com"));
+    request.setUrl(QUrl("https://www.cbr.ru/currency_base/daily/"));
     QNetworkReply * reply;
     QEventLoop eventloop;
     connect(nam, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
