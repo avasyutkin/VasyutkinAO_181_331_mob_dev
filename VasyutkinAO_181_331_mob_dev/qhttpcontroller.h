@@ -13,8 +13,9 @@ public:
 
 public slots:
     void GetNetworkValue();  //выполняет запрос к серверу
+    QString slotPageInfo (QString pReply);
 signals:
-    void signalSendToQML(QString pReply);
+    void signalSendToQML(QString pReply, QString replayrete);
 
 };
 

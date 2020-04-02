@@ -21,8 +21,18 @@ void QHTTPController::GetNetworkValue()
     //обработка reply
     eventloop.exec(); //запуск цикла ожидания. Приложение обрабатывает остальные сигналы, пока не поступит сигнал QEventLoop::quit
     QByteArray replyString = reply -> readAll();
-    emit signalSendToQML(QString(replyString));
+    emit signalSendToQML(QString(replyString), slotPageInfo(replyString));
     qDebug() << reply -> url()
              << reply -> rawHeaderList()
              << reply -> readAll();
+}
+
+QString QHTTPController::slotPageInfo(QString replyString)
+{
+    int a = replyString.indexOf("<div class=\"chart__subtitle js-chart-value\">");
+    int b = replyString.indexOf("<span class=\"chart__change chart__change_grow\">");
+    int c = b - a;
+    QString currentrate = replyString.mid(a, c) + " USD";
+    qDebug() << currentrate;
+    return currentrate;
 }

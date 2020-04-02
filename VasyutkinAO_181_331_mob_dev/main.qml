@@ -28,8 +28,10 @@ ApplicationWindow {
 
     Connections{
         target: httpController  //объект - источник сигнала, его нужно сделать видимым в QML
-        function onSignalSendToQML(pString){
+        function onSignalSendToQML(pString, rateString){
             textAreaforHTTP.append(pString)
+            textfieldforrate.append(rateString)
+
         }
     }
 
@@ -668,13 +670,6 @@ ApplicationWindow {
 
                                                                     }
 
-
-
-
-
-
-
-
                                                                         Page{  //СТРАНИЦА ДЛЯ ЧЕТВЕРТОЙ ЛАБОРАТОРНОЙ - HTTP-ЗАПРОСЫ
                                                                             id: page04
                                                                             header: ToolBar {
@@ -691,11 +686,6 @@ ApplicationWindow {
                                                                                     anchors.bottom: parent.bottom
                                                                                 }
                                                                             }
-
-
-
-
-
 
                                                                             ScrollView {
                                                                                 height: 500
@@ -742,31 +732,30 @@ ApplicationWindow {
                                                                                 anchors.bottom: parent.bottom
                                                                                 color: "white"
 
-                                                                                TextField {
+                                                                                TextArea {
+                                                                                    id: textfieldforrate
                                                                                     readOnly: true
-                                                                                    placeholderText: qsTr("$$$")
+                                                                                    placeholderText: qsTr("BTC")
                                                                                     anchors.horizontalCenter: parent.horizontalCenter
                                                                                     anchors.bottom: parent.bottom
                                                                                     activeFocusOnPress: false
                                                                                     horizontalAlignment: TextInput.AlignHCenter
+                                                                                    textFormat: Text.RichText
+                                                                                    wrapMode: textfieldforrate.WrapAtWordBoundaryOrAnywhere
                                                                                 }
 
                                                                                 Button {
                                                                                     id: buttonforHTTP
                                                                                     anchors.horizontalCenter: parent.horizontalCenter
                                                                                     anchors.bottom: parent.bottom
-                                                                                    text: "Узнать курс доллара"
+                                                                                    text: "learn the rate of BTC"
                                                                                     anchors.bottomMargin: 50
                                                                                     onClicked: {
-                                                                                        signalMakeRequestHTTP()
+                                                                                        textfieldforrate.clear(), textAreaforHTTP.clear() ,signalMakeRequestHTTP()
                                                                                     }
                                                                                 }
                                                                             }
                                                                         }
-
-
-
-
 
                                                                         Page{  //СТРАНИЦА ДЛЯ ПЯТОЙ ЛАБОРАТОРНОЙ - АУТЕНТИФИКАЦИЯ OAUTH2
                                                                             id: page05
