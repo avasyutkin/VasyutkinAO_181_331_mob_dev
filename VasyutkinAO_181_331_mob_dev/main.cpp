@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
 
     QHTTPController httpController;
     httpController.GetNetworkValue();
+    httpController.GetNetworkValue_2();
 
     QQmlApplicationEngine engine;   //создание браузерного движка
 

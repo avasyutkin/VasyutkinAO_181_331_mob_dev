@@ -25,11 +25,38 @@ void QHTTPController::GetNetworkValue()
     //обработка reply
     eventloop.exec(); //запуск цикла ожидания. Приложение обрабатывает остальные сигналы, пока не поступит сигнал QEventLoop::quit
     QByteArray replyString = reply -> readAll();
-    emit signalSendToQML(QString(replyString), slotPageInfo(replyString), currentratecost(replyString), currentratestate(replyString), boolforcolorlab_4(replyString));
+    emit signalSendToQML(QString(replyString), slotPageInfo(replyString), currentratecost(replyString), currentratestate(replyString), boolforcolorlab_4(replyString), currentratedate(replyString));
     qDebug() << reply -> url()
              << reply -> rawHeaderList()
              << reply -> readAll();
 }
+
+
+
+
+
+void QHTTPController::GetNetworkValue_2()
+{
+    QNetworkRequest request;
+    request.setUrl(QUrl("https://www.coinbase.com/price/bitcoin"));
+    QNetworkReply * reply;
+    QEventLoop eventloop;
+    connect(nam, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
+    reply = nam -> get(request);
+    eventloop.exec();
+    QByteArray replyString = reply -> readAll();
+    emit signalSendToQML_2(currentratecostrub(replyString));
+    qDebug() << reply -> url()
+             << reply -> rawHeaderList()
+             << reply -> readAll();
+}
+
+
+
+
+
+
+
 
 QString QHTTPController::slotPageInfo(QString replyString)
 {
@@ -49,7 +76,7 @@ QString QHTTPController::currentratecost(QString replyString)
     int a = replyString.indexOf("<div class=\"chart__subtitle js-chart-value\">");
     int b = replyString.indexOf("<span class=\"chart__change");
     int c = b - a;
-    QString currentratecost = replyString.mid(a, c);
+    QString currentratecost = replyString.mid(a, c) + " $";
     return currentratecost;
 }
 
@@ -76,4 +103,22 @@ QString QHTTPController::currentratestate(QString replyString)
     return currentratestate;
 }
 
+QString QHTTPController::currentratedate(QString replyString)
+{
+    int a = replyString.indexOf("<span class=\"js-chart-date\">") + 28;
+    int b = replyString.indexOf("</span>\n            </div>\n            </div>\n    <div class=\"chart__peroids\">");
+    int c = b - a;
+    QString date = replyString.mid(a, c);
+    return date;
+}
 
+
+QString QHTTPController::currentratecostrub(QString replyString)
+{
+    int a = replyString.indexOf("<span>");
+    int b = replyString.indexOf("</span>\n            </div>\n            <div class=");
+    int c = b - a;
+    QString date = replyString.mid(a, c);
+    qDebug ()<< "gfjgdfgjlkdfjgljdfgj" << a << b << date;
+    return date;
+}

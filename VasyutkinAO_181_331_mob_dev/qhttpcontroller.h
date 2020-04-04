@@ -13,13 +13,16 @@ public:
 
 public slots:
     void GetNetworkValue();  //выполняет запрос к серверу
+    void GetNetworkValue_2();
     QString slotPageInfo (QString pReply);
     QString currentratecost(QString replyString);
     QString currentratestate(QString replyString);
     bool boolforcolorlab_4(QString replyString);
+    QString currentratedate(QString replyString);
+    QString currentratecostrub(QString replyString);
 signals:
-    void signalSendToQML(QString pReply, QString replayrete, QString currentratecost, QString currentratestate, bool boolforcolorlab_4);
-
+    void signalSendToQML(QString pReply, QString replayrete, QString currentratecost, QString currentratestate, bool boolforcolorlab_4, QString currentratedate);
+    void signalSendToQML_2(QString currentratecostrub);
 };
 
 #endif // QHTTPCONTROLLER_H
