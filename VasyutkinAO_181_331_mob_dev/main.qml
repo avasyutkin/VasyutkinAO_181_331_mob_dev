@@ -28,9 +28,13 @@ ApplicationWindow {
 
     Connections{
         target: httpController  //объект - источник сигнала, его нужно сделать видимым в QML
-        function onSignalSendToQML(pString, rateString){
-            textAreaforHTTP.append(pString)
-            textfieldforrate.append(rateString)
+        function onSignalSendToQML(pString, rateString, currentratecost, currentratestate, boolforcolorlab_4){
+            //textAreaforHTTP.append(pString)
+            //textfieldforrate.append(rateString)
+            labelforratecostdesign.text = currentratecost
+            labelforratestatedesign.text = currentratestate
+            labelforboolcolorlab_4.text = boolforcolorlab_4
+
 
         }
     }
@@ -687,7 +691,40 @@ ApplicationWindow {
                                                                                 }
                                                                             }
 
-                                                                            ScrollView {
+
+                                                                            GridLayout {
+                                                                                id: gridforlab4
+                                                                                columns: 1
+                                                                                width: parent.width
+
+
+                                                                                Label { text: "BTC/USD"; font.pixelSize: 33; font.family: "SF UI Display Bold"; }
+                                                                                Label { id: labelforratecostdesign; font.pixelSize: 40; }
+                                                                                Label { id: labelforratestatedesign; font.pixelSize: 30; color: if (labelforboolcolorlab_4.text == "+") "#20b984"; else "#ff4545"}
+                                                                                Label { id: labelforratedatedesign; text: "BITFINEX" }
+                                                                                Label { id: labelforboolcolorlab_4; color: "white" }
+
+
+
+
+                                                                            }
+
+                                                                            Button {
+                                                                                id: buttonforHTTP
+                                                                                anchors.horizontalCenter: parent.horizontalCenter
+                                                                                anchors.bottom: parent.bottom
+                                                                                text: "learn the rate of BTC"
+                                                                                anchors.bottomMargin: 50
+                                                                                onClicked: {
+                                                                                    labelforratecostdesign.text = " ", labelforratestatedesign.text = " ", signalMakeRequestHTTP()
+                                                                                }
+                                                                            }
+
+
+
+
+
+                                                                                /*ScrollView {
                                                                                 height: 500
                                                                                 width: parent.width
                                                                                 anchors.bottom: rectanglefortextandbntlab4.top
@@ -723,7 +760,6 @@ ApplicationWindow {
                                                                                     }
                                                                                 }
                                                                             }
-
                                                                             Rectangle {
                                                                                 id: rectanglefortextandbntlab4
                                                                                 anchors.horizontalCenter: parent.horizontalCenter
@@ -751,135 +787,135 @@ ApplicationWindow {
                                                                                     text: "learn the rate of BTC"
                                                                                     anchors.bottomMargin: 50
                                                                                     onClicked: {
-                                                                                        textfieldforrate.clear(), textAreaforHTTP.clear() ,signalMakeRequestHTTP()
+                                                                                        textfieldforrate.text = " ", textAreaforHTTP.text = " ", signalMakeRequestHTTP()
+                                                                                    }
+                                                                                }
+                                                                            }*/
+                                                                            }
+
+                                                                            Page{  //СТРАНИЦА ДЛЯ ПЯТОЙ ЛАБОРАТОРНОЙ - АУТЕНТИФИКАЦИЯ OAUTH2
+                                                                                id: page05
+                                                                                header: ToolBar {
+                                                                                    id: headerOAuth2
+                                                                                    anchors.leftMargin: 10
+                                                                                    anchors.left: parent.left;
+                                                                                    layer.enabled: true
+                                                                                    Material.background: "white"
+                                                                                    Text {
+                                                                                        font.family: "SF UI Display Bold"
+                                                                                        text: "Аутентификация OAuth2"
+                                                                                        font.pointSize: 23
+                                                                                        color: "black"
+                                                                                        anchors.bottom: parent.bottom
+                                                                                    }
+                                                                                }
+
+                                                                                TextField{
+                                                                                    id: textforloginlab5
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    anchors.top: parent.top
+                                                                                    anchors.topMargin: 30
+                                                                                    width: parent.width
+                                                                                }
+
+                                                                                TextField{
+                                                                                    id: textforpasslab5
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    anchors.top: textforloginlab5.bottom
+                                                                                    width: parent.width
+                                                                                }
+
+                                                                                Button{
+                                                                                    id: bntforlab5
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    anchors.bottom: parent.bottom
+                                                                                    anchors.bottomMargin: 15
+
+                                                                                }
+
+                                                                            }
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                        Drawer{
+                                                                            id: drawer
+                                                                            width: 0.80 * parent.width
+                                                                            height: parent.height
+                                                                            dragMargin: 10 * Screen.pixelDensity
+                                                                            GridLayout{
+                                                                                width: parent.width
+                                                                                columns: 1
+                                                                                Button{
+                                                                                    text: "Элементы GUI"
+                                                                                    flat: true
+                                                                                    onClicked: {
+                                                                                        swipeView.currentIndex = 0
+                                                                                        drawer.close()
+                                                                                    }
+                                                                                }
+
+                                                                                Button{
+                                                                                    text: "Камера. Фото и видео"
+                                                                                    flat: true
+                                                                                    onClicked: {
+                                                                                        swipeView.currentIndex = 1
+                                                                                        drawer.close()
+                                                                                    }
+                                                                                }
+                                                                                Button{
+                                                                                    text: "Графические эффекты"
+                                                                                    flat: true
+                                                                                    onClicked: {
+                                                                                        swipeView.currentIndex = 2
+                                                                                        drawer.close()
+                                                                                    }
+                                                                                }
+
+                                                                                Button{
+                                                                                    text: "HTTP запросы"
+                                                                                    flat: true
+                                                                                    onClicked: {
+                                                                                        swipeView.currentIndex = 3
+                                                                                        drawer.close()
+                                                                                    }
+                                                                                }
+
+                                                                                Button{
+                                                                                    text: "Аутентификация OAuth2"
+                                                                                    flat: true
+                                                                                    onClicked: {
+                                                                                        swipeView.currentIndex = 4
+                                                                                        drawer.close()
                                                                                     }
                                                                                 }
                                                                             }
                                                                         }
 
-                                                                        Page{  //СТРАНИЦА ДЛЯ ПЯТОЙ ЛАБОРАТОРНОЙ - АУТЕНТИФИКАЦИЯ OAUTH2
-                                                                            id: page05
-                                                                            header: ToolBar {
-                                                                                id: headerOAuth2
-                                                                                anchors.leftMargin: 10
-                                                                                anchors.left: parent.left;
-                                                                                layer.enabled: true
-                                                                                Material.background: "white"
-                                                                                Text {
-                                                                                    font.family: "SF UI Display Bold"
-                                                                                    text: "Аутентификация OAuth2"
-                                                                                    font.pointSize: 23
-                                                                                    color: "black"
-                                                                                    anchors.bottom: parent.bottom
-                                                                                }
-                                                                            }
-
-                                                                            TextField{
-                                                                                id: textforloginlab5
-                                                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                                                anchors.top: parent.top
-                                                                                anchors.topMargin: 30
-                                                                                width: parent.width
-                                                                            }
-
-                                                                            TextField{
-                                                                                id: textforpasslab5
-                                                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                                                anchors.top: textforloginlab5.bottom
-                                                                                width: parent.width
-                                                                            }
-
-                                                                            Button{
-                                                                                id: bntforlab5
-                                                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                                                anchors.bottom: parent.bottom
-                                                                                anchors.bottomMargin: 15
-
-                                                                            }
-
-                                                                        }
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                    Drawer{
-                                                                        id: drawer
-                                                                        width: 0.80 * parent.width
-                                                                        height: parent.height
-                                                                        dragMargin: 10 * Screen.pixelDensity
-                                                                        GridLayout{
-                                                                            width: parent.width
-                                                                            columns: 1
-                                                                            Button{
-                                                                                text: "Элементы GUI"
-                                                                                flat: true
-                                                                                onClicked: {
-                                                                                    swipeView.currentIndex = 0
-                                                                                    drawer.close()
-                                                                                }
-                                                                            }
-
-                                                                            Button{
-                                                                                text: "Камера. Фото и видео"
-                                                                                flat: true
-                                                                                onClicked: {
-                                                                                    swipeView.currentIndex = 1
-                                                                                    drawer.close()
-                                                                                }
-                                                                            }
-                                                                            Button{
-                                                                                text: "Графические эффекты"
-                                                                                flat: true
-                                                                                onClicked: {
-                                                                                    swipeView.currentIndex = 2
-                                                                                    drawer.close()
-                                                                                }
-                                                                            }
-
-                                                                            Button{
-                                                                                text: "HTTP запросы"
-                                                                                flat: true
-                                                                                onClicked: {
-                                                                                    swipeView.currentIndex = 3
-                                                                                    drawer.close()
-                                                                                }
-                                                                            }
-
-                                                                            Button{
-                                                                                text: "Аутентификация OAuth2"
-                                                                                flat: true
-                                                                                onClicked: {
-                                                                                    swipeView.currentIndex = 4
-                                                                                    drawer.close()
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-
-                                                                    /* footer: TabBar {
+                                                                        /* footer: TabBar {
                     id: tabBar
                     currentIndex: swipeView.currentIndex
                     font.family: "SF UI Display Light"
@@ -893,4 +929,4 @@ ApplicationWindow {
                         text: qsTr("Page 3")
                     }
                 }*/
-                                                                }
+                                                                    }
