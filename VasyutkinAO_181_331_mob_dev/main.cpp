@@ -31,6 +31,8 @@ int main(int argc, char *argv[])
 
     QObject * mainWindow = engine.rootObjects().first();
     QObject::connect(mainWindow, SIGNAL(signalMakeRequestHTTP()), &httpController, SLOT(GetNetworkValue()));
+    QObject::connect(mainWindow, SIGNAL(signalMakeRequestHTTP()), &httpController, SLOT(GetNetworkValue_2()));
 
     return app.exec();   //запуск бесконечного цикла обработки сообщений и слотов/сигналов
+    setlocale(LC_ALL, "ru");
 }

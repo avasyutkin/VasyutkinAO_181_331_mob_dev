@@ -29,8 +29,8 @@ ApplicationWindow {
     Connections{
         target: httpController  //объект - источник сигнала, его нужно сделать видимым в QML
         function onSignalSendToQML(pString, rateString, currentratecost, currentratestate, boolforcolorlab_4, currentratedate){
-            //textAreaforHTTP.append(pString)
-            //textfieldforrate.append(rateString)
+            textAreaforHTTP.append(pString)
+            textfieldforrate.append(rateString)
             labelforratecostdesign.text = currentratecost
             labelforratestatedesign.text = currentratestate
             labelforboolcolorlab_4.text = boolforcolorlab_4
@@ -681,13 +681,10 @@ ApplicationWindow {
                                                                         sliderforspreadtext.visible = true
                                                                     }
                                                                     }
-
                                                                     }
 
                                                                         Page{  //СТРАНИЦА ДЛЯ ЧЕТВЕРТОЙ ЛАБОРАТОРНОЙ - HTTP-ЗАПРОСЫ
                                                                             id: page04
-                                                                            Material.background: "/image/bg_lab4.JPG"
-
                                                                             header: ToolBar {
                                                                                 id: headerforhttp
                                                                                 anchors.leftMargin: 10
@@ -704,46 +701,48 @@ ApplicationWindow {
                                                                                 }
                                                                             }
 
-                                                                                Image {
-                                                                                    anchors.fill: parent
-                                                                                    source: "/image/bg_lab4.JPG"
+                                                                            Image {
+                                                                                anchors.fill: parent
+                                                                                source: "/image/bg_lab4.JPG"
+                                                                            }
+
+                                                                            Label { id:labelamountlab_4; text: "Цена Bitcoin"; font.pixelSize: 33; color: "#222222"; font.family: "SF UI Display"; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: parent.top; anchors.topMargin: 35}
+
+                                                                            GridLayout {
+                                                                                id: gridforlab4
+                                                                                anchors.top: labelamountlab_4.bottom
+                                                                                columns: 2
+                                                                                width: parent.width
+                                                                                Label { id: labelforratecostrubdesign;  font.pixelSize: 45;  font.family: "SF UI Display Light"; color: "#222222"; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: parent.top; anchors.topMargin: 20 }
+                                                                                Label { }
+                                                                                Label { id: linkcoinbase; text: "coinbase.com"; visible: false; font.family: "SF UI Display Light"; color: "#9c9c9c"; anchors.top: labelforratecostrubdesign.bottom; anchors.topMargin: -3; anchors.left: parent.left; anchors.leftMargin: 10; }
+                                                                                Label { }
+                                                                                Label { id: labelforratecostdesign; font.pixelSize: 35;  font.family: "SF UI Display Bold"; color: "#222222"; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: linkcoinbase.bottom; anchors.topMargin: 20; }
+                                                                                Label { id: labelforratestatedesign; font.pixelSize: 27; font.family: "SF UI Display"; color: if (labelforboolcolorlab_4.text == "true") "#20b984"; else "#ff4545"; anchors.top: linkcoinbase.bottom; anchors.topMargin: 24; anchors.left: labelforratecostdesign.right; anchors.leftMargin: 9 }
+                                                                                Label { id: linkrbk; text: "rbc.ru"; visible: false; font.family: "SF UI Display Light"; color: "#9c9c9c"; anchors.top: labelforratecostdesign.bottom; anchors.topMargin: 0; anchors.left: parent.left; anchors.leftMargin: 10 }
+                                                                                Label { }
+                                                                                Label { id: labelforratedatedesign; color: "#888888"; font.family: "SF UI Display"; font.pixelSize: 15; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: linkrbk.bottom; anchors.topMargin: 15; }
+                                                                                Label { id: labelforboolcolorlab_4; color: "white" }
+                                                                            }
+
+                                                                            Button {
+                                                                                id: buttonforHTTP
+                                                                                anchors.horizontalCenter: parent.horizontalCenter
+                                                                                anchors.bottom: parent.bottom
+                                                                                text: "learn the rate of BTC"
+                                                                                anchors.bottomMargin: 75
+                                                                                onClicked: {
+                                                                                    labelforratecostdesign.text = " ", labelforratestatedesign.text = " ", labelforratecostrubdesign.text = " ", labelforratedatedesign.text = " ", linkrbk.visible = true, linkcoinbase.visible = true, signalMakeRequestHTTP()
                                                                                 }
-
-
-                                                                                GridLayout {
-                                                                                    id: gridforlab4
-                                                                                    columns: 1
-                                                                                    width: parent.width
-
-
-                                                                                    Label { text: "Цена Bitcoin"; font.pixelSize: 33; color: "#222222"; font.family: "SF UI Display"; }
-                                                                                    Label { id: labelforratecostdesign; font.pixelSize: 40;  font.family: "SF UI Display Bold"; color: "#222222" }
-                                                                                    Label { id: labelforratecostrubdesign }
-                                                                                    Label { id: labelforratestatedesign; font.pixelSize: 30;  font.family: "SF UI Display"; color: if (labelforboolcolorlab_4.text == "+") "#20b984"; else "#ff4545"}
-                                                                                    Label { id: labelforratedatedesign; color: "#999999"; font.family: "SF UI Display"; }
-                                                                                    Label { id: labelforboolcolorlab_4; color: "white" }
-
-
-
-
+                                                                                onDoubleClicked: {
+                                                                                    scrollforbaddesignlab4.visible = true, rectanglefortextandbntlab4.visible = true, scrollforbaddesignlab4.text = " ", rectanglefortextandbntlab4.text = " ",
+                                                                                    labelforratecostdesign.visible = false, labelforratestatedesign.visible = false, labelforratecostrubdesign.text = visible = false, visible = false, linkrbk.visible = false, linkcoinbase.visible = false, signalMakeRequestHTTP()
                                                                                 }
+                                                                            }
 
-                                                                                Button {
-                                                                                    id: buttonforHTTP
-                                                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                                                    anchors.bottom: parent.bottom
-                                                                                    text: "learn the rate of BTC"
-                                                                                    anchors.bottomMargin: 50
-                                                                                    onClicked: {
-                                                                                        labelforratecostdesign.text = " ", labelforratestatedesign.text = " ", signalMakeRequestHTTP()
-                                                                                    }
-                                                                                }
-
-
-
-
-
-                                                                                /*ScrollView {
+                                                                            ScrollView {
+                                                                                id: scrollforbaddesignlab4
+                                                                                visible: false
                                                                                 height: 500
                                                                                 width: parent.width
                                                                                 anchors.bottom: rectanglefortextandbntlab4.top
@@ -764,7 +763,6 @@ ApplicationWindow {
                                                                                     }
 
                                                                                     TextArea {
-
                                                                                         width: parent.width
                                                                                         height: 500
                                                                                         id: textAreaforHTTP
@@ -779,7 +777,9 @@ ApplicationWindow {
                                                                                     }
                                                                                 }
                                                                             }
+
                                                                             Rectangle {
+                                                                                visible: false
                                                                                 id: rectanglefortextandbntlab4
                                                                                 anchors.horizontalCenter: parent.horizontalCenter
                                                                                 width: parent.width
@@ -798,19 +798,8 @@ ApplicationWindow {
                                                                                     textFormat: Text.RichText
                                                                                     wrapMode: textfieldforrate.WrapAtWordBoundaryOrAnywhere
                                                                                 }
-
-                                                                                Button {
-                                                                                    id: buttonforHTTP
-                                                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                                                    anchors.bottom: parent.bottom
-                                                                                    text: "learn the rate of BTC"
-                                                                                    anchors.bottomMargin: 50
-                                                                                    onClicked: {
-                                                                                        textfieldforrate.text = " ", textAreaforHTTP.text = " ", signalMakeRequestHTTP()
-                                                                                    }
-                                                                                }
-                                                                            }*/
                                                                             }
+                                                                        }
 
                                                                         Page{  //СТРАНИЦА ДЛЯ ПЯТОЙ ЛАБОРАТОРНОЙ - АУТЕНТИФИКАЦИЯ OAUTH2
                                                                             id: page05
@@ -856,7 +845,7 @@ ApplicationWindow {
 
 
 
-}
+                                                                    }
 
 
 

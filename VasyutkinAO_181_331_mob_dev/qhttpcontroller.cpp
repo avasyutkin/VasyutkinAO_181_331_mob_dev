@@ -7,6 +7,10 @@
 #include <string>
 #include <iostream>
 #include <QString>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <string.h>
 
 
 QHTTPController::QHTTPController(QObject *parent) : QObject(parent)
@@ -31,14 +35,10 @@ void QHTTPController::GetNetworkValue()
              << reply -> readAll();
 }
 
-
-
-
-
 void QHTTPController::GetNetworkValue_2()
 {
     QNetworkRequest request;
-    request.setUrl(QUrl("https://www.coinbase.com/price/bitcoin"));
+    request.setUrl(QUrl("https://api.coinbase.com/v2/prices/spot?currency=RUB"));
     QNetworkReply * reply;
     QEventLoop eventloop;
     connect(nam, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
@@ -50,13 +50,6 @@ void QHTTPController::GetNetworkValue_2()
              << reply -> rawHeaderList()
              << reply -> readAll();
 }
-
-
-
-
-
-
-
 
 QString QHTTPController::slotPageInfo(QString replyString)
 {
@@ -87,9 +80,16 @@ bool QHTTPController::boolforcolorlab_4(QString replyString)
     int c = b - a;
     QString currentratestate = replyString.mid(a, c);
     std::string strforcolor = currentratestate.toLocal8Bit().constData();
+
+    char char_array[155];
+    strcpy_s(char_array, strforcolor.c_str());
+    qDebug( )  <<char_array[60];
+
     bool boolforcolor = 1;
-    if (strforcolor.find("-"))
+    if (char_array[60] == '-')
         boolforcolor = 0;
+    else if (char_array[60] == '+')
+        boolforcolor = 1;
 
     return boolforcolor;
 }
@@ -112,13 +112,13 @@ QString QHTTPController::currentratedate(QString replyString)
     return date;
 }
 
-
-QString QHTTPController::currentratecostrub(QString replyString)
+QString QHTTPController::currentratecostrub(QByteArray replyString)
 {
-    int a = replyString.indexOf("<span>");
-    int b = replyString.indexOf("</span>\n            </div>\n            <div class=");
-    int c = b - a;
-    QString date = replyString.mid(a, c);
-    qDebug ()<< "gfjgdfgjlkdfjgljdfgj" << a << b << date;
-    return date;
+    QJsonDocument jsonfromcoingate = QJsonDocument::fromJson(replyString);
+    QString amountrateforruble = jsonfromcoingate.object().value("data").toObject().value("amount").toString();
+
+    amountrateforruble.insert(3, QString(" ")).remove(7,1).insert(7, QString(",")).remove(10, 4).insert(10, QString(" ₽"));
+
+    qDebug ()<< "В рублях" << jsonfromcoingate << amountrateforruble;
+    return amountrateforruble;
 }
