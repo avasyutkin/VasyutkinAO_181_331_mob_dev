@@ -29,6 +29,9 @@ ApplicationWindow {
     Connections{
         target: httpController  //объект - источник сигнала, его нужно сделать видимым в QML
         function onSignalSendToQML(pString, rateString, currentratecost, currentratestate, boolforcolorlab_4, currentratedate){
+            indicatorforlab4.visible = false
+            linkrbk.visible = true
+            linkcoinbase.visible = true
             textAreaforHTTP.append(pString)
             textfieldforrate.append(rateString)
             labelforratecostdesign.text = currentratecost
@@ -729,15 +732,33 @@ ApplicationWindow {
                                                                                 id: buttonforHTTP
                                                                                 anchors.horizontalCenter: parent.horizontalCenter
                                                                                 anchors.bottom: parent.bottom
-                                                                                text: "learn the rate of BTC"
-                                                                                anchors.bottomMargin: 75
+                                                                                text: "Learn the rate of BTC"
+                                                                                font.family: "SF UI Display Light"
+                                                                                font.pixelSize: 20
+                                                                                anchors.bottomMargin: 80
+                                                                                flat: true
                                                                                 onClicked: {
-                                                                                    labelforratecostdesign.text = " ", labelforratestatedesign.text = " ", labelforratecostrubdesign.text = " ", labelforratedatedesign.text = " ", linkrbk.visible = true, linkcoinbase.visible = true, signalMakeRequestHTTP()
+                                                                                    labelforratecostdesign.text = " ", labelforratestatedesign.text = " ", labelforratecostrubdesign.text = " ", labelforratedatedesign.text = " ", linkrbk.visible = false, linkcoinbase.visible = false, indicatorforlab4.visible = true, signalMakeRequestHTTP()
                                                                                 }
                                                                                 onDoubleClicked: {
                                                                                     scrollforbaddesignlab4.visible = true, rectanglefortextandbntlab4.visible = true, scrollforbaddesignlab4.text = " ", rectanglefortextandbntlab4.text = " ",
                                                                                     labelforratecostdesign.visible = false, labelforratestatedesign.visible = false, labelforratecostrubdesign.text = visible = false, visible = false, linkrbk.visible = false, linkcoinbase.visible = false, signalMakeRequestHTTP()
                                                                                 }
+                                                                            }
+
+                                                                            BusyIndicator {
+                                                                                visible: false
+                                                                                id: indicatorforlab4
+                                                                                scale: 0.5
+                                                                                anchors.leftMargin: 10
+                                                                                anchors.topMargin: 200
+                                                                                anchors.top: parent.top
+                                                                                anchors.horizontalCenter: parent.horizontalCenter
+                                                                                layer.enabled: true
+                                                                                running: image.status === Image.Loading
+                                                                                Material.accent: "#1850f1"
+
+
                                                                             }
 
                                                                             ScrollView {
