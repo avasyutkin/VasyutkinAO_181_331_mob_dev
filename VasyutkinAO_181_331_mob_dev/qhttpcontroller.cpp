@@ -117,7 +117,7 @@ QString QHTTPController::currentratecostrub(QByteArray replyString)
     QJsonDocument jsonfromcoingate = QJsonDocument::fromJson(replyString);
     QString amountrateforruble = jsonfromcoingate.object().value("data").toObject().value("amount").toString();
 
-    amountrateforruble.insert(3, QString(" ")).remove(7,1).insert(7, QString(",")).remove(10, 4).insert(10, QString(" ₽"));
+    amountrateforruble.insert(3, QString(" ")).remove(7,1).insert(7, QString(",")).remove(10, 10).insert(10, QString(" ₽"));
 
     qDebug ()<< "В рублях" << jsonfromcoingate << amountrateforruble;
     return amountrateforruble;

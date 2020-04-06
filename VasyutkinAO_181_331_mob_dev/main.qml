@@ -38,17 +38,10 @@ ApplicationWindow {
             labelforratestatedesign.text = currentratestate
             labelforboolcolorlab_4.text = boolforcolorlab_4
             labelforratedatedesign.text = currentratedate
-
         }
-
-
-
-
 
         function onSignalSendToQML_2(currentratecostrub){
             labelforratecostrubdesign.text = currentratecostrub
-
-
         }
     }
 
@@ -704,28 +697,33 @@ ApplicationWindow {
                                                                                 }
                                                                             }
 
-                                                                            Image {
+                                                                            Item {
+                                                                                id: itemforverygooddesignlab4
                                                                                 anchors.fill: parent
-                                                                                source: "/image/bg_lab4.JPG"
-                                                                            }
 
-                                                                            Label { id:labelamountlab_4; text: "Цена Bitcoin"; font.pixelSize: 33; color: "#222222"; font.family: "SF UI Display"; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: parent.top; anchors.topMargin: 35}
+                                                                                Image {
+                                                                                    anchors.fill: parent
+                                                                                    source: "/image/bg_lab4.JPG"
+                                                                                }
 
-                                                                            GridLayout {
-                                                                                id: gridforlab4
-                                                                                anchors.top: labelamountlab_4.bottom
-                                                                                columns: 2
-                                                                                width: parent.width
-                                                                                Label { id: labelforratecostrubdesign;  font.pixelSize: 45;  font.family: "SF UI Display Light"; color: "#222222"; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: parent.top; anchors.topMargin: 20 }
-                                                                                Label { }
-                                                                                Label { id: linkcoinbase; text: "coinbase.com"; visible: false; font.family: "SF UI Display Light"; color: "#9c9c9c"; anchors.top: labelforratecostrubdesign.bottom; anchors.topMargin: -3; anchors.left: parent.left; anchors.leftMargin: 10; }
-                                                                                Label { }
-                                                                                Label { id: labelforratecostdesign; font.pixelSize: 35;  font.family: "SF UI Display Bold"; color: "#222222"; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: linkcoinbase.bottom; anchors.topMargin: 20; }
-                                                                                Label { id: labelforratestatedesign; font.pixelSize: 27; font.family: "SF UI Display"; color: if (labelforboolcolorlab_4.text == "true") "#20b984"; else "#ff4545"; anchors.top: linkcoinbase.bottom; anchors.topMargin: 24; anchors.left: labelforratecostdesign.right; anchors.leftMargin: 9 }
-                                                                                Label { id: linkrbk; text: "rbc.ru"; visible: false; font.family: "SF UI Display Light"; color: "#9c9c9c"; anchors.top: labelforratecostdesign.bottom; anchors.topMargin: 0; anchors.left: parent.left; anchors.leftMargin: 10 }
-                                                                                Label { }
-                                                                                Label { id: labelforratedatedesign; color: "#888888"; font.family: "SF UI Display"; font.pixelSize: 15; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: linkrbk.bottom; anchors.topMargin: 15; }
-                                                                                Label { id: labelforboolcolorlab_4; color: "white" }
+                                                                                Label { id:labelamountlab_4; text: "Цена Bitcoin"; font.pixelSize: 33; color: "#222222"; font.family: "SF UI Display"; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: parent.top; anchors.topMargin: 35}
+
+                                                                                GridLayout {
+                                                                                    id: gridforlab4
+                                                                                    anchors.top: labelamountlab_4.bottom
+                                                                                    columns: 2
+                                                                                    width: parent.width
+                                                                                    Label { id: labelforratecostrubdesign;  font.pixelSize: 45;  font.family: "SF UI Display Light"; color: "#222222"; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: parent.top; anchors.topMargin: 20 }
+                                                                                    Label { }
+                                                                                    Label { id: linkcoinbase; text: "coinbase.com"; visible: false; font.family: "SF UI Display Light"; color: "#9c9c9c"; anchors.top: labelforratecostrubdesign.bottom; anchors.topMargin: -3; anchors.left: parent.left; anchors.leftMargin: 10; }
+                                                                                    Label { }
+                                                                                    Label { id: labelforratecostdesign; font.pixelSize: 35;  font.family: "SF UI Display Bold"; color: "#222222"; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: linkcoinbase.bottom; anchors.topMargin: 20; }
+                                                                                    Label { id: labelforratestatedesign; font.pixelSize: 27; font.family: "SF UI Display"; color: if (labelforboolcolorlab_4.text == "true") "#20b984"; else "#ff4545"; anchors.top: linkcoinbase.bottom; anchors.topMargin: 24; anchors.left: labelforratecostdesign.right; anchors.leftMargin: 9 }
+                                                                                    Label { id: linkrbk; text: "rbc.ru"; visible: false; font.family: "SF UI Display Light"; color: "#9c9c9c"; anchors.top: labelforratecostdesign.bottom; anchors.topMargin: 0; anchors.left: parent.left; anchors.leftMargin: 10 }
+                                                                                    Label { }
+                                                                                    Label { id: labelforratedatedesign; color: "#888888"; font.family: "SF UI Display"; font.pixelSize: 15; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: linkrbk.bottom; anchors.topMargin: 15; }
+                                                                                    Label { id: labelforboolcolorlab_4; color: "white" }
+                                                                                }
                                                                             }
 
                                                                             Button {
@@ -735,216 +733,256 @@ ApplicationWindow {
                                                                                 text: "Learn the rate of BTC"
                                                                                 font.family: "SF UI Display Light"
                                                                                 font.pixelSize: 20
-                                                                                anchors.bottomMargin: 80
+                                                                                anchors.bottomMargin: 110
                                                                                 flat: true
                                                                                 onClicked: {
-                                                                                    labelforratecostdesign.text = " ", labelforratestatedesign.text = " ", labelforratecostrubdesign.text = " ", labelforratedatedesign.text = " ", linkrbk.visible = false, linkcoinbase.visible = false, indicatorforlab4.visible = true, signalMakeRequestHTTP()
-                                                                                }
-                                                                                onDoubleClicked: {
-                                                                                    scrollforbaddesignlab4.visible = true, rectanglefortextandbntlab4.visible = true, scrollforbaddesignlab4.text = " ", rectanglefortextandbntlab4.text = " ",
-                                                                                    labelforratecostdesign.visible = false, labelforratestatedesign.visible = false, labelforratecostrubdesign.text = visible = false, visible = false, linkrbk.visible = false, linkcoinbase.visible = false, signalMakeRequestHTTP()
+                                                                                    labelforratecostdesign.text = " ", labelforratestatedesign.text = " ", labelforratecostrubdesign.text = " ", labelforratedatedesign.text = " ", linkrbk.visible = false, linkcoinbase.visible = false, indicatorforlab4.visible = true, signalMakeRequestHTTP(), itemforbaddesignlab4.visible = false, itemforverygooddesignlab4.visible = true
                                                                                 }
                                                                             }
 
-                                                                            BusyIndicator {
-                                                                                visible: false
-                                                                                id: indicatorforlab4
-                                                                                scale: 0.5
-                                                                                anchors.leftMargin: 10
-                                                                                anchors.topMargin: 200
-                                                                                anchors.top: parent.top
+                                                                            DelayButton {
+                                                                                id: delaybtntobaddesignlab4
+                                                                                delay: 800
+                                                                                background:
+                                                                                    Rectangle {
+                                                                                    width: parent.width
+                                                                                    height: 5
+                                                                                }
+
                                                                                 anchors.horizontalCenter: parent.horizontalCenter
-                                                                                layer.enabled: true
-                                                                                running: image.status === Image.Loading
-                                                                                Material.accent: "#1850f1"
-
-
+                                                                                anchors.bottom: parent.bottom
+                                                                                text: "long click on me"
+                                                                                font.family: "SF UI Display Light"
+                                                                                font.pixelSize: 15
+                                                                                anchors.bottomMargin: 60
+                                                                                onActivated:
+                                                                                    itemforbaddesignlab4.visible = true, itemforverygooddesignlab4.visible = false, indicatorforlab4.visible = true, delaybtntobaddesignlab4.visible = false, buttonforHTTP.visible = false, labelforratecostdesign.text = " ", labelforratestatedesign.text = " ", labelforratecostrubdesign.text = " ", labelforratedatedesign.text = " ", textAreaforHTTP.text = " ", textfieldforrate.text = "", linkrbk.visible = false, linkcoinbase.visible = false, signalMakeRequestHTTP()
                                                                             }
 
-                                                                            ScrollView {
-                                                                                id: scrollforbaddesignlab4
-                                                                                visible: false
-                                                                                height: 500
-                                                                                width: parent.width
-                                                                                anchors.bottom: rectanglefortextandbntlab4.top
-                                                                                anchors.bottomMargin: -1
+                                                                                BusyIndicator {
+                                                                                    visible: false
+                                                                                    id: indicatorforlab4
+                                                                                    scale: 0.5
+                                                                                    anchors.leftMargin: 10
+                                                                                    anchors.topMargin: 200
+                                                                                    anchors.top: parent.top
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    layer.enabled: true
+                                                                                    running: image.status === Image.Loading
+                                                                                    Material.accent: "#1850f1"
+                                                                                }
 
-                                                                                RowLayout {
-                                                                                    spacing: 0
-                                                                                    width: parent.parent.width
+                                                                                Item {
+                                                                                    id: itemforbaddesignlab4
+                                                                                    visible: false
+                                                                                    anchors.fill: parent
 
-                                                                                    ColumnLayout {
-                                                                                        id: lineNumbers
+                                                                                    ScrollView {
+                                                                                        id: scrollforbaddesignlab4
+                                                                                        height: 500
+                                                                                        width: parent.width
+                                                                                        anchors.bottom: rectanglefortextandbntlab4.top
+                                                                                        anchors.bottomMargin: -1
 
-                                                                                        Repeater {
-                                                                                            id: lineNumberRepeater
-                                                                                            model: textAreaforHTTP.lineCount
-                                                                                            Layout.fillHeight: true
+                                                                                        RowLayout {
+                                                                                            spacing: 0
+                                                                                            width: parent.parent.width
+
+                                                                                            ColumnLayout {
+                                                                                                id: lineNumbers
+
+                                                                                                Repeater {
+                                                                                                    id: lineNumberRepeater
+                                                                                                    model: textAreaforHTTP.lineCount
+                                                                                                    Layout.fillHeight: true
+                                                                                                }
+                                                                                            }
+
+                                                                                            TextArea {
+                                                                                                width: parent.width
+                                                                                                height: 500
+                                                                                                id: textAreaforHTTP
+                                                                                                Layout.fillWidth: true
+                                                                                                Layout.fillHeight: true
+                                                                                                focus: true
+                                                                                                persistentSelection: true
+                                                                                                selectByMouse: true
+                                                                                                textMargin: 10
+                                                                                                textFormat: Text.RichText
+                                                                                                wrapMode: textAreaforHTTP.WrapAtWordBoundaryOrAnywhere
+                                                                                            }
                                                                                         }
                                                                                     }
 
-                                                                                    TextArea {
+                                                                                    Rectangle {
+                                                                                        id: rectanglefortextandbntlab4
+                                                                                        anchors.horizontalCenter: parent.horizontalCenter
                                                                                         width: parent.width
-                                                                                        height: 500
-                                                                                        id: textAreaforHTTP
-                                                                                        Layout.fillWidth: true
-                                                                                        Layout.fillHeight: true
-                                                                                        focus: true
-                                                                                        persistentSelection: true
-                                                                                        selectByMouse: true
-                                                                                        textMargin: 10
-                                                                                        textFormat: Text.RichText
-                                                                                        wrapMode: textAreaforHTTP.WrapAtWordBoundaryOrAnywhere
+                                                                                        height: 109
+                                                                                        anchors.bottom: parent.bottom
+                                                                                        color: "white"
+
+                                                                                        TextArea {
+                                                                                            id: textfieldforrate
+                                                                                            readOnly: true
+                                                                                            placeholderText: qsTr("BTC")
+                                                                                            anchors.horizontalCenter: parent.horizontalCenter
+                                                                                            anchors.bottom: parent.bottom
+                                                                                            activeFocusOnPress: false
+                                                                                            horizontalAlignment: TextInput.AlignHCenter
+                                                                                            textFormat: Text.RichText
+                                                                                            wrapMode: textfieldforrate.WrapAtWordBoundaryOrAnywhere
+                                                                                        }
+
+                                                                                        Button {
+                                                                                            id: buttontovernutsatonormdesign
+                                                                                            anchors.horizontalCenter: parent.horizontalCenter
+                                                                                            anchors.bottom: parent.bottom
+                                                                                            text: "Назад"
+                                                                                            font.family: "SF UI Display Light"
+                                                                                            font.pixelSize: 15
+                                                                                            anchors.bottomMargin: 50
+                                                                                            flat: true
+                                                                                            onClicked: {
+                                                                                                itemforbaddesignlab4.visible = false, itemforverygooddesignlab4.visible = true, indicatorforlab4.visible = true, delaybtntobaddesignlab4.visible = true, buttonforHTTP.visible = true, labelforratecostdesign.text = " ", labelforratestatedesign.text = " ", labelforratecostrubdesign.text = " ", labelforratedatedesign.text = " ", textAreaforHTTP.text = " ", textfieldforrate.text = "", linkrbk.visible = false, linkcoinbase.visible = false, signalMakeRequestHTTP()
+                                                                                            }
+                                                                                        }
                                                                                     }
                                                                                 }
                                                                             }
 
-                                                                            Rectangle {
-                                                                                visible: false
-                                                                                id: rectanglefortextandbntlab4
-                                                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                                                width: parent.width
-                                                                                height: 109
-                                                                                anchors.bottom: parent.bottom
-                                                                                color: "white"
 
-                                                                                TextArea {
-                                                                                    id: textfieldforrate
-                                                                                    readOnly: true
-                                                                                    placeholderText: qsTr("BTC")
+
+
+
+
+
+
+
+
+                                                                            Page{  //СТРАНИЦА ДЛЯ ПЯТОЙ ЛАБОРАТОРНОЙ - АУТЕНТИФИКАЦИЯ OAUTH2
+                                                                                id: page05
+                                                                                header: ToolBar {
+                                                                                    id: headerOAuth2
+                                                                                    anchors.leftMargin: 10
+                                                                                    anchors.left: parent.left;
+                                                                                    layer.enabled: true
+                                                                                    Material.background: "white"
+                                                                                    Text {
+                                                                                        font.family: "SF UI Display Bold"
+                                                                                        text: "Аутентификация OAuth2"
+                                                                                        font.pointSize: 23
+                                                                                        color: "black"
+                                                                                        anchors.bottom: parent.bottom
+                                                                                    }
+                                                                                }
+
+                                                                                TextField{
+                                                                                    id: textforloginlab5
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    anchors.top: parent.top
+                                                                                    anchors.topMargin: 30
+                                                                                    width: parent.width
+                                                                                }
+
+                                                                                TextField{
+                                                                                    id: textforpasslab5
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    anchors.top: textforloginlab5.bottom
+                                                                                    width: parent.width
+                                                                                }
+
+                                                                                Button{
+                                                                                    id: bntforlab5
                                                                                     anchors.horizontalCenter: parent.horizontalCenter
                                                                                     anchors.bottom: parent.bottom
-                                                                                    activeFocusOnPress: false
-                                                                                    horizontalAlignment: TextInput.AlignHCenter
-                                                                                    textFormat: Text.RichText
-                                                                                    wrapMode: textfieldforrate.WrapAtWordBoundaryOrAnywhere
+                                                                                    anchors.bottomMargin: 15
+
                                                                                 }
+
                                                                             }
+
+
+
                                                                         }
 
-                                                                        Page{  //СТРАНИЦА ДЛЯ ПЯТОЙ ЛАБОРАТОРНОЙ - АУТЕНТИФИКАЦИЯ OAUTH2
-                                                                            id: page05
-                                                                            header: ToolBar {
-                                                                                id: headerOAuth2
-                                                                                anchors.leftMargin: 10
-                                                                                anchors.left: parent.left;
-                                                                                layer.enabled: true
-                                                                                Material.background: "white"
-                                                                                Text {
-                                                                                    font.family: "SF UI Display Bold"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                        Drawer{
+                                                                            id: drawer
+                                                                            width: 0.80 * parent.width
+                                                                            height: parent.height
+                                                                            dragMargin: 10 * Screen.pixelDensity
+                                                                            GridLayout{
+                                                                                width: parent.width
+                                                                                columns: 1
+                                                                                Button{
+                                                                                    text: "Элементы GUI"
+                                                                                    flat: true
+                                                                                    onClicked: {
+                                                                                        swipeView.currentIndex = 0
+                                                                                        drawer.close()
+                                                                                    }
+                                                                                }
+
+                                                                                Button{
+                                                                                    text: "Камера. Фото и видео"
+                                                                                    flat: true
+                                                                                    onClicked: {
+                                                                                        swipeView.currentIndex = 1
+                                                                                        drawer.close()
+                                                                                    }
+                                                                                }
+                                                                                Button{
+                                                                                    text: "Графические эффекты"
+                                                                                    flat: true
+                                                                                    onClicked: {
+                                                                                        swipeView.currentIndex = 2
+                                                                                        drawer.close()
+                                                                                    }
+                                                                                }
+
+                                                                                Button{
+                                                                                    text: "HTTP запросы"
+                                                                                    flat: true
+                                                                                    onClicked: {
+                                                                                        swipeView.currentIndex = 3
+                                                                                        drawer.close()
+                                                                                    }
+                                                                                }
+
+                                                                                Button{
                                                                                     text: "Аутентификация OAuth2"
-                                                                                    font.pointSize: 23
-                                                                                    color: "black"
-                                                                                    anchors.bottom: parent.bottom
-                                                                                }
-                                                                            }
-
-                                                                            TextField{
-                                                                                id: textforloginlab5
-                                                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                                                anchors.top: parent.top
-                                                                                anchors.topMargin: 30
-                                                                                width: parent.width
-                                                                            }
-
-                                                                            TextField{
-                                                                                id: textforpasslab5
-                                                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                                                anchors.top: textforloginlab5.bottom
-                                                                                width: parent.width
-                                                                            }
-
-                                                                            Button{
-                                                                                id: bntforlab5
-                                                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                                                anchors.bottom: parent.bottom
-                                                                                anchors.bottomMargin: 15
-
-                                                                            }
-
-                                                                        }
-
-
-
-                                                                    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                    Drawer{
-                                                                        id: drawer
-                                                                        width: 0.80 * parent.width
-                                                                        height: parent.height
-                                                                        dragMargin: 10 * Screen.pixelDensity
-                                                                        GridLayout{
-                                                                            width: parent.width
-                                                                            columns: 1
-                                                                            Button{
-                                                                                text: "Элементы GUI"
-                                                                                flat: true
-                                                                                onClicked: {
-                                                                                    swipeView.currentIndex = 0
-                                                                                    drawer.close()
-                                                                                }
-                                                                            }
-
-                                                                            Button{
-                                                                                text: "Камера. Фото и видео"
-                                                                                flat: true
-                                                                                onClicked: {
-                                                                                    swipeView.currentIndex = 1
-                                                                                    drawer.close()
-                                                                                }
-                                                                            }
-                                                                            Button{
-                                                                                text: "Графические эффекты"
-                                                                                flat: true
-                                                                                onClicked: {
-                                                                                    swipeView.currentIndex = 2
-                                                                                    drawer.close()
-                                                                                }
-                                                                            }
-
-                                                                            Button{
-                                                                                text: "HTTP запросы"
-                                                                                flat: true
-                                                                                onClicked: {
-                                                                                    swipeView.currentIndex = 3
-                                                                                    drawer.close()
-                                                                                }
-                                                                            }
-
-                                                                            Button{
-                                                                                text: "Аутентификация OAuth2"
-                                                                                flat: true
-                                                                                onClicked: {
-                                                                                    swipeView.currentIndex = 4
-                                                                                    drawer.close()
+                                                                                    flat: true
+                                                                                    onClicked: {
+                                                                                        swipeView.currentIndex = 4
+                                                                                        drawer.close()
+                                                                                    }
                                                                                 }
                                                                             }
                                                                         }
-                                                                    }
 
-                                                                    /* footer: TabBar {
+                                                                        /* footer: TabBar {
                     id: tabBar
                     currentIndex: swipeView.currentIndex
                     font.family: "SF UI Display Light"
@@ -958,4 +996,4 @@ ApplicationWindow {
                         text: qsTr("Page 3")
                     }
                 }*/
-                                                                }
+                                                                    }
