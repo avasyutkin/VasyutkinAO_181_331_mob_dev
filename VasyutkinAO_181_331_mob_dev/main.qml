@@ -718,7 +718,7 @@ ApplicationWindow {
                                                                                     Label { id: linkcoinbase; text: "coinbase.com"; visible: false; font.family: "SF UI Display Light"; color: "#9c9c9c"; anchors.top: labelforratecostrubdesign.bottom; anchors.topMargin: -3; anchors.left: parent.left; anchors.leftMargin: 10; }
                                                                                     Label { }
                                                                                     Label { id: labelforratecostdesign; font.pixelSize: 35;  font.family: "SF UI Display Bold"; color: "#222222"; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: linkcoinbase.bottom; anchors.topMargin: 20; }
-                                                                                    Label { id: labelforratestatedesign; font.pixelSize: 27; font.family: "SF UI Display"; color: if (labelforboolcolorlab_4.text == "true") "#20b984"; else "#ff4545"; anchors.top: linkcoinbase.bottom; anchors.topMargin: 24; anchors.left: labelforratecostdesign.right; anchors.leftMargin: 9 }
+                                                                                    Label { id: labelforratestatedesign; font.pixelSize: 21; font.family: "SF UI Display"; color: if (labelforboolcolorlab_4.text == "true") "#20b984"; else "#ff4545"; anchors.top: linkcoinbase.bottom; anchors.topMargin: 33; anchors.left: labelforratecostdesign.right; anchors.leftMargin: 6 }
                                                                                     Label { id: linkrbk; text: "rbc.ru"; visible: false; font.family: "SF UI Display Light"; color: "#9c9c9c"; anchors.top: labelforratecostdesign.bottom; anchors.topMargin: 0; anchors.left: parent.left; anchors.leftMargin: 10 }
                                                                                     Label { }
                                                                                     Label { id: labelforratedatedesign; color: "#888888"; font.family: "SF UI Display"; font.pixelSize: 15; anchors.left: parent.left; anchors.leftMargin: 10; anchors.top: linkrbk.bottom; anchors.topMargin: 15; }
@@ -746,9 +746,9 @@ ApplicationWindow {
                                                                                 background:
                                                                                     Rectangle {
                                                                                     width: parent.width
-                                                                                    height: 5
                                                                                 }
 
+                                                                                Material.foreground: "#9c9c9c"
                                                                                 anchors.horizontalCenter: parent.horizontalCenter
                                                                                 anchors.bottom: parent.bottom
                                                                                 text: "long click on me"
