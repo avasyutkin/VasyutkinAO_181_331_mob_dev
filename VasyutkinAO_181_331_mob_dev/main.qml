@@ -211,6 +211,7 @@ ApplicationWindow {
                 spacing: 50
                 anchors.top: parent.top
                 anchors.topMargin: 20
+                height: 40
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 RadioButton{
@@ -235,9 +236,11 @@ ApplicationWindow {
 
             Item{  //СТРАНИЦА С КАМЕРОЙ
                 id: page1
-                width: 375
-                height: 470
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: rowforradio.bottom
+                anchors.bottom: parent.bottom
+                anchors.verticalCenter: parent.verticalCenter
 
                 Camera{
                     id: camera
@@ -251,10 +254,14 @@ ApplicationWindow {
                 VideoOutput{
                     id: photocam
                     source: camera  //показывает на экране во время записи
-                    anchors.bottom: rowforbnt.top
-                    anchors.bottomMargin: 50
-                    width: 375
-                    height: 200
+                    anchors.left: page1.left
+                    anchors.right: page1.right
+                    anchors.top: rowforradio.bottom
+                    anchors.bottom: page1.bottom
+                    anchors.leftMargin: 10
+                    anchors.rightMargin: 10
+                    anchors.bottomMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
 
                     Image {
                         id: photoPreview
@@ -273,7 +280,8 @@ ApplicationWindow {
                                 id: rowforbnt
                                 spacing: 20
                                 anchors.horizontalCenter: parent.horizontalCenter
-                                anchors.top: parent.bottom
+                                anchors.bottom: photocam.bottom
+                                anchors.bottomMargin: 50
 
                                 RoundButton{
                                     id: capturebutton
@@ -298,14 +306,17 @@ ApplicationWindow {
                         Item{  //страница с просмотром видео
                             id: page2
                             visible: false
-                            width: 375
-                            height: 667
-                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.top: rowforradio.bottom
+                            anchors.bottom: parent.bottom
 
                             Button {
+                                id: btnfordialoglab2
                                 anchors.horizontalCenter: parent.horizontalCenter
-                                anchors.bottom: rectangleforvideo.top
-                                anchors.bottomMargin: 40
+                                //anchors.top: rowforradio.bottom
+                                anchors.top: page2.top
+                                anchors.topMargin: 20
                                 flat: true
                                 text: "Открыть видео"
                                 onClicked: fileDialog.open()
@@ -319,11 +330,11 @@ ApplicationWindow {
                             }
 
                             Rectangle{
+                                anchors.left: page2.left
+                                anchors.right: page2.right
+                                anchors.top: btnfordialoglab2.bottom
+                                anchors.bottom: page2.bottom
                                 id: rectangleforvideo
-                                width: 320
-                                height: 240
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                anchors.verticalCenter: parent.verticalCenter
 
                                 MediaPlayer {
                                     id: player
@@ -336,34 +347,41 @@ ApplicationWindow {
                                 VideoOutput {
                                     id: videoOutput
                                     source: player
-                                    anchors.bottom: parent.bottom
-                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.left: rectangleforvideo.left
+                                    anchors.right: rectangleforvideo.right
+                                    anchors.top: btnfordialoglab2.bottom
+                                    anchors.bottom: sliderforvideo.bottom
+                                    anchors.leftMargin: 10
+                                    anchors.rightMargin: 10
+                                    anchors.bottomMargin: 45
+                                    anchors.verticalCenter: rectangleforvideo.verticalCenter
                                 }
 
                                 Slider{
                                     id:sliderforvideo
-                                    anchors.topMargin: 10
                                     visible: false
                                     value: player.position
                                     to: player.duration
-                                    anchors.left: parent.left
-                                    anchors.top: parent.bottom
-                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.left: videoOutput.left
+                                    anchors.bottom: rectangleforvideo.bottom
+                                    anchors.bottomMargin: 20
+                                    anchors.horizontalCenter: videoOutput.horizontalCenter
                                     onPressedChanged: {
                                         player.seek(sliderforvideo.value)
                                     }
                                 }
 
                                 MouseArea {
-                                    anchors.fill: parent
+                                    anchors.fill: videoOutput
+                                    id: areaforvideolab2
                                     onClicked:
                                         bntplayorstop.visible = true, sliderforvideo.visible = true, timerforguivideo.start()
 
                                     Button {
                                         id: bntplayorstop
                                         flat: true
-                                        anchors.horizontalCenter: parent.horizontalCenter
-                                        anchors.verticalCenter: parent.verticalCenter
+                                        anchors.horizontalCenter: areaforvideolab2.horizontalCenter
+                                        anchors.verticalCenter: areaforvideolab2.verticalCenter
                                         icon.color: "white"
                                         icon.height: 55
                                         visible: false
@@ -402,7 +420,7 @@ ApplicationWindow {
 
                                                 Image {
                                                     id: imageforchange
-                                                    source: "/image/p4ZBKSVeTFY.jpg"
+                                                    source: if (fileDialoglab3.fileUrl == 0) "/image/p4ZBKSVeTFY.jpg"; else fileDialoglab3.fileUrl
                                                     width: 340
                                                     height: 338
                                                     anchors.horizontalCenter: parent.horizontalCenter
@@ -410,6 +428,13 @@ ApplicationWindow {
                                                     anchors.topMargin: 35
                                                     MouseArea {
                                                         anchors.fill: parent
+                                                        FileDialog {
+                                                            id: fileDialoglab3
+                                                            folder: shortcuts.home
+                                                            nameFilters: [ "Image files (*.jpg *.png)"]
+
+                                                        }
+                                                        onPressAndHold: fileDialoglab3.open()
                                                         onDoubleClicked: sliderforradius.value = 0, sliderforloops.value = 0,
                                                         sliderforhue.value = 0, sliderforlightness.value = 0, sliderforsaturation.value = 0,
                                                         sliderforradiusglow.value = 0, sliderforspread.value = 0
