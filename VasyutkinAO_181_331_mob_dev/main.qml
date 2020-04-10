@@ -12,6 +12,7 @@ import QtQuick.Window 2.12
 import QtQuick 2.2
 import QtQuick.Dialogs 1.0
 import QtQml 2.14
+import QtWebView 1.1
 
 ApplicationWindow {
 
@@ -902,7 +903,22 @@ ApplicationWindow {
                                                                                     }
                                                                                 }
 
-                                                                                TextField{
+                                                                                /*WebView {
+                                                                                    id: browserlab5
+                                                                                    anchors.fill: parent
+                                                                                    url: "https://google.com/"
+                                                                                }*/
+
+
+
+
+
+
+
+
+
+
+                                                                                /*TextField{
                                                                                     id: textforloginlab5
                                                                                     anchors.horizontalCenter: parent.horizontalCenter
                                                                                     anchors.top: parent.top
@@ -923,7 +939,7 @@ ApplicationWindow {
                                                                                     anchors.bottom: parent.bottom
                                                                                     anchors.bottomMargin: 15
 
-                                                                                }
+                                                                                }*/
 
                                                                             }
 
