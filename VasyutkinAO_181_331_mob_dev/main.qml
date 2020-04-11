@@ -12,7 +12,7 @@ import QtQuick.Window 2.12
 import QtQuick 2.2
 import QtQuick.Dialogs 1.0
 import QtQml 2.14
-import QtWebView 1.1
+import QtWebView 1.14
 
 ApplicationWindow {
 
@@ -920,19 +920,18 @@ ApplicationWindow {
                                                                                     Material.background: "white"
                                                                                     Text {
                                                                                         font.family: "SF UI Display Bold"
-                                                                                        text: "Аутентификация OAuth2"
+                                                                                        text: "OAuth2"
                                                                                         font.pointSize: 23
                                                                                         color: "black"
                                                                                         anchors.bottom: parent.bottom
                                                                                     }
                                                                                 }
 
-                                                                                /*WebView {
+                                                                                WebView {
                                                                                     id: browserlab5
                                                                                     anchors.fill: parent
-                                                                                    url: "https://google.com/"
-                                                                                }*/
-
+                                                                                    url: "https://m.vk.com/"
+                                                                                }
 
 
 
