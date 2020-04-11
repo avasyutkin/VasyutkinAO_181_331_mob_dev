@@ -235,71 +235,86 @@ ApplicationWindow {
                 }
             }
 
-            Item{  //СТРАНИЦА С КАМЕРОЙ
-                id: page1
+            Rectangle {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: rowforradio.bottom
                 anchors.bottom: parent.bottom
                 anchors.verticalCenter: parent.verticalCenter
-
-                Camera{
-                    id: camera
-                    imageCapture{
-                        onImageCaptured: {
-                            photoPreview.source = preview
-                        }
-                    }
+                border.color: "#2E3F7F"
+                border.width: 3
+                radius: 7
+                gradient: Gradient {
+                    GradientStop { position: 1.0; color: "#094A6F" }
+                    GradientStop { position: 0.6; color: "#64C8BD" }
                 }
 
-                VideoOutput{
-                    id: photocam
-                    source: camera  //показывает на экране во время записи
-                    anchors.left: page1.left
-                    anchors.right: page1.right
+                Item{  //СТРАНИЦА С КАМЕРОЙ
+                    id: page1
+                    anchors.left: parent.left
+                    anchors.right: parent.right
                     anchors.top: rowforradio.bottom
-                    anchors.bottom: page1.bottom
-                    anchors.leftMargin: 10
-                    anchors.rightMargin: 10
-                    anchors.bottomMargin: 10
+                    anchors.bottom: parent.bottom
                     anchors.verticalCenter: parent.verticalCenter
 
-                    Image {
-                        id: photoPreview
-                        height: 40
-                        width: 75
-                        anchors.right: parent.right
-
-                        MouseArea {
-                            anchors.fill: parent;
-                            onClicked: photoPreview.width = 375, photoPreview.height = 200
-                            onDoubleClicked: photoPreview.width = 75, photoPreview.height = 40
+                    Camera{
+                        id: camera
+                        imageCapture{
+                            onImageCaptured: {
+                                photoPreview.source = preview
+                            }
                         }
-                        }
-                        }
-                            RowLayout{
-                                id: rowforbnt
-                                spacing: 20
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                anchors.bottom: photocam.bottom
-                                anchors.bottomMargin: 50
+                    }
 
-                                RoundButton{
-                                    id: capturebutton
-                                    Material.background: "grey"
-                                    text: "C"
-                                    onClicked: camera.imageCapture.capture()
-                                }
+                    VideoOutput{
+                        id: photocam
+                        source: camera  //показывает на экране во время записи
+                        anchors.left: page1.left
+                        anchors.right: page1.right
+                        anchors.top: rowforradio.bottom
+                        anchors.bottom: page1.bottom
+                        anchors.leftMargin: 10
+                        anchors.rightMargin: 10
+                        anchors.bottomMargin: 10
+                        anchors.verticalCenter: parent.verticalCenter
 
-                                RoundButton {
-                                    id: videobutton
-                                    Material.background: "red"
-                                    text: "R"
-                                    onClicked:
-                                        if(camera.videoRecorder.StoppedState)
-                                            camera.videoRecorder.record()
-                                        else
-                                            camera.videoRecorder.stop()
+                        Image {
+                            id: photoPreview
+                            height: 40
+                            width: 75
+                            anchors.right: parent.right
+
+                            MouseArea {
+                                anchors.fill: parent;
+                                onClicked: photoPreview.width = 355, photoPreview.height = 190
+                                onDoubleClicked: photoPreview.width = 75, photoPreview.height = 40
+                            }
+                            }
+                            }
+                                RowLayout{
+                                    id: rowforbnt
+                                    spacing: 20
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.bottom: photocam.bottom
+                                    anchors.bottomMargin: 50
+
+                                    RoundButton{
+                                        id: capturebutton
+                                        Material.background: "grey"
+                                        text: "C"
+                                        onClicked: camera.imageCapture.capture()
+                                    }
+
+                                    RoundButton {
+                                        id: videobutton
+                                        Material.background: "red"
+                                        text: "R"
+                                        onClicked:
+                                            if(camera.videoRecorder.StoppedState)
+                                                camera.videoRecorder.record()
+                                            else
+                                                camera.videoRecorder.stop()
+                                    }
                                 }
                             }
                         }
@@ -315,9 +330,11 @@ ApplicationWindow {
                             Button {
                                 id: btnfordialoglab2
                                 anchors.horizontalCenter: parent.horizontalCenter
-                                //anchors.top: rowforradio.bottom
+                                font.pixelSize: 15
                                 anchors.top: page2.top
                                 anchors.topMargin: 20
+                                anchors.leftMargin: 10
+                                Material.foreground: "white"
                                 flat: true
                                 text: "Открыть видео"
                                 onClicked: fileDialog.open()
@@ -331,15 +348,22 @@ ApplicationWindow {
                             }
 
                             Rectangle{
+                                id: rectangleforvideo
                                 anchors.left: page2.left
                                 anchors.right: page2.right
                                 anchors.top: btnfordialoglab2.bottom
                                 anchors.bottom: page2.bottom
-                                id: rectangleforvideo
+                                anchors.leftMargin: 3
+                                anchors.rightMargin: 3
+                                radius: 7
+                                gradient: Gradient {
+                                    GradientStop { position: 1.0; color: "#094A6F" }
+                                    GradientStop { position: 0.6; color: "#64C8BD" }
+                                }
 
                                 MediaPlayer {
                                     id: player
-                                    source: fileDialog.fileUrl
+                                    source: if (fileDialog.fileUrl == 0) "/video/sample (1).avi"; else fileDialog.fileUrl
                                     autoPlay: true
                                     volume: 0
                                     loops: 5
