@@ -122,3 +122,14 @@ QString QHTTPController::currentratecostrub(QByteArray replyString)
     qDebug ()<< "В рублях" << jsonfromcoingate << amountrateforruble;
     return amountrateforruble;
 }
+
+
+
+
+
+
+
+QString QHTTPController::auth()
+{
+    return "gg";
+}
