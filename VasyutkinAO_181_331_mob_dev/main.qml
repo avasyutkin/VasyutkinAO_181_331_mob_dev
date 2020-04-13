@@ -934,6 +934,8 @@ ApplicationWindow {
 
                                                                                     onLoadingChanged: {
                                                                                         console.info(browserlab5.url + "kjkkkkkkkkkkjjj")
+                                                                                        var token = String.prototype.match.call(browserlab5.url,  /access_token=([^&]+)/)[1];
+                                                                                        console.info(token + "   token")
                                                                                         /*if (loadRequest===WebView.LoadSucceededStatus)
                                                                                             console.info(browserlab5.url + "kjkkkkkkkkkkjjj")
                                                                                         else if (loadRequest===WebView.LoadSucceededStatus)
@@ -954,47 +956,11 @@ ApplicationWindow {
                                                                                         //+"&scope={\"is_yandex\": false, \"localized_scope\": [\"\u0418\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u0435 API \u042f\u043d\u0434\u0435\u043a\u0441.\u0414\u043e\u0441\u0442\u0430\u0432\u043a\u0438 \u0434\u043b\u044f \u043f\u0430\u0440\u0442\u043d\u0435\u0440\u043e\u0432", "\u0427\u0442\u0435\u043d\u0438\u0435 \u0432\u0441\u0435\u0433\u043e \u0414\u0438\u0441\u043a\u0430\", \"\u0414\u043e\u0441\u0442\u0443\u043f \u043d\u0430 \u0447\u0442\u0435\u043d\u0438\u0435 \u043f\u0438\u0441\u0435\u043c \u0432 \u043f\u043e\u0447\u0442\u043e\u0432\u043e\u043c \u044f\u0449\u0438\u043a\u0435\", \"\u0410\u0443\u0442\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f \u0432 \u041e\u0431\u043b\u0430\u043a\u0435\"], \"ctime\": 1586680495, \"mtime\": 1586680495, \"id\": \"b90874f5afbc41c5a675b31f708dc772\", \"description\": \"\", \"name\": \"MobDev_vasyutkin\", \"localized_names\": {\"ru\": \"MobDev_vasyutkin\", \"en\": \"MobDev_vasyutkin\", \"tr\": \"MobDev_vasyutkin\", \"uk\": \"MobDev_vasyutkin\"}, \"callback\": \"https://oauth.yandex.ru/verification_code\", \"scope\": [\"delivery:partner-api\", \"cloud_api:disk.read\", \"mail:imap_ro\", \"cloud:auth\"], \"icon\": null, \"homepage\": \"\"}"
                                                                                         //+"&optional_scope=<запрашиваемые опциональные права>"
                                                                                                 +"&force_confirm=yes"
-                                                                                                +"&state=ну че как жизнб"
+                                                                                                +"&state=get_token"
                                                                                                 +"&display=popup"
-
                                                                                     }
                                                                                 }
-
-
-
-
-
-
-
-
-
-                                                                                /*TextField{
-                                                                                    id: textforloginlab5
-                                                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                                                    anchors.top: parent.top
-                                                                                    anchors.topMargin: 30
-                                                                                    width: parent.width
-                                                                                }
-
-                                                                                TextField{
-                                                                                    id: textforpasslab5
-                                                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                                                    anchors.top: textforloginlab5.bottom
-                                                                                    width: parent.width
-                                                                                }
-
-                                                                                Button{
-                                                                                    id: bntforlab5
-                                                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                                                    anchors.bottom: parent.bottom
-                                                                                    anchors.bottomMargin: 15
-
-                                                                                }*/
-
                                                                             }
-
-
-
                                                                         }
 
 
