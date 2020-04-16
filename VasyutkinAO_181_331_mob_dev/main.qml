@@ -302,7 +302,7 @@ ApplicationWindow {
                                         id: capturebutton
                                         Material.background: "grey"
                                         text: "C"
-                                        onClicked: camera.imageCapture.capture()
+                                        onClicked: camera.imageCapture.captureToLocation("C:\Intel")
                                     }
 
                                     RoundButton {
@@ -451,6 +451,9 @@ ApplicationWindow {
                                                     anchors.horizontalCenter: parent.horizontalCenter
                                                     anchors.top: parent.top
                                                     anchors.topMargin: 35
+                                                    anchors.bottom: sliderforsaturation.top
+                                                    anchors.bottomMargin: 15
+                                                    fillMode: Image.PreserveAspectFit
                                                     MouseArea {
                                                         anchors.fill: parent
                                                         FileDialog {
@@ -858,8 +861,8 @@ ApplicationWindow {
                                                                                                 persistentSelection: true
                                                                                                 selectByMouse: true
                                                                                                 textMargin: 10
-                                                                                                textFormat: Text.RichText
-                                                                                                wrapMode: textAreaforHTTP.WrapAtWordBoundaryOrAnywhere
+                                                                                                textFormat: Text.PlainText
+                                                                                                //wrapMode: textAreaforHTTP.WrapAtWordBoundaryOrAnywhere
                                                                                             }
                                                                                         }
                                                                                     }
@@ -927,23 +930,20 @@ ApplicationWindow {
                                                                                     }
                                                                                 }
 
-                                                                                Text{
-                                                                                    id: texttoken
-                                                                                    anchors.left: parent.left
-                                                                                    anchors.leftMargin: 50
-                                                                                }
-
                                                                                 WebView {
                                                                                     id: browserlab5
                                                                                     anchors.fill: parent
-
+                                                                                    visible: false
                                                                                     onLoadingChanged: {
                                                                                         console.info(browserlab5.url + " current url")
                                                                                         //var token = String.prototype.match.call(browserlab5.url,  /access_token=([^&]+)/)[1];
 
-                                                                                        //texttoken.text = token
+
                                                                                         var token = httpController.auth(browserlab5.url)
+                                                                                        labelfortoken.text = token
                                                                                         console.info(token + " token")
+                                                                                        //browserlab5.visible = false
+                                                                                        //btngettoken.visible = true
                                                                                         /*if (loadRequest===WebView.LoadSucceededStatus)
                                                                                             console.info(browserlab5.url + "kjkkkkkkkkkkjjj")
                                                                                         else if (loadRequest===WebView.LoadSucceededStatus)
@@ -953,7 +953,16 @@ ApplicationWindow {
                                                                                     }
                                                                                 }
 
+                                                                                Label {
+                                                                                    id: labelfortoken
+                                                                                }
+
                                                                                 Button {
+                                                                                    id:btngettoken
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    text: "Получить токен"
+                                                                                    anchors.bottom: parent.bottom
+                                                                                    anchors.bottomMargin: 150
                                                                                     onClicked: {
                                                                                         browserlab5.url ="https://oauth.yandex.ru/authorize?response_type=token"
                                                                                                 +"&client_id=b90874f5afbc41c5a675b31f708dc772"
@@ -966,6 +975,7 @@ ApplicationWindow {
                                                                                                 +"&force_confirm=yes"
                                                                                                 +"&state=get_token"
                                                                                                 +"&display=popup"
+                                                                                        btngettoken.visible = false, browserlab5.visible = true
                                                                                     }
                                                                                 }
                                                                             }

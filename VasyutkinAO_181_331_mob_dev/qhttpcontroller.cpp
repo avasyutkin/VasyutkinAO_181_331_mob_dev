@@ -132,10 +132,15 @@ QString QHTTPController::currentratecostrub(QByteArray replyString)
 
 QString QHTTPController::auth(QString urlforauth)
 {
-    int a = urlforauth.indexOf("access_token=") + 13;
-    int b = urlforauth.indexOf("&token_type");
-    int c = b - a;
-    urlforauth = urlforauth.mid(a, c);
+    if (urlforauth.contains("&token_type=bearer&expires_in=") == true)
+    {
+        int a = urlforauth.indexOf("access_token=") + 13;
+        int b = urlforauth.indexOf("&token_type");
+        int c = b - a;
+        urlforauth = urlforauth.mid(a, c);
+    }
+    else
+        urlforauth = "лох";
 
-    return urlforauth;
+                return urlforauth;
 }
