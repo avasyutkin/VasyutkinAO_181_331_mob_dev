@@ -21,6 +21,7 @@ public slots:
     QString currentratedate(QString replyString);
     QString currentratecostrub(QByteArray replyString);
     QString auth(QString urlforauth);
+    bool authbool(QString urlforauth);
 signals:
     void signalSendToQML(QString pReply, QString replayrete, QString currentratecost, QString currentratestate, bool boolforcolorlab_4, QString currentratedate);
     void signalSendToQML_2(QString currentratecostrub);

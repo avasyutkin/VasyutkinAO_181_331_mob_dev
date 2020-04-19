@@ -933,28 +933,42 @@ ApplicationWindow {
                                                                                 WebView {
                                                                                     id: browserlab5
                                                                                     anchors.fill: parent
-                                                                                    visible: false
+
                                                                                     onLoadingChanged: {
                                                                                         console.info(browserlab5.url + " current url")
-                                                                                        //var token = String.prototype.match.call(browserlab5.url,  /access_token=([^&]+)/)[1];
-
-
                                                                                         var token = httpController.auth(browserlab5.url)
+                                                                                        var tokenbool = httpController.authbool(browserlab5.url)
+
+                                                                                        browserlab5.visible = token === " " ? true : false;
+                                                                                        btngettoken.visible = token === " " ? false : true;
                                                                                         labelfortoken.text = token
-                                                                                        console.info(token + " token")
-                                                                                        //browserlab5.visible = false
-                                                                                        //btngettoken.visible = true
-                                                                                        /*if (loadRequest===WebView.LoadSucceededStatus)
-                                                                                            console.info(browserlab5.url + "kjkkkkkkkkkkjjj")
-                                                                                        else if (loadRequest===WebView.LoadSucceededStatus)
-                                                                                            console.info(browserlab5.url + "kjkkkkkkkkkkjjj")
-                                                                                        else if (loadRequest===WebView.LoadFailedStatus)
-                                                                                            console.info(browserlab5.url + "kjkkkkkkkkkkjjj")*/
+
+                                                                                        labelfortoken.color = tokenbool === true ? "black" : "#FF0000"
+                                                                                        labelsucsesslab5.visible = tokenbool === true ? true : false
+
+                                                                                        console.info(token + " token    " + tokenbool)
                                                                                     }
                                                                                 }
 
                                                                                 Label {
                                                                                     id: labelfortoken
+                                                                                    anchors.bottom: btngettoken.top
+                                                                                    anchors.bottomMargin: 170
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    font.family: "SF UI Display"
+                                                                                    font.pixelSize: 16
+                                                                                }
+
+                                                                                Label {
+                                                                                    id: labelsucsesslab5
+                                                                                    anchors.bottom: btngettoken.top
+                                                                                    anchors.bottomMargin: 250
+                                                                                    visible: false
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    font.family: "SF UI Display"
+                                                                                    font.pixelSize: 21
+                                                                                    text: "Успешно! Ваш токен:"
+                                                                                    color: "#77BD8B"
                                                                                 }
 
                                                                                 Button {
@@ -962,8 +976,12 @@ ApplicationWindow {
                                                                                     anchors.horizontalCenter: parent.horizontalCenter
                                                                                     text: "Получить токен"
                                                                                     anchors.bottom: parent.bottom
-                                                                                    anchors.bottomMargin: 150
+                                                                                    anchors.bottomMargin: 130
+                                                                                    font.family: "SF UI Display Light"
+                                                                                    font.pixelSize: 21
+                                                                                    flat: true
                                                                                     onClicked: {
+                                                                                        //browserlab5.visible = false
                                                                                         browserlab5.url ="https://oauth.yandex.ru/authorize?response_type=token"
                                                                                                 +"&client_id=b90874f5afbc41c5a675b31f708dc772"
                                                                                                 +"&device_id=123456546546"
@@ -975,7 +993,7 @@ ApplicationWindow {
                                                                                                 +"&force_confirm=yes"
                                                                                                 +"&state=get_token"
                                                                                                 +"&display=popup"
-                                                                                        btngettoken.visible = false, browserlab5.visible = true
+                                                                                        //btngettoken.clicked ? browserlab5.visible = true : browserlab5.visible = false
                                                                                     }
                                                                                 }
                                                                             }

@@ -124,23 +124,43 @@ QString QHTTPController::currentratecostrub(QByteArray replyString)
     return amountrateforruble;
 }
 
-
-
-
-
-
-
 QString QHTTPController::auth(QString urlforauth)
 {
-    if (urlforauth.contains("&token_type=bearer&expires_in=") == true)
+    qDebug() << urlforauth << "выполнено oauth";
+    if (urlforauth.contains("token_type=bearer&expires_in=") == true)
     {
         int a = urlforauth.indexOf("access_token=") + 13;
         int b = urlforauth.indexOf("&token_type");
         int c = b - a;
         urlforauth = urlforauth.mid(a, c);
+        return urlforauth;
     }
-    else
-        urlforauth = "лох";
 
-                return urlforauth;
+    else if (urlforauth.contains("&error=access_denied&") == true)
+    {
+        return "Не удалось получить токен";
+    }
+
+    QString text = " ";
+    return text;
+}
+
+bool QHTTPController::authbool(QString urlforauth)
+{
+    qDebug() << urlforauth << "выполнено oauth";
+    if (urlforauth.contains("token_type=bearer&expires_in=") == true)
+    {
+        int a = urlforauth.indexOf("access_token=") + 13;
+        int b = urlforauth.indexOf("&token_type");
+        int c = b - a;
+        urlforauth = urlforauth.mid(a, c);
+        return 1;
+    }
+
+    else if (urlforauth.contains("&error=access_denied&") == true)
+    {
+        return 0;
+    }
+
+    return 0;
 }
