@@ -14,6 +14,7 @@ DEFINES += QT_DEPRECATED_WARNINGS   #объявление переменных �
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \   #раздел файлов исходного кода на С++ (здесь прописаны все файлы из дерева файлов)
+        crypto_controller.cpp \
         main.cpp \
         qhttpcontroller.cpp
 
@@ -35,9 +36,27 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+INCLUDEPATH += \
+            C:\Qt\Tools\OpenSSL\Win_x64\include\openssl
+
+LIBS += \
+         C:\Qt\Tools\OpenSSL\Win_x64\lib\libcrypto.lib
+
 DISTFILES += \
     ../../films/Kriminal'noe.mkv \
     ../../films/Kriminal'noe.mkv
 
 HEADERS += \
+    crypto_controller.h \
     qhttpcontroller.h
+
+QMAKE_EXTRA_TARGETS += before_build makefilehook
+
+makefilehook.target = $(MAKEFILE)
+makefilehook.depends = .beforebuild
+
+PRE_TARGETDEPS += .beforebuild
+
+before_build.target = .beforebuild
+before_build.depends = FORCE
+before_build.commands = chcp 1251

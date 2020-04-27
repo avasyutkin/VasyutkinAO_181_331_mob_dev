@@ -170,15 +170,19 @@ QJsonArray QHTTPController::requestReceivingAPI(QString token)
     QByteArray token_bytearray = token.toUtf8();
 
     QNetworkRequest request;
-    request.setUrl(QUrl("https://cloud-api.yandex.net:443/v1/disk/resources/files?fields=name%2C%20created%2C%20size%2C%20preview&media_type=image&offset=0&preview_crop=true&preview_size=40"));
+    request.setUrl(QUrl("https://cloud-api.yandex.net:443/v1/disk/resources/files"));
     request.setRawHeader("Accept-Language", "ru" );
     request.setRawHeader("Content-Type", "application/json");
     request.setRawHeader("Authorization", token_bytearray);
 
+    QByteArray body;
+    body.append()
+    
     QNetworkAccessManager *pManager = new QNetworkAccessManager();
 
     QNetworkReply * reply;
     reply = pManager -> post(request);
+    //reply - pManager -> get(request);
     QByteArray replyString = reply -> readAll();
     qDebug() << reply -> url()
              << reply -> rawHeaderList()
