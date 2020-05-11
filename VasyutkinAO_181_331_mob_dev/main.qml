@@ -946,7 +946,11 @@ ApplicationWindow {
                                                                                         labelfortoken.color = tokenbool === true ? "black" : "#FF0000"
                                                                                         labelsucsesslab5.visible = tokenbool === true ? true : false
 
-                                                                                        console.info(token + " token    " + tokenbool)
+                                                                                        //console.info(token + " token    " + tokenbool)
+
+
+                                                                                        //var gfdfgdfgf = httpController.requestReceivingAPI(token)
+                                                                                        //labelfortoken.text = gfdfgdfgf
                                                                                     }
                                                                                 }
 

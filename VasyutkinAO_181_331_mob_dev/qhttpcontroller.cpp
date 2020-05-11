@@ -12,6 +12,7 @@
 #include <QJsonArray>
 #include <QNetworkAccessManager>
 #include <string.h>
+#include <QHttpMultiPart>
 
 
 QHTTPController::QHTTPController(QObject *parent) : QObject(parent)
@@ -133,6 +134,13 @@ QString QHTTPController::auth(QString urlforauth)
         int b = urlforauth.indexOf("&token_type");
         int c = b - a;
         urlforauth = urlforauth.mid(a, c);
+
+
+
+        //requestReceivingAPI(urlforauth);
+
+
+
         return urlforauth;
     }
 
@@ -165,23 +173,57 @@ bool QHTTPController::authbool(QString urlforauth)
     return 0;
 }
 
-QJsonArray QHTTPController::requestReceivingAPI(QString token)
+QByteArray QHTTPController::requestReceivingAPI(QString token)
 {
     QByteArray token_bytearray = token.toUtf8();
 
     QNetworkRequest request;
-    request.setUrl(QUrl("https://cloud-api.yandex.net:443/v1/disk/resources/files?fields=name%2C%20created%2C%20size%2C%20preview&media_type=image&offset=0&preview_crop=true&preview_size=40"));
+    QNetworkRequest request1;
+    request.setUrl(QUrl("https://cloud-api.yandex.net/v1/disk/resources/files?fields=items.path&media_type=compressed"));
     request.setRawHeader("Accept-Language", "ru" );
     request.setRawHeader("Content-Type", "application/json");
-    request.setRawHeader("Authorization", token_bytearray);
+    request.setRawHeader(QByteArray("Authorization"), QByteArray("OAuth AQAAAAAMsMHEAADLW6bnl0Kw7UJjotzztWNVaxM"));
+    request1.setUrl(QUrl("https://cloud-api.yandex.net:443/v1/disk/resources/files?fields=name%2C%20created%2C%20size%2C%20preview&media_type=image&offset=0&preview_crop=true&preview_size=40"));
+
+    QByteArray body;
+    //body.append()
 
     QNetworkAccessManager *pManager = new QNetworkAccessManager();
 
     QNetworkReply * reply;
-    reply = pManager -> post(request);
+    QNetworkReply * reply1;
+    reply = pManager -> post(request, "/");
+    reply1 = pManager -> get(request1);
     QByteArray replyString = reply -> readAll();
-    qDebug() << reply -> url()
-             << reply -> rawHeaderList()
-             << reply -> readAll();
+    QByteArray replyString1 = reply1 -> readAll();
+    QJsonDocument jsonfromcoingate = QJsonDocument::fromJson(replyString1);
+    qDebug() << replyString << "токен для api" << jsonfromcoingate << "пенис" ;
+    return replyString;
+    /*QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+
+    QByteArray token_bytearray = token.toUtf8();
+    token.prepend("OAuth ");
+    QNetworkRequest request(QUrl("https://cloud-api.yandex.net/v1/disk/resources/files?fields=items.path&media_type=compressed"));
+    request.setRawHeader("Authorization: ", token_bytearray);
+    QHttpMultiPart *mpart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+
+    /*QHttpPart part;
+    part.setHeader(QNetworkRequest::ContentDispositionHeader, )*/
+
+    /*QNetworkReply *reply = manager -> post(request, mpart);
+    mpart->setParent(reply);
+
+    QNetworkRequest request1(QUrl("https://cloud-api.yandex.net:443/v1/disk/resources/files?fields=name%2C%20created%2C%20size%2C%20preview&media_type=image&offset=0&preview_crop=true&preview_size=40"));
+    reply = manager -> get (request1);
+    QByteArray bytes = reply->readAll();
+    qDebug() << bytes << "byyyyyyyyyyyyyyyyyyyyyyyytes";
+
+    return bytes;*/
 }
+
+
+
+
+
+
 
