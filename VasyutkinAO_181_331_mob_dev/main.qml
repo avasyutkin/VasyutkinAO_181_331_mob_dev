@@ -1001,12 +1001,121 @@ ApplicationWindow {
                                                                                     }
                                                                                 }
                                                                             }
+
+
+
+                                                                            Page{  //СТРАНИЦА ДЛЯ ШЕСТОЙ ЛАБОРАТОРНОЙ - REST API
+                                                                                id: page06
+                                                                                header: ToolBar {
+
+                                                                                    anchors.leftMargin: 10
+                                                                                    anchors.left: parent.left;
+                                                                                    layer.enabled: true
+                                                                                    Material.background: "white"
+                                                                                    Text {
+                                                                                        font.family: "SF UI Display Bold"
+                                                                                        text: "REST API"
+                                                                                        font.pointSize: 23
+                                                                                        color: "black"
+                                                                                        anchors.bottom: parent.bottom
+                                                                                    }
+                                                                                }
+
+
+                                                                            }
+
+
+                                                                            Page{  //СТРАНИЦА ДЛЯ СЕДЬМОЙ ЛАБОРАТОРНОЙ - ШИФРОВАНИЕ
+                                                                                id: page07
+                                                                                header: ToolBar {
+
+                                                                                    anchors.leftMargin: 10
+                                                                                    anchors.left: parent.left;
+                                                                                    layer.enabled: true
+                                                                                    Material.background: "white"
+                                                                                    Text {
+                                                                                        font.family: "SF UI Display Bold"
+                                                                                        text: "Шифрование"
+                                                                                        font.pointSize: 23
+                                                                                        color: "black"
+                                                                                        anchors.bottom: parent.bottom
+                                                                                    }
+                                                                                }
+
+                                                                                Label{
+                                                                                    text: "Введите ключ шифрования (32 символа)"
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    font.family: "SF UI Display Light"
+                                                                                    font.pixelSize: 19
+                                                                                    anchors.bottom: textforkey.top
+                                                                                    anchors.bottomMargin: 60
+                                                                                }
+
+                                                                                TextField{
+                                                                                    id: textforkey
+                                                                                    placeholderText: qsTr("Вставьте ключ сюда")
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    anchors.bottom: chipheronlab7.top
+                                                                                    horizontalAlignment: TextInput.AlignHCenter
+                                                                                    width: 330
+                                                                                    font.family: "SF UI Display Light"
+                                                                                    font.pixelSize: 17
+                                                                                    anchors.bottomMargin: 40
+                                                                                    maximumLength: 32
+                                                                                }
+
+                                                                                Button{
+                                                                                    id: chipheronlab7
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    anchors.bottom: parent.bottom
+                                                                                    text: "Шифровать данные"
+                                                                                    font.family: "SF UI Display Light"
+                                                                                    font.pixelSize: 22
+                                                                                    anchors.bottomMargin: 120
+                                                                                    flat: true
+                                                                                    visible: if(fileDialoglab7.fileUrl == 0) false; else true
+                                                                                    onClicked: cryptoController.readfile(fileDialoglab7.fileUrl, 1, textforkey.text)
+                                                                                }
+
+                                                                                Button{
+                                                                                    id: chipherofflab7
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    anchors.top: chipheronlab7.bottom
+                                                                                    anchors.topMargin: 30
+                                                                                    text: "Получить доступ"
+                                                                                    font.family: "SF UI Display Light"
+                                                                                    font.pixelSize: 15
+                                                                                    flat: true
+                                                                                    visible: if(fileDialoglab7.fileUrl == 0) false; else true
+
+                                                                                }
+
+
+
+                                                                                Button {
+                                                                                    id: btnfordialoglab7
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    font.pixelSize: 15
+                                                                                    anchors.bottom: textforkey.top
+                                                                                    anchors.bottomMargin: 100
+                                                                                    anchors.leftMargin: 10
+                                                                                    flat: true
+                                                                                    text: "Выбрать файл"
+                                                                                    onClicked: fileDialoglab7.open()
+
+                                                                                    FileDialog {
+                                                                                        id: fileDialoglab7
+                                                                                        folder: shortcuts.home
+                                                                                    }
+                                                                                }
+
+                                                                            }
+
+
+
+
+
                                                                         }
-
-
-
-
-
 
 
 
@@ -1073,6 +1182,24 @@ ApplicationWindow {
                                                                                     flat: true
                                                                                     onClicked: {
                                                                                         swipeView.currentIndex = 4
+                                                                                        drawer.close()
+                                                                                    }
+                                                                                }
+
+                                                                                Button{
+                                                                                    text: "REST API"
+                                                                                    flat: true
+                                                                                    onClicked: {
+                                                                                        swipeView.currentIndex = 5
+                                                                                        drawer.close()
+                                                                                    }
+                                                                                }
+
+                                                                                Button{
+                                                                                    text: "Шифрование"
+                                                                                    flat: true
+                                                                                    onClicked: {
+                                                                                        swipeView.currentIndex = 6
                                                                                         drawer.close()
                                                                                     }
                                                                                 }

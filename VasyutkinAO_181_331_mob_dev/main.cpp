@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "qhttpcontroller.h"
+#include "cryptocontroller.h"
 #include <QQmlContext>
 
 int main(int argc, char *argv[])
@@ -16,10 +17,13 @@ int main(int argc, char *argv[])
     httpController.GetNetworkValue();
     httpController.GetNetworkValue_2();
 
+    CryptoController cryptoController;
+
     QQmlApplicationEngine engine;   //создание браузерного движка
 
     QQmlContext * context = engine.rootContext();  //дерево объектов в QML движке
     context -> setContextProperty("httpController", &httpController); //приводим в соответствие имя сишному объекту - поместить С++ объект в область видимости QML
+    context -> setContextProperty("cryptoController", &cryptoController);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));   //преобразование пути стартовой страницы из char в QURL
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,   //подключение слота, срабатывающего по сигналу objectCreated

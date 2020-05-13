@@ -9,8 +9,11 @@ class CryptoController : public QObject
 public:
     explicit CryptoController(QObject *parent = nullptr);
 
+public slots:
+    int do_crypt(unsigned char *sourcetext, unsigned char *ciphertext, int do_encrypt, unsigned char *keysource);
+    void readfile (QString name, int do_encrypt, char keysource);
+
 signals:
-    int do_crypt(unsigned char *sourcetext, unsigned char *ciphertext, int do_encrypt);
 
 };
 
