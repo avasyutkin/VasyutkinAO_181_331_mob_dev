@@ -45,6 +45,11 @@ LIBS += \
 INCLUDEPATH += C:/Qt/Tools/OpenSSL/Win_x64/include
 LIBS += -L"C:/Qt/Tools/OpenSSL"
 
+INCLUDEPATH += C:\Qt\Tools\Curl\include
+LIBS += -LC:\Qt\Tools\Curl\bin
+LIBS += C:\Qt\Tools\Curl\lib\libcurl.a
+LIBS += C:\Qt\Tools\Curl\lib\libcurl.dll.a
+
 DISTFILES += \
     ../../films/Kriminal'noe.mkv \
     ../../films/Kriminal'noe.mkv

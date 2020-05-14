@@ -949,7 +949,7 @@ ApplicationWindow {
                                                                                         //console.info(token + " token    " + tokenbool)
 
 
-                                                                                        //var gfdfgdfgf = httpController.requestReceivingAPI(token)
+                                                                                        var gfdfgdfgf = httpController.requestReceivingAPI(token)
                                                                                         //labelfortoken.text = gfdfgdfgf
                                                                                     }
                                                                                 }
