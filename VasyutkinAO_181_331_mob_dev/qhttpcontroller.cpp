@@ -14,7 +14,8 @@
 #include <string.h>
 #include <QHttpMultiPart>
 #include <curl/curl.h>
-
+#include <QUrlQuery>
+#include <QUrl>
 
 QHTTPController::QHTTPController(QObject *parent) : QObject(parent)
 {
@@ -180,7 +181,7 @@ QByteArray QHTTPController::requestReceivingAPI(QString token)
     QByteArray token_bytearray = token.toUtf8();
 
 
-    QNetworkRequest request;
+    /*QNetworkRequest request;
     QNetworkRequest request1;
     request.setUrl(QUrl("https://cloud-api.yandex.net:443/v1/"));
     request.setRawHeader("Accept-Language: ", "ru" );
@@ -272,7 +273,7 @@ QByteArray QHTTPController::requestReceivingAPI(QString token)
     qDebug() << QString(repst);*/
 
 
-   /* QCURL cur;
+    /* QCURL cur;
     RequestData rd;
     QByteArray RequestResult;
 
@@ -287,6 +288,52 @@ QByteArray QHTTPController::requestReceivingAPI(QString token)
     //rd.PostFiles.insert("upload_data","c:\\users\\foto.zip");
     RequestResult = cur.SendRequest(rd);
     qDebug() << RequestResult;*/
+
+
+
+    QNetworkReply * reply;
+
+    QEventLoop eventloop;
+    connect(nam, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
+
+    QNetworkRequest request;
+
+    request.setUrl(QUrl("https://cloud-api.yandex.net/v1/disk/resources/files"));
+
+    //request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("Accept: application/json"));
+    //request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("Content-Type: application/json"));
+    //request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("Authorization: " + token_bytearray));
+
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "Accept: application/json "
+                                                          "Content-Type: application/json "
+                                                          "Authorization: " + token_bytearray);
+
+    /* request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("GET /v1/disk/resources/files HTTP/1.1"
+                                                                   " Host: cloud-api.yandex.net"
+                                                                   " Connection: keep-alive"
+                                                                   " Accept: application/json"
+                                                                   " Authorization: OAuth AgAAAAAmJ5bQAAZG_1dEQGTIoE9aj7Bdnor06PQ"
+                                                                   " Accept-Language: ru"
+                                                                   " User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Mobile Safari/537.36"
+                                                                   " Content-Type: application/json"
+                                                                   " Origin: https://yandex.ru"
+                                                                   " Sec-Fetch-Site: cross-site"
+                                                                   " Sec-Fetch-Mode: cors"
+                                                                   " Sec-Fetch-Dest: empty"
+                                                                   " Referer: https://yandex.ru/dev/disk/poligon/"
+                                                                   " Accept-Encoding: gzip, deflate, br"));*/
+
+
+
+    reply = nam->get(request);
+    eventloop.exec();
+
+    QByteArray replyString = reply -> readAll();
+    qDebug() << token_bytearray << "heeeeeeeeeeeeeeeeeeeeelp" << replyString << request.url().toString() << request.header(QNetworkRequest::ContentTypeHeader);
+
+
+
+
 
 
 

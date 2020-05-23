@@ -3,6 +3,8 @@
 #include <QFile>
 #include <QByteArray>
 #include <QDebug>
+#include <string.h>
+#include <iostream>
 
 CryptoController::CryptoController(QObject *parent) : QObject(parent)
 {
@@ -27,7 +29,6 @@ int CryptoController::do_crypt(unsigned char *sourcetext, unsigned char *ciphert
         EVP_CIPHER_CTX_free(ctx);
         return 0;
     }
-
 
     OPENSSL_assert(EVP_CIPHER_CTX_key_length(ctx) == 32);
     OPENSSL_assert(EVP_CIPHER_CTX_iv_length(ctx) == 16);
@@ -59,7 +60,7 @@ int CryptoController::do_crypt(unsigned char *sourcetext, unsigned char *ciphert
 }
 
 void CryptoController::readfile (QString name, int do_encrypt, char keysource){
-    name.remove(0, 8);
+    /*name.remove(0, 8);
     QFile file(name);
 
     unsigned char *vOut = (unsigned char*)strtol(&keysource, NULL, 10);
@@ -95,5 +96,21 @@ void CryptoController::readfile (QString name, int do_encrypt, char keysource){
             file.write(databuf);
         }
         file.close();
-    }
+    }*/
+
+
+    std::string stringtext = "привет как дела";
+
+        unsigned char *sourcetext = (unsigned char*)stringtext.c_str(),
+                ciphertext[128],
+                decryptedtext[128],
+                key[32] = "1111111111111111111111111111111";
+
+        std::cout << "Cipher text: хуй";
+        do_crypt(sourcetext, ciphertext, 1, key);
+        std::cout << "Cipher text: " << "\n" << ciphertext << "\n";
+
+        do_crypt(ciphertext, decryptedtext, 0, key);
+        std::cout << "Decrypted text: " << "\n" << decryptedtext << "\n";
+
 }

@@ -1,5 +1,5 @@
 QT += quick network   #список подключенных разделов библиотеки QT
-
+QT += core
 CONFIG += c++11   #настройки компиляции
 
 # The following define makes your compiler emit warnings if you use
