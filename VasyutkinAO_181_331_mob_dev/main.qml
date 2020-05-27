@@ -1004,6 +1004,7 @@ ApplicationWindow {
 
 
 
+
                                                                             Page{  //СТРАНИЦА ДЛЯ ШЕСТОЙ ЛАБОРАТОРНОЙ - REST API
                                                                                 id: page06
                                                                                 header: ToolBar {
@@ -1022,6 +1023,7 @@ ApplicationWindow {
                                                                                 }
 
                                                                                 ListView{
+                                                                                    model: file_model
                                                                                     id: listrest
                                                                                     anchors.fill: parent
                                                                                     spacing: 10
@@ -1038,17 +1040,17 @@ ApplicationWindow {
                                                                                             Label{
                                                                                                 text: name
                                                                                                 font.pixelSize: 20
-                                                                                                Layout.fillwidth: true
+                                                                                                //Layout.fillwidth: true
                                                                                             }
                                                                                             Label{
                                                                                                 text: size
                                                                                                 font.pixelSize: 20
-                                                                                                Layout.fillwidth: true
+                                                                                                //Layout.fillwidth: true
                                                                                             }
                                                                                             Label{
                                                                                                 text: created
                                                                                                 font.pixelSize: 20
-                                                                                                Layout.fillwidth: true
+                                                                                               // Layout.fillwidth: true
                                                                                             }
 
                                                                                         }

@@ -13,7 +13,12 @@ FileObject::FileObject()
 
 ModelfromYandexDisk::ModelfromYandexDisk(QObject *parent) : QAbstractListModel(parent)
 {
+    QString a = "f";
+    QString an = "f";
+    QString ab = "f";
+    QString ann = "f";
 
+    objectlist << FileObject(a, an, ab, ann);
 }
 
 void ModelfromYandexDisk::addItem(const FileObject &newItem)

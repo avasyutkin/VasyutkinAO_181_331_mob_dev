@@ -197,9 +197,45 @@ void QHTTPController::parseJSON(QByteArray source)
     QJsonDocument jsonDoc = QJsonDocument::fromJson(source);  //распарсить json
 
     QJsonObject rootObject = jsonDoc.object();  //получние ссылки на корневой объект
-    QJsonValue value;
-    //if (rootObject.contains("media_type"))  //проверка наличия и тип поля
-         value = rootObject["antivirus_status"];  //читаем поле
-    qDebug() << "kjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj[" << value;
+
+    int size;
+    QString name;
+    QString created;
+    QString preview;
+
+    if (rootObject.contains("items") && rootObject["items"].isArray()) {
+        QJsonValue items = rootObject.value("items");
+        QJsonArray items_array = items.toArray();
+
+        foreach (const QJsonValue & item, items_array) {
+            QJsonObject itemobj = item.toObject();
+
+            if (itemobj.contains("size")){
+                QJsonValue size_value = itemobj.value("size");
+                size = size_value.toInt();
+            }
+
+            if (itemobj.contains("name")){
+                QJsonValue name_value = itemobj.value("name");
+                name = name_value.toString();
+            }
+
+            if (itemobj.contains("created")){
+                QJsonValue created_value = itemobj.value("created");
+                created = created_value.toString();
+            }
+
+            if (itemobj.contains("preview")){
+                QJsonValue preview_value = itemobj.value("preview");
+                preview = preview_value.toString();
+            }
+        }
+    }
+
+
+
+
+    qDebug() << "kjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj[" << size <<name<<created<<preview;
+
 }
 
