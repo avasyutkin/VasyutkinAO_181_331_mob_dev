@@ -1021,6 +1021,41 @@ ApplicationWindow {
                                                                                     }
                                                                                 }
 
+                                                                                ListView{
+                                                                                    id: listrest
+                                                                                    anchors.fill: parent
+                                                                                    spacing: 10
+
+                                                                                    delegate: Rectangle{
+                                                                                        color: "green"
+                                                                                        height: Screen.pixelDensity * 15
+                                                                                        width: listrest.width
+                                                                                        GridLayout{
+                                                                                            anchors.fill: parent
+                                                                                            Image {
+                                                                                                source: preview
+                                                                                            }
+                                                                                            Label{
+                                                                                                text: name
+                                                                                                font.pixelSize: 20
+                                                                                                Layout.fillwidth: true
+                                                                                            }
+                                                                                            Label{
+                                                                                                text: size
+                                                                                                font.pixelSize: 20
+                                                                                                Layout.fillwidth: true
+                                                                                            }
+                                                                                            Label{
+                                                                                                text: created
+                                                                                                font.pixelSize: 20
+                                                                                                Layout.fillwidth: true
+                                                                                            }
+
+                                                                                        }
+                                                                                    }
+                                                                                }
+
+
 
                                                                             }
 

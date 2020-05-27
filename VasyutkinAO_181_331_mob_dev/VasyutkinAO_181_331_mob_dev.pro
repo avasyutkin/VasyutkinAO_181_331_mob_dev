@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS   #объявление переменных �
 SOURCES += \   #раздел файлов исходного кода на С++ (здесь прописаны все файлы из дерева файлов)
         cryptocontroller.cpp \
         main.cpp \
+        modelfromyandexdisk.cpp \
         qhttpcontroller.cpp
 
 
@@ -56,6 +57,7 @@ DISTFILES += \
 
 HEADERS += \
     cryptocontroller.h \
+    modelfromyandexdisk.h \
     qhttpcontroller.h
 
 QMAKE_EXTRA_TARGETS += before_build makefilehook
