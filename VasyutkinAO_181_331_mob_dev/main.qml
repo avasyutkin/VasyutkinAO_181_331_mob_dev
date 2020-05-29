@@ -985,19 +985,14 @@ ApplicationWindow {
                                                                                     font.pixelSize: 21
                                                                                     flat: true
                                                                                     onClicked: {
-                                                                                        //browserlab5.visible = false
-                                                                                        browserlab5.url ="https://oauth.yandex.ru/authorize?response_type=token"
+                                                                                        browserlab5.url = "https://oauth.yandex.ru/authorize?response_type=token"
                                                                                                 +"&client_id=b90874f5afbc41c5a675b31f708dc772"
                                                                                                 +"&device_id=123456546546"
                                                                                                 +"&device_name=phone"
                                                                                                 +"&redirect_uri=https://oauth.yandex.ru/verification_code"
-                                                                                        //+"&login_hint=alexandervasyutkin"
-                                                                                        //+"&scope={\"is_yandex\": false, \"localized_scope\": [\"\u0418\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u0435 API \u042f\u043d\u0434\u0435\u043a\u0441.\u0414\u043e\u0441\u0442\u0430\u0432\u043a\u0438 \u0434\u043b\u044f \u043f\u0430\u0440\u0442\u043d\u0435\u0440\u043e\u0432", "\u0427\u0442\u0435\u043d\u0438\u0435 \u0432\u0441\u0435\u0433\u043e \u0414\u0438\u0441\u043a\u0430\", \"\u0414\u043e\u0441\u0442\u0443\u043f \u043d\u0430 \u0447\u0442\u0435\u043d\u0438\u0435 \u043f\u0438\u0441\u0435\u043c \u0432 \u043f\u043e\u0447\u0442\u043e\u0432\u043e\u043c \u044f\u0449\u0438\u043a\u0435\", \"\u0410\u0443\u0442\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f \u0432 \u041e\u0431\u043b\u0430\u043a\u0435\"], \"ctime\": 1586680495, \"mtime\": 1586680495, \"id\": \"b90874f5afbc41c5a675b31f708dc772\", \"description\": \"\", \"name\": \"MobDev_vasyutkin\", \"localized_names\": {\"ru\": \"MobDev_vasyutkin\", \"en\": \"MobDev_vasyutkin\", \"tr\": \"MobDev_vasyutkin\", \"uk\": \"MobDev_vasyutkin\"}, \"callback\": \"https://oauth.yandex.ru/verification_code\", \"scope\": [\"delivery:partner-api\", \"cloud_api:disk.read\", \"mail:imap_ro\", \"cloud:auth\"], \"icon\": null, \"homepage\": \"\"}"
-                                                                                        //+"&optional_scope=<запрашиваемые опциональные права>"
                                                                                                 +"&force_confirm=yes"
                                                                                                 +"&state=get_token"
                                                                                                 +"&display=popup"
-                                                                                        //btngettoken.clicked ? browserlab5.visible = true : browserlab5.visible = false
                                                                                     }
                                                                                 }
                                                                             }
@@ -1008,11 +1003,11 @@ ApplicationWindow {
                                                                             Page{  //СТРАНИЦА ДЛЯ ШЕСТОЙ ЛАБОРАТОРНОЙ - REST API
                                                                                 id: page06
                                                                                 header: ToolBar {
-
                                                                                     anchors.leftMargin: 10
                                                                                     anchors.left: parent.left;
                                                                                     layer.enabled: true
                                                                                     Material.background: "white"
+
                                                                                     Text {
                                                                                         font.family: "SF UI Display Bold"
                                                                                         text: "REST API"
@@ -1036,11 +1031,13 @@ ApplicationWindow {
                                                                                     delegate: Rectangle{
                                                                                         height: Screen.pixelDensity * 20
                                                                                         width: listrest.width
+
                                                                                         GridLayout{
                                                                                             anchors.top: parent.top
                                                                                             anchors.left: parent.left
                                                                                             anchors.right: parent.right
                                                                                             anchors.bottom: rowforrest.top
+
                                                                                             Image {
                                                                                                 id: imageforrest
                                                                                                 source: preview
@@ -1060,6 +1057,7 @@ ApplicationWindow {
                                                                                                 font.family: "SF UI Display Bold"
                                                                                                 font.pointSize: 18
                                                                                             }
+
                                                                                             Label{
                                                                                                 id: sizeforrest
                                                                                                 text: size + " бит"
@@ -1069,8 +1067,8 @@ ApplicationWindow {
                                                                                                 anchors.leftMargin: 10
                                                                                                 anchors.top: nameforrest.bottom
                                                                                                 anchors.topMargin: 5
-
                                                                                             }
+
                                                                                             Label{
                                                                                                 id: createdforrest
                                                                                                 text: "Дата зарузки: " + created
@@ -1081,7 +1079,6 @@ ApplicationWindow {
                                                                                                 anchors.top: nameforrest.bottom
                                                                                                 anchors.topMargin: 5
                                                                                             }
-
                                                                                         }
                                                                                     }
                                                                                 }
@@ -1094,7 +1091,7 @@ ApplicationWindow {
                                                                                     anchors.left: parent.left
                                                                                     anchors.right: parent.right
                                                                                     anchors.bottom: rowforrest.top
-                                                                                    anchors.bottomMargin: 30
+                                                                                    anchors.bottomMargin: 100
                                                                                     anchors.topMargin: 30
                                                                                     anchors.leftMargin: 15
                                                                                     anchors.horizontalCenter: parent.horizontalCenter
@@ -1106,31 +1103,26 @@ ApplicationWindow {
                                                                                             source: preview
                                                                                             sourceSize.width: 150
                                                                                             sourceSize.height: 150
-
                                                                                         }
 
                                                                                         Label{
                                                                                             text: name
                                                                                             font.pixelSize: 17
-                                                                                            elide: Label.ElideRight
-
                                                                                         }
+
                                                                                         Label{
 
                                                                                             text: size + " бит"
                                                                                             font.pixelSize: 13
                                                                                             font.family: "SF UI Display"
-
-
                                                                                         }
+
                                                                                         Label{
                                                                                             text: "Дата зарузки: " + created
                                                                                             font.pixelSize: 13
                                                                                             font.family: "SF UI Display"
-
                                                                                         }
                                                                                     }
-
                                                                                 }
 
                                                                                 RowLayout{
@@ -1145,23 +1137,20 @@ ApplicationWindow {
                                                                                     Button {
                                                                                         id: btnforspisok
                                                                                         flat: true
-                                                                                        text: "список"
+                                                                                        text: "Cписок"
                                                                                         height: 150
                                                                                         width: 150
                                                                                         onClicked: gridrest.visible = false, listrest.visible = true
-
-
                                                                                     }
+
                                                                                         Button {
                                                                                             id: btnforplitki
                                                                                             flat: true
-                                                                                            text: "плитки"
+                                                                                            text: "Плитки"
                                                                                             height: 150
                                                                                             width: 150
                                                                                             onClicked: gridrest.visible = true, listrest.visible = false
                                                                                         }
-
-
                                                                                         }
                                                                                         }
 
