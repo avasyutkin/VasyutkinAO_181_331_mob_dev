@@ -1024,7 +1024,7 @@ ApplicationWindow {
                                                                                     anchors.left: parent.left
                                                                                     anchors.right: parent.right
                                                                                     anchors.bottom: rowforrest.top
-                                                                                    anchors.bottomMargin: 30
+                                                                                    anchors.bottomMargin: 50
                                                                                     spacing: 10
                                                                                     anchors.topMargin: 25
 
@@ -1091,7 +1091,7 @@ ApplicationWindow {
                                                                                     anchors.left: parent.left
                                                                                     anchors.right: parent.right
                                                                                     anchors.bottom: rowforrest.top
-                                                                                    anchors.bottomMargin: 100
+                                                                                    anchors.bottomMargin: 120
                                                                                     anchors.topMargin: 30
                                                                                     anchors.leftMargin: 15
                                                                                     anchors.horizontalCenter: parent.horizontalCenter
@@ -1111,7 +1111,6 @@ ApplicationWindow {
                                                                                         }
 
                                                                                         Label{
-
                                                                                             text: size + " бит"
                                                                                             font.pixelSize: 13
                                                                                             font.family: "SF UI Display"
@@ -1123,6 +1122,16 @@ ApplicationWindow {
                                                                                             font.family: "SF UI Display"
                                                                                         }
                                                                                     }
+                                                                                }
+
+                                                                                Label{
+                                                                                    id: noaccesslab6
+                                                                                    font.pixelSize: 17
+                                                                                    font.family: "SF UI Display"
+                                                                                    anchors.centerIn: parent
+                                                                                    lineHeight: 1.5
+                                                                                    text: "Пожалуйста, разрешите приложению \nправа на чтение Яндекс Диска, \nчтобы мы могли вывести ваши изображения."
+                                                                                    visible: if (labelfortoken.text != 0) false; else true
                                                                                 }
 
                                                                                 RowLayout{
