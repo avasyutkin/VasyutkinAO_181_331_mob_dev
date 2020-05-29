@@ -1023,227 +1023,332 @@ ApplicationWindow {
                                                                                 }
 
                                                                                 ListView{
-                                                                                    model: file_model
+                                                                                    model: fileModel
                                                                                     id: listrest
-                                                                                    anchors.fill: parent
+                                                                                    anchors.top: parent.top
+                                                                                    anchors.left: parent.left
+                                                                                    anchors.right: parent.right
+                                                                                    anchors.bottom: rowforrest.top
+                                                                                    anchors.bottomMargin: 30
                                                                                     spacing: 10
+                                                                                    anchors.topMargin: 25
 
                                                                                     delegate: Rectangle{
-                                                                                        color: "green"
-                                                                                        height: Screen.pixelDensity * 15
+                                                                                        height: Screen.pixelDensity * 20
                                                                                         width: listrest.width
                                                                                         GridLayout{
-                                                                                            anchors.fill: parent
+                                                                                            anchors.top: parent.top
+                                                                                            anchors.left: parent.left
+                                                                                            anchors.right: parent.right
+                                                                                            anchors.bottom: rowforrest.top
                                                                                             Image {
+                                                                                                id: imageforrest
                                                                                                 source: preview
+                                                                                                sourceSize.width: 100
+                                                                                                sourceSize.height: 100
+                                                                                                anchors.left: parent.left
+                                                                                                anchors.leftMargin: 10
                                                                                             }
+
                                                                                             Label{
+                                                                                                id: nameforrest
                                                                                                 text: name
                                                                                                 font.pixelSize: 20
-                                                                                                //Layout.fillwidth: true
+                                                                                                anchors.top: imageforrest.top
+                                                                                                anchors.left: imageforrest.right
+                                                                                                anchors.leftMargin: 10
+                                                                                                font.family: "SF UI Display Bold"
+                                                                                                font.pointSize: 18
                                                                                             }
                                                                                             Label{
-                                                                                                text: size
-                                                                                                font.pixelSize: 20
-                                                                                                //Layout.fillwidth: true
+                                                                                                id: sizeforrest
+                                                                                                text: size + " бит"
+                                                                                                font.pixelSize: 13
+                                                                                                font.family: "SF UI Display"
+                                                                                                anchors.left: imageforrest.right
+                                                                                                anchors.leftMargin: 10
+                                                                                                anchors.top: nameforrest.bottom
+                                                                                                anchors.topMargin: 5
+
                                                                                             }
                                                                                             Label{
-                                                                                                text: created
-                                                                                                font.pixelSize: 20
-                                                                                               // Layout.fillwidth: true
+                                                                                                id: createdforrest
+                                                                                                text: "Дата зарузки: " + created
+                                                                                                font.pixelSize: 13
+                                                                                                font.family: "SF UI Display"
+                                                                                                anchors.left: sizeforrest.right
+                                                                                                anchors.leftMargin: 10
+                                                                                                anchors.top: nameforrest.bottom
+                                                                                                anchors.topMargin: 5
                                                                                             }
 
                                                                                         }
                                                                                     }
                                                                                 }
 
-
-
-                                                                            }
-
-
-                                                                            Page{  //СТРАНИЦА ДЛЯ СЕДЬМОЙ ЛАБОРАТОРНОЙ - ШИФРОВАНИЕ
-                                                                                id: page07
-                                                                                header: ToolBar {
-
-                                                                                    anchors.leftMargin: 10
-                                                                                    anchors.left: parent.left;
-                                                                                    layer.enabled: true
-                                                                                    Material.background: "white"
-                                                                                    Text {
-                                                                                        font.family: "SF UI Display Bold"
-                                                                                        text: "Шифрование"
-                                                                                        font.pointSize: 23
-                                                                                        color: "black"
-                                                                                        anchors.bottom: parent.bottom
-                                                                                    }
-                                                                                }
-
-                                                                                Label{
-                                                                                    text: "Введите ключ шифрования (32 символа)"
-                                                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                                                    font.family: "SF UI Display Light"
-                                                                                    font.pixelSize: 19
-                                                                                    anchors.bottom: textforkey.top
-                                                                                    anchors.bottomMargin: 60
-                                                                                }
-
-                                                                                TextField{
-                                                                                    id: textforkey
-                                                                                    placeholderText: qsTr("Вставьте ключ сюда")
-                                                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                                                    anchors.bottom: chipheronlab7.top
-                                                                                    horizontalAlignment: TextInput.AlignHCenter
-                                                                                    width: 330
-                                                                                    font.family: "SF UI Display Light"
-                                                                                    font.pixelSize: 17
-                                                                                    anchors.bottomMargin: 40
-                                                                                    maximumLength: 32
-                                                                                }
-
-                                                                                Button{
-                                                                                    id: chipheronlab7
-                                                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                                                    anchors.bottom: parent.bottom
-                                                                                    text: "Шифровать данные"
-                                                                                    font.family: "SF UI Display Light"
-                                                                                    font.pixelSize: 22
-                                                                                    anchors.bottomMargin: 120
-                                                                                    flat: true
-                                                                                    visible: if(fileDialoglab7.fileUrl == 0) false; else true
-                                                                                    onClicked: cryptoController.readfile(fileDialoglab7.fileUrl, 1, textforkey.text)
-                                                                                }
-
-                                                                                Button{
-                                                                                    id: chipherofflab7
-                                                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                                                    anchors.top: chipheronlab7.bottom
+                                                                                GridView{
+                                                                                    model: fileModel
+                                                                                    id: gridrest
+                                                                                    visible: false
+                                                                                    anchors.top: parent.top
+                                                                                    anchors.left: parent.left
+                                                                                    anchors.right: parent.right
+                                                                                    anchors.bottom: rowforrest.top
+                                                                                    anchors.bottomMargin: 30
                                                                                     anchors.topMargin: 30
-                                                                                    text: "Получить доступ"
-                                                                                    font.family: "SF UI Display Light"
-                                                                                    font.pixelSize: 15
-                                                                                    flat: true
-                                                                                    visible: if(fileDialoglab7.fileUrl == 0) false; else true
-
-                                                                                }
-
-
-
-                                                                                Button {
-                                                                                    id: btnfordialoglab7
+                                                                                    anchors.leftMargin: 15
                                                                                     anchors.horizontalCenter: parent.horizontalCenter
-                                                                                    font.pixelSize: 15
-                                                                                    anchors.bottom: textforkey.top
-                                                                                    anchors.bottomMargin: 100
-                                                                                    anchors.leftMargin: 10
-                                                                                    flat: true
-                                                                                    text: "Выбрать файл"
-                                                                                    onClicked: fileDialoglab7.open()
+                                                                                    cellWidth: 180
+                                                                                    cellHeight: 180
 
-                                                                                    FileDialog {
-                                                                                        id: fileDialoglab7
-                                                                                        folder: shortcuts.home
+                                                                                    delegate: Column {
+                                                                                        Image {
+                                                                                            source: preview
+                                                                                            sourceSize.width: 150
+                                                                                            sourceSize.height: 150
+
+                                                                                        }
+
+                                                                                        Label{
+                                                                                            text: name
+                                                                                            font.pixelSize: 17
+                                                                                            elide: Label.ElideRight
+
+                                                                                        }
+                                                                                        Label{
+
+                                                                                            text: size + " бит"
+                                                                                            font.pixelSize: 13
+                                                                                            font.family: "SF UI Display"
+
+
+                                                                                        }
+                                                                                        Label{
+                                                                                            text: "Дата зарузки: " + created
+                                                                                            font.pixelSize: 13
+                                                                                            font.family: "SF UI Display"
+
+                                                                                        }
                                                                                     }
+
                                                                                 }
 
-                                                                            }
+                                                                                RowLayout{
+                                                                                    id: rowforrest
+                                                                                    spacing: 50
+                                                                                    anchors.bottom: parent.bottom
+                                                                                    anchors.bottomMargin: 15
+                                                                                    height: 40
+                                                                                    Material.background: "black"
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+
+                                                                                    Button {
+                                                                                        id: btnforspisok
+                                                                                        flat: true
+                                                                                        text: "список"
+                                                                                        height: 150
+                                                                                        width: 150
+                                                                                        onClicked: gridrest.visible = false, listrest.visible = true
 
 
-
-
-
-                                                                        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                        Drawer{
-                                                                            id: drawer
-                                                                            width: 0.80 * parent.width
-                                                                            height: parent.height
-                                                                            dragMargin: 10 * Screen.pixelDensity
-                                                                            GridLayout{
-                                                                                width: parent.width
-                                                                                columns: 1
-                                                                                Button{
-                                                                                    text: "Элементы GUI"
-                                                                                    flat: true
-                                                                                    onClicked: {
-                                                                                        swipeView.currentIndex = 0
-                                                                                        drawer.close()
                                                                                     }
-                                                                                }
+                                                                                        Button {
+                                                                                            id: btnforplitki
+                                                                                            flat: true
+                                                                                            text: "плитки"
+                                                                                            height: 150
+                                                                                            width: 150
+                                                                                            onClicked: gridrest.visible = true, listrest.visible = false
+                                                                                        }
 
-                                                                                Button{
-                                                                                    text: "Камера. Фото и видео"
-                                                                                    flat: true
-                                                                                    onClicked: {
-                                                                                        swipeView.currentIndex = 1
-                                                                                        drawer.close()
-                                                                                    }
-                                                                                }
-                                                                                Button{
-                                                                                    text: "Графические эффекты"
-                                                                                    flat: true
-                                                                                    onClicked: {
-                                                                                        swipeView.currentIndex = 2
-                                                                                        drawer.close()
-                                                                                    }
-                                                                                }
 
-                                                                                Button{
-                                                                                    text: "HTTP запросы"
-                                                                                    flat: true
-                                                                                    onClicked: {
-                                                                                        swipeView.currentIndex = 3
-                                                                                        drawer.close()
-                                                                                    }
-                                                                                }
+                                                                                        }
+                                                                                        }
 
-                                                                                Button{
-                                                                                    text: "Аутентификация OAuth2"
-                                                                                    flat: true
-                                                                                    onClicked: {
-                                                                                        swipeView.currentIndex = 4
-                                                                                        drawer.close()
-                                                                                    }
-                                                                                }
 
-                                                                                Button{
-                                                                                    text: "REST API"
-                                                                                    flat: true
-                                                                                    onClicked: {
-                                                                                        swipeView.currentIndex = 5
-                                                                                        drawer.close()
-                                                                                    }
-                                                                                }
 
-                                                                                Button{
-                                                                                    text: "Шифрование"
-                                                                                    flat: true
-                                                                                    onClicked: {
-                                                                                        swipeView.currentIndex = 6
-                                                                                        drawer.close()
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
+                                                                                            Page{  //СТРАНИЦА ДЛЯ СЕДЬМОЙ ЛАБОРАТОРНОЙ - ШИФРОВАНИЕ
+                                                                                                id: page07
+                                                                                                header: ToolBar {
 
-                                                                        /* footer: TabBar {
+                                                                                                    anchors.leftMargin: 10
+                                                                                                    anchors.left: parent.left;
+                                                                                                    layer.enabled: true
+                                                                                                    Material.background: "white"
+                                                                                                    Text {
+                                                                                                        font.family: "SF UI Display Bold"
+                                                                                                        text: "Шифрование"
+                                                                                                        font.pointSize: 23
+                                                                                                        color: "black"
+                                                                                                        anchors.bottom: parent.bottom
+                                                                                                    }
+                                                                                                }
+
+                                                                                                Label{
+                                                                                                    text: "Введите ключ шифрования (32 символа)"
+                                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                                    font.family: "SF UI Display Light"
+                                                                                                    font.pixelSize: 19
+                                                                                                    anchors.bottom: textforkey.top
+                                                                                                    anchors.bottomMargin: 60
+                                                                                                }
+
+                                                                                                TextField{
+                                                                                                    id: textforkey
+                                                                                                    placeholderText: qsTr("Вставьте ключ сюда")
+                                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                                    anchors.bottom: chipheronlab7.top
+                                                                                                    horizontalAlignment: TextInput.AlignHCenter
+                                                                                                    width: 330
+                                                                                                    font.family: "SF UI Display Light"
+                                                                                                    font.pixelSize: 17
+                                                                                                    anchors.bottomMargin: 40
+                                                                                                    maximumLength: 32
+                                                                                                }
+
+                                                                                                Button{
+                                                                                                    id: chipheronlab7
+                                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                                    anchors.bottom: parent.bottom
+                                                                                                    text: "Шифровать данные"
+                                                                                                    font.family: "SF UI Display Light"
+                                                                                                    font.pixelSize: 22
+                                                                                                    anchors.bottomMargin: 120
+                                                                                                    flat: true
+                                                                                                    visible: if(fileDialoglab7.fileUrl == 0) false; else true
+                                                                                                    onClicked: cryptoController.readfile(fileDialoglab7.fileUrl, 1, textforkey.text)
+                                                                                                }
+
+                                                                                                Button{
+                                                                                                    id: chipherofflab7
+                                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                                    anchors.top: chipheronlab7.bottom
+                                                                                                    anchors.topMargin: 30
+                                                                                                    text: "Получить доступ"
+                                                                                                    font.family: "SF UI Display Light"
+                                                                                                    font.pixelSize: 15
+                                                                                                    flat: true
+                                                                                                    visible: if(fileDialoglab7.fileUrl == 0) false; else true
+
+                                                                                                }
+
+
+
+                                                                                                Button {
+                                                                                                    id: btnfordialoglab7
+                                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                                    font.pixelSize: 15
+                                                                                                    anchors.bottom: textforkey.top
+                                                                                                    anchors.bottomMargin: 100
+                                                                                                    anchors.leftMargin: 10
+                                                                                                    flat: true
+                                                                                                    text: "Выбрать файл"
+                                                                                                    onClicked: fileDialoglab7.open()
+
+                                                                                                    FileDialog {
+                                                                                                        id: fileDialoglab7
+                                                                                                        folder: shortcuts.home
+                                                                                                    }
+                                                                                                }
+
+                                                                                            }
+
+
+
+
+
+                                                                                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                        Drawer{
+                                                                                            id: drawer
+                                                                                            width: 0.80 * parent.width
+                                                                                            height: parent.height
+                                                                                            dragMargin: 10 * Screen.pixelDensity
+                                                                                            GridLayout{
+                                                                                                width: parent.width
+                                                                                                columns: 1
+                                                                                                Button{
+                                                                                                    text: "Элементы GUI"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 0
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+
+                                                                                                Button{
+                                                                                                    text: "Камера. Фото и видео"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 1
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+                                                                                                Button{
+                                                                                                    text: "Графические эффекты"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 2
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+
+                                                                                                Button{
+                                                                                                    text: "HTTP запросы"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 3
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+
+                                                                                                Button{
+                                                                                                    text: "Аутентификация OAuth2"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 4
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+
+                                                                                                Button{
+                                                                                                    text: "REST API"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 5
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+
+                                                                                                Button{
+                                                                                                    text: "Шифрование"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 6
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+
+                                                                                        /* footer: TabBar {
                     id: tabBar
                     currentIndex: swipeView.currentIndex
                     font.family: "SF UI Display Light"
@@ -1257,4 +1362,4 @@ ApplicationWindow {
                         text: qsTr("Page 3")
                     }
                 }*/
-                                                                    }
+                                                                                    }

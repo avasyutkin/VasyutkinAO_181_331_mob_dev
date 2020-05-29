@@ -222,20 +222,22 @@ void QHTTPController::parseJSON(QByteArray source)
 
             if (itemobj.contains("created")){
                 QJsonValue created_value = itemobj.value("created");
-                created = created_value.toString();
+                created = created_value.toString().remove(9, 15);
             }
 
-            if (itemobj.contains("preview")){
-                QJsonValue preview_value = itemobj.value("preview");
+            if (itemobj.contains("file")){
+                QJsonValue preview_value = itemobj.value("file");
                 preview = preview_value.toString();
             }
+
+            fileModel.addItem(FileObject(size, name, created, preview));
         }
     }
 
 
 
 
-    qDebug() << "kjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj[" << size <<name<<created<<preview;
+    qDebug() << size << name << created << preview;
 
 }
 

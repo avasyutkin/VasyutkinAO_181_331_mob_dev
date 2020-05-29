@@ -1,6 +1,8 @@
 #include "modelfromyandexdisk.h"
+#include <QDebug>
+#include <iostream>
 
-FileObject::FileObject(QString size_1, QString name_1, QString created_1, QString preview_1)
+FileObject::FileObject(int size_1, QString name_1, QString created_1, QString preview_1)
     :size(size_1), name(name_1), created(created_1), preview(preview_1)
 {
 
@@ -13,12 +15,7 @@ FileObject::FileObject()
 
 ModelfromYandexDisk::ModelfromYandexDisk(QObject *parent) : QAbstractListModel(parent)
 {
-    QString a = "f";
-    QString an = "f";
-    QString ab = "f";
-    QString ann = "f";
 
-    objectlist << FileObject(a, an, ab, ann);
 }
 
 void ModelfromYandexDisk::addItem(const FileObject &newItem)
@@ -27,6 +24,8 @@ void ModelfromYandexDisk::addItem(const FileObject &newItem)
     beginInsertRows(QModelIndex(), rowCount(), rowCount());  //нальный номер строки вставки и конечный номер строки вставки
     objectlist << newItem;  //вставка нового элемента
     endInsertRows();  //сообщает ListView о том, что изменение модели закончено
+
+    qDebug() << "ghbdtn ghbdtn ghbdtn,";
 }
 
 int ModelfromYandexDisk::rowCount(const QModelIndex &parent) const
@@ -91,7 +90,7 @@ QHash<int, QByteArray> ModelfromYandexDisk::roleNames() const
     return roles;
 }
 
-QString FileObject::get_size() const
+int FileObject::get_size() const
 {
     return size;
 }

@@ -8,15 +8,15 @@ class FileObject
 {
 public:
     FileObject();
-    FileObject(QString size_1, QString name_1, QString created_1, QString preview_1);
+    FileObject(int size_1, QString name_1, QString created_1, QString preview_1);
 
-    QString get_size() const;
+    int get_size() const;
     QString get_name() const;
     QString get_created() const;
     QString get_preview() const;
 
 private:
-    QString size;
+    int size;
     QString name;
     QString created;
     QString preview;

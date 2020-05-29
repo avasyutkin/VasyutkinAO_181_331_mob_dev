@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     QQmlContext * context = engine.rootContext();  //дерево объектов в QML движке
     context -> setContextProperty("httpController", &httpController); //приводим в соответствие имя сишному объекту - поместить С++ объект в область видимости QML
     context -> setContextProperty("cryptoController", &cryptoController);
-    context -> setContextProperty("file_model", &filemodel);
+    context -> setContextProperty("fileModel", &httpController.fileModel);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));   //преобразование пути стартовой страницы из char в QURL
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,   //подключение слота, срабатывающего по сигналу objectCreated

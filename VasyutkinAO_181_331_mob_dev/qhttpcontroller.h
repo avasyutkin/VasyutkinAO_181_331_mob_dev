@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QJsonArray>
+#include "modelfromyandexdisk.h"
 
 class QHTTPController : public QObject
 {
@@ -11,6 +12,7 @@ class QHTTPController : public QObject
 public:
     explicit QHTTPController(QObject *parent = nullptr);
     QNetworkAccessManager * nam;
+    ModelfromYandexDisk fileModel;
 
 public slots:
     void GetNetworkValue();  //выполняет запрос к серверу
