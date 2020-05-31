@@ -14,7 +14,7 @@ CryptoController::CryptoController(QObject *parent) : QObject(parent)
 int CryptoController::do_crypt(unsigned char *sourcetext, unsigned char *ciphertext, int do_encrypt, unsigned char *keysource)
 {
     EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
-
+    qDebug() << keysource << "keysource";
 
     int sourcetext_len = strlen((char *)sourcetext),
             len,
@@ -59,12 +59,14 @@ int CryptoController::do_crypt(unsigned char *sourcetext, unsigned char *ciphert
     return ciphertext_len;
 }
 
-void CryptoController::readfile (QString name, int do_encrypt, char keysource){
+void CryptoController::readfile(QString name, int do_encrypt, QString keysource)
+{
     /*name.remove(0, 8);
     QFile file(name);
 
-    unsigned char *vOut = (unsigned char*)strtol(&keysource, NULL, 10);
-
+    QByteArray bytearr = keysource.toLocal8Bit();
+    unsigned char key = (unsigned char )bytearr.data();
+    //unsigned char *vOut = (unsigned char*)strtol(key, NULL, 10);
     QString a = "";
     int count = 0;
     if(file.open(QIODevice::ReadWrite))
@@ -76,12 +78,11 @@ void CryptoController::readfile (QString name, int do_encrypt, char keysource){
         }
     }
     file.close();
-    qDebug() << "количество строк" << count << a << name;
+    qDebug() << "количество строк" << count << a << name << keysource;
 
     unsigned char *ciphertext;
     if ((file.exists())&&(file.open(QIODevice::ReadWrite)))
     {
-        qDebug() << "работаем";
         QString str = "";
         QByteArray databuf;
 
@@ -91,11 +92,13 @@ void CryptoController::readfile (QString name, int do_encrypt, char keysource){
             str=str+file.readLine();
             QByteArray arr = str.toLocal8Bit();
             unsigned char *sourcetext = (unsigned char *)strdup(arr.constData());
-            do_crypt(sourcetext, ciphertext, do_encrypt, vOut);
+            qDebug() << sourcetext << "bc[jlysq" << str << arr << key;
+            do_crypt(sourcetext, ciphertext, do_encrypt, &key);
             databuf = QByteArray((char*)ciphertext, 128);
             file.write(databuf);
         }
         file.close();
+
     }*/
 
 
@@ -106,11 +109,11 @@ void CryptoController::readfile (QString name, int do_encrypt, char keysource){
                 decryptedtext[128],
                 key[32] = "1111111111111111111111111111111";
 
-        std::cout << "Cipher text: хуй";
+        qDebug() << "Cipher text: ";
         do_crypt(sourcetext, ciphertext, 1, key);
-        std::cout << "Cipher text: " << "\n" << ciphertext << "\n";
+        qDebug() << "Cipher text: " << "\n" << ciphertext << "\n";
 
         do_crypt(ciphertext, decryptedtext, 0, key);
-        std::cout << "Decrypted text: " << "\n" << decryptedtext << "\n";
+        qDebug() << "Decrypted text: " << "\n" << decryptedtext << "\n";
 
 }

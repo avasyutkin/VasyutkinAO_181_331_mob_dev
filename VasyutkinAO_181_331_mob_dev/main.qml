@@ -1173,6 +1173,7 @@ ApplicationWindow {
                                                                                                     anchors.left: parent.left;
                                                                                                     layer.enabled: true
                                                                                                     Material.background: "white"
+
                                                                                                     Text {
                                                                                                         font.family: "SF UI Display Bold"
                                                                                                         text: "Шифрование"
@@ -1214,7 +1215,7 @@ ApplicationWindow {
                                                                                                     anchors.bottomMargin: 120
                                                                                                     flat: true
                                                                                                     visible: if(fileDialoglab7.fileUrl == 0) false; else true
-                                                                                                    onClicked: cryptoController.readfile(fileDialoglab7.fileUrl, 1, textforkey.text)
+                                                                                                    onClicked: cryptoController.readfile(fileDialoglab7.fileUrl, 1, textforkey.text), console.info(textforkey.text)
                                                                                                 }
 
                                                                                                 Button{
@@ -1227,7 +1228,7 @@ ApplicationWindow {
                                                                                                     font.pixelSize: 15
                                                                                                     flat: true
                                                                                                     visible: if(fileDialoglab7.fileUrl == 0) false; else true
-
+                                                                                                    onClicked: cryptoController.readfile(fileDialoglab7.fileUrl, 0, textforkey.text)
                                                                                                 }
 
 

@@ -16,6 +16,7 @@
 #include <curl/curl.h>
 #include <QUrlQuery>
 #include <QUrl>
+#include <QSqlDatabase>
 
 QHTTPController::QHTTPController(QObject *parent) : QObject(parent)
 {
