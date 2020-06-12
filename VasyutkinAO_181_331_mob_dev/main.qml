@@ -1215,40 +1215,47 @@ ApplicationWindow {
                                                                                                     anchors.bottomMargin: 120
                                                                                                     flat: true
                                                                                                     visible: if(fileDialoglab7.fileUrl == 0) false; else true
-                                                                                                    onClicked: cryptoController.readfile(fileDialoglab7.fileUrl, 1, textforkey.text), console.info(textforkey.text)
+                                                                                                    onClicked: cryptoController.do_crypt(textforkey.text, 1)
                                                                                                 }
 
-                                                                                                Button{
-                                                                                                    id: chipherofflab7
-                                                                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                                                                    anchors.top: chipheronlab7.bottom
-                                                                                                    anchors.topMargin: 30
-                                                                                                    text: "Получить доступ"
-                                                                                                    font.family: "SF UI Display Light"
-                                                                                                    font.pixelSize: 15
-                                                                                                    flat: true
-                                                                                                    visible: if(fileDialoglab7.fileUrl == 0) false; else true
-                                                                                                    onClicked: cryptoController.readfile(fileDialoglab7.fileUrl, 0, textforkey.text)
-                                                                                                }
-
-
-
-                                                                                                Button {
-                                                                                                    id: btnfordialoglab7
-                                                                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                                                                    font.pixelSize: 15
-                                                                                                    anchors.bottom: textforkey.top
-                                                                                                    anchors.bottomMargin: 100
-                                                                                                    anchors.leftMargin: 10
-                                                                                                    flat: true
-                                                                                                    text: "Выбрать файл"
-                                                                                                    onClicked: fileDialoglab7.open()
-
-                                                                                                    FileDialog {
-                                                                                                        id: fileDialoglab7
-                                                                                                        folder: shortcuts.home
+                                                                                                    Button{
+                                                                                                        id: chipherofflab7
+                                                                                                        anchors.horizontalCenter: parent.horizontalCenter
+                                                                                                        anchors.top: chipheronlab7.bottom
+                                                                                                        anchors.topMargin: 30
+                                                                                                        text: "Получить доступ"
+                                                                                                        font.family: "SF UI Display Light"
+                                                                                                        font.pixelSize: 15
+                                                                                                        flat: true
+                                                                                                        visible: if(fileDialoglab7.fileUrl == 0) false; else true
+                                                                                                        onClicked: cryptoController.do_crypt(textforkey.text, 0);
                                                                                                     }
+
+
+
+                                                                                                    Button {
+                                                                                                        id: btnfordialoglab7
+                                                                                                        anchors.horizontalCenter: parent.horizontalCenter
+                                                                                                        font.pixelSize: 15
+                                                                                                        anchors.bottom: textforkey.top
+                                                                                                        anchors.bottomMargin: 100
+                                                                                                        anchors.leftMargin: 10
+                                                                                                        flat: true
+                                                                                                        text: "Выбрать файл"
+                                                                                                        onClicked: fileDialoglab7.open()
+
+                                                                                                        FileDialog {
+                                                                                                            id: fileDialoglab7
+                                                                                                            folder: shortcuts.home
+                                                                                                            onAccepted: cryptoController.get_name_file(fileDialoglab7.fileUrls);
+                                                                                                        }
+                                                                                                    }
+
                                                                                                 }
+
+
+
+
 
                                                                                             }
 
@@ -1256,7 +1263,6 @@ ApplicationWindow {
 
 
 
-                                                                                        }
 
 
 
@@ -1270,84 +1276,79 @@ ApplicationWindow {
 
 
 
-
-
-
-
-
-                                                                                        Drawer{
-                                                                                            id: drawer
-                                                                                            width: 0.80 * parent.width
-                                                                                            height: parent.height
-                                                                                            dragMargin: 10 * Screen.pixelDensity
-                                                                                            GridLayout{
-                                                                                                width: parent.width
-                                                                                                columns: 1
-                                                                                                Button{
-                                                                                                    text: "Элементы GUI"
-                                                                                                    flat: true
-                                                                                                    onClicked: {
-                                                                                                        swipeView.currentIndex = 0
-                                                                                                        drawer.close()
+                                                                                            Drawer{
+                                                                                                id: drawer
+                                                                                                width: 0.80 * parent.width
+                                                                                                height: parent.height
+                                                                                                dragMargin: 10 * Screen.pixelDensity
+                                                                                                GridLayout{
+                                                                                                    width: parent.width
+                                                                                                    columns: 1
+                                                                                                    Button{
+                                                                                                        text: "Элементы GUI"
+                                                                                                        flat: true
+                                                                                                        onClicked: {
+                                                                                                            swipeView.currentIndex = 0
+                                                                                                            drawer.close()
+                                                                                                        }
                                                                                                     }
-                                                                                                }
 
-                                                                                                Button{
-                                                                                                    text: "Камера. Фото и видео"
-                                                                                                    flat: true
-                                                                                                    onClicked: {
-                                                                                                        swipeView.currentIndex = 1
-                                                                                                        drawer.close()
+                                                                                                    Button{
+                                                                                                        text: "Камера. Фото и видео"
+                                                                                                        flat: true
+                                                                                                        onClicked: {
+                                                                                                            swipeView.currentIndex = 1
+                                                                                                            drawer.close()
+                                                                                                        }
                                                                                                     }
-                                                                                                }
-                                                                                                Button{
-                                                                                                    text: "Графические эффекты"
-                                                                                                    flat: true
-                                                                                                    onClicked: {
-                                                                                                        swipeView.currentIndex = 2
-                                                                                                        drawer.close()
+                                                                                                    Button{
+                                                                                                        text: "Графические эффекты"
+                                                                                                        flat: true
+                                                                                                        onClicked: {
+                                                                                                            swipeView.currentIndex = 2
+                                                                                                            drawer.close()
+                                                                                                        }
                                                                                                     }
-                                                                                                }
 
-                                                                                                Button{
-                                                                                                    text: "HTTP запросы"
-                                                                                                    flat: true
-                                                                                                    onClicked: {
-                                                                                                        swipeView.currentIndex = 3
-                                                                                                        drawer.close()
+                                                                                                    Button{
+                                                                                                        text: "HTTP запросы"
+                                                                                                        flat: true
+                                                                                                        onClicked: {
+                                                                                                            swipeView.currentIndex = 3
+                                                                                                            drawer.close()
+                                                                                                        }
                                                                                                     }
-                                                                                                }
 
-                                                                                                Button{
-                                                                                                    text: "Аутентификация OAuth2"
-                                                                                                    flat: true
-                                                                                                    onClicked: {
-                                                                                                        swipeView.currentIndex = 4
-                                                                                                        drawer.close()
+                                                                                                    Button{
+                                                                                                        text: "Аутентификация OAuth2"
+                                                                                                        flat: true
+                                                                                                        onClicked: {
+                                                                                                            swipeView.currentIndex = 4
+                                                                                                            drawer.close()
+                                                                                                        }
                                                                                                     }
-                                                                                                }
 
-                                                                                                Button{
-                                                                                                    text: "REST API"
-                                                                                                    flat: true
-                                                                                                    onClicked: {
-                                                                                                        swipeView.currentIndex = 5
-                                                                                                        drawer.close()
+                                                                                                    Button{
+                                                                                                        text: "REST API"
+                                                                                                        flat: true
+                                                                                                        onClicked: {
+                                                                                                            swipeView.currentIndex = 5
+                                                                                                            drawer.close()
+                                                                                                        }
                                                                                                     }
-                                                                                                }
 
-                                                                                                Button{
-                                                                                                    text: "Шифрование"
-                                                                                                    flat: true
-                                                                                                    onClicked: {
-                                                                                                        swipeView.currentIndex = 6
-                                                                                                        drawer.close()
+                                                                                                    Button{
+                                                                                                        text: "Шифрование"
+                                                                                                        flat: true
+                                                                                                        onClicked: {
+                                                                                                            swipeView.currentIndex = 6
+                                                                                                            drawer.close()
+                                                                                                        }
                                                                                                     }
                                                                                                 }
                                                                                             }
-                                                                                        }
 
-                                                                                        /* footer: TabBar {
+                                                                                            /* footer: TabBar {
                     id: tabBar
                     currentIndex: swipeView.currentIndex
                     font.family: "SF UI Display Light"
@@ -1361,4 +1362,4 @@ ApplicationWindow {
                         text: qsTr("Page 3")
                     }
                 }*/
-                                                                                    }
+                                                                                        }

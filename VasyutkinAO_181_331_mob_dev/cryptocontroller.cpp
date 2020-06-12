@@ -3,117 +3,95 @@
 #include <QFile>
 #include <QByteArray>
 #include <QDebug>
-#include <string.h>
-#include <iostream>
+#include <QIODevice>
+#include <QObject>
+#include <QTemporaryFile>
+#include <openssl/conf.h>
+#include <openssl/evp.h>
+#include <openssl/err.h>
+#include <openssl/aes.h>
 
-CryptoController::CryptoController(QObject *parent) : QObject(parent)
+CryptoController::CryptoController(QObject *parent)
 {
 
 }
 
-int CryptoController::do_crypt(unsigned char *sourcetext, unsigned char *ciphertext, int do_encrypt, unsigned char *keysource)
+bool CryptoController::do_crypt(QString key, bool mode)
 {
     EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
-    qDebug() << keysource << "keysource";
 
-    int sourcetext_len = strlen((char *)sourcetext),
-            len,
-            ciphertext_len;
-
-
-    unsigned char *key = keysource,
-            *iv = (unsigned char *)"1234567887654321";
-
-    if(!EVP_CipherInit_ex(ctx, EVP_aes_256_cbc(), NULL, NULL, NULL, do_encrypt))
+    if (mode == 1)
     {
-        EVP_CIPHER_CTX_free(ctx);
-        return 0;
+        if(!EVP_EncryptInit_ex(ctx, EVP_aes_256_ofb(), NULL, reinterpret_cast<unsigned char *>(key.toLatin1().data()), iv))
+            return false;
     }
 
-    OPENSSL_assert(EVP_CIPHER_CTX_key_length(ctx) == 32);
-    OPENSSL_assert(EVP_CIPHER_CTX_iv_length(ctx) == 16);
+    else if (mode == 0)
+        if(!EVP_DecryptInit_ex(ctx, EVP_aes_256_ofb(), NULL, reinterpret_cast<unsigned char *>(key.toLatin1().data()), iv))
+            return false;
 
-    if(!EVP_CipherInit_ex(ctx, NULL, NULL, key, iv, do_encrypt))
+    QFile source_file(sourcefile);
+    source_file.open(QIODevice::ReadOnly);
+
+    int position;
+    position = sourcefile.lastIndexOf(".");
+    QString file_extension = sourcefile.mid(position);
+    QString sourcefile_for_if;
+
+    if (mode == 1)
     {
-        EVP_CIPHER_CTX_free(ctx);
-        return 0;
+        position = sourcefile.lastIndexOf(".");
+        sourcefile_for_if = sourcefile.left(position) + "_encrypt" + file_extension;
     }
 
-    if(!EVP_CipherUpdate(ctx, ciphertext, &len, sourcetext, sourcetext_len))
+    else if (mode == 0)
     {
-        EVP_CIPHER_CTX_free(ctx);
-        return 0;
+        position = sourcefile.lastIndexOf("_encrypt");
+        sourcefile_for_if = sourcefile.left(position) + "_decrypt" + file_extension;
     }
-    ciphertext_len = len;
 
-    if(!EVP_CipherFinal_ex(ctx, ciphertext + len, &len))
+    QFile file_modified(sourcefile_for_if);
+    file_modified.open(QIODevice::ReadWrite | QIODevice::Truncate);
+
+    unsigned char ciphertext[256];
+    unsigned char plaintext[256];
+    int plaintext_len = source_file.read((char *)plaintext, 256);
+    int len;
+
+    while (plaintext_len > 0)
     {
-        EVP_CIPHER_CTX_free(ctx);
-        return 0;
-    }
-    ciphertext_len += len;
+        if (mode == 1)
+        {
+            if(!EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, plaintext_len))
+                return false;
+        }
 
+        else if (mode == 0)
+            if(!EVP_DecryptUpdate(ctx, ciphertext, &len, plaintext, plaintext_len))
+                return false;
+
+        file_modified.write((char*)ciphertext, len);
+        plaintext_len = source_file.read((char*)plaintext, 256);
+    }
+
+    if (mode == 1)
+    {
+        if(!EVP_EncryptFinal_ex(ctx, ciphertext + len, &len))
+            return false;
+    }
+
+    else if (mode == 0)
+        if(!EVP_DecryptFinal_ex(ctx, ciphertext + len, &len))
+            return false;
+
+    file_modified.write((char*)ciphertext, len);
 
     EVP_CIPHER_CTX_free(ctx);
-    ciphertext[ciphertext_len] = '\0';
-    return ciphertext_len;
+
+    source_file.close();
+    file_modified.close();
 }
 
-void CryptoController::readfile(QString name, int do_encrypt, QString keysource)
-{
-    /*name.remove(0, 8);
-    QFile file(name);
-
-    QByteArray bytearr = keysource.toLocal8Bit();
-    unsigned char key = (unsigned char )bytearr.data();
-    //unsigned char *vOut = (unsigned char*)strtol(key, NULL, 10);
-    QString a = "";
-    int count = 0;
-    if(file.open(QIODevice::ReadWrite))
-    {
-        while(!file.atEnd())
-        {
-            a=a+file.readLine();
-            count = count + 1;
-        }
-    }
-    file.close();
-    qDebug() << "количество строк" << count << a << name << keysource;
-
-    unsigned char *ciphertext;
-    if ((file.exists())&&(file.open(QIODevice::ReadWrite)))
-    {
-        QString str = "";
-        QByteArray databuf;
-
-        while(!file.atEnd())
-        {
-            qDebug() << "работаем2";
-            str=str+file.readLine();
-            QByteArray arr = str.toLocal8Bit();
-            unsigned char *sourcetext = (unsigned char *)strdup(arr.constData());
-            qDebug() << sourcetext << "bc[jlysq" << str << arr << key;
-            do_crypt(sourcetext, ciphertext, do_encrypt, &key);
-            databuf = QByteArray((char*)ciphertext, 128);
-            file.write(databuf);
-        }
-        file.close();
-
-    }*/
-
-
-    std::string stringtext = "привет как дела";
-
-        unsigned char *sourcetext = (unsigned char*)stringtext.c_str(),
-                ciphertext[128],
-                decryptedtext[128],
-                key[32] = "1111111111111111111111111111111";
-
-        qDebug() << "Cipher text: ";
-        do_crypt(sourcetext, ciphertext, 1, key);
-        qDebug() << "Cipher text: " << "\n" << ciphertext << "\n";
-
-        do_crypt(ciphertext, decryptedtext, 0, key);
-        qDebug() << "Decrypted text: " << "\n" << decryptedtext << "\n";
-
+void CryptoController::get_name_file(QString name){
+    sourcefile = name.mid(8);
 }

@@ -2,6 +2,7 @@
 #define CRYPTOCONTROLLER_H
 
 #include <QObject>
+#include <QFile>
 
 class CryptoController : public QObject
 {
@@ -9,9 +10,15 @@ class CryptoController : public QObject
 public:
     explicit CryptoController(QObject *parent = nullptr);
 
+    QString sourcefile;
+
 public slots:
-    int do_crypt(unsigned char *sourcetext, unsigned char *ciphertext, int do_encrypt, unsigned char *keysource);
-    void readfile (QString name, int do_encrypt, QString keysource);
+    void get_name_file(QString name);
+    bool do_crypt(QString key, bool mode);
+
+private:
+    unsigned char * iv = (unsigned char *)("01234567898765432101236547898765");
+
 
 signals:
 
