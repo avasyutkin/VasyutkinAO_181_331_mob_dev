@@ -24,8 +24,6 @@ void ModelfromYandexDisk::addItem(const FileObject &newItem)
     beginInsertRows(QModelIndex(), rowCount(), rowCount());  //нальный номер строки вставки и конечный номер строки вставки
     objectlist << newItem;  //вставка нового элемента
     endInsertRows();  //сообщает ListView о том, что изменение модели закончено
-
-    qDebug() << "ghbdtn ghbdtn ghbdtn,";
 }
 
 int ModelfromYandexDisk::rowCount(const QModelIndex &parent) const

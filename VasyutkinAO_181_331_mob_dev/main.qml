@@ -13,6 +13,7 @@ import QtQuick 2.2
 import QtQuick.Dialogs 1.0
 import QtQml 2.14
 import QtWebView 1.14
+import QtCharts 2.0
 
 ApplicationWindow {
 
@@ -43,6 +44,15 @@ ApplicationWindow {
 
         function onSignalSendToQML_2(currentratecostrub){
             labelforratecostrubdesign.text = currentratecostrub
+        }
+
+        function onSignalSendToQML_3(sizeLess1, sizeLess2, sizeLess3, sizeLess4, sizeLess5, sizeOver5){
+            statless1.value = sizeLess1
+            statless2.value = sizeLess2
+            statless3.value = sizeLess3
+            statless4.value = sizeLess4
+            statless5.value = sizeLess5
+            statover5.value = sizeOver5
         }
     }
 
@@ -904,15 +914,6 @@ ApplicationWindow {
                                                                                 }
                                                                             }
 
-
-
-
-
-
-
-
-
-
                                                                             Page{  //СТРАНИЦА ДЛЯ ПЯТОЙ ЛАБОРАТОРНОЙ - АУТЕНТИФИКАЦИЯ OAUTH2
                                                                                 id: page05
                                                                                 header: ToolBar {
@@ -921,6 +922,7 @@ ApplicationWindow {
                                                                                     anchors.left: parent.left;
                                                                                     layer.enabled: true
                                                                                     Material.background: "white"
+
                                                                                     Text {
                                                                                         font.family: "SF UI Display Bold"
                                                                                         text: "OAuth2"
@@ -942,13 +944,9 @@ ApplicationWindow {
                                                                                         browserlab5.visible = token === " " ? true : false;
                                                                                         btngettoken.visible = token === " " ? false : true;
                                                                                         labelfortoken.text = token
-
                                                                                         labelfortoken.color = tokenbool === true ? "black" : "#FF0000"
                                                                                         labelsucsesslab5.visible = tokenbool === true ? true : false
-
                                                                                         //console.info(token + " token    " + tokenbool)
-
-
                                                                                         var gfdfgdfgf = httpController.requestReceivingAPI(token)
                                                                                         //labelfortoken.text = gfdfgdfgf
                                                                                     }
@@ -975,6 +973,17 @@ ApplicationWindow {
                                                                                     color: "#77BD8B"
                                                                                 }
 
+                                                                                Label {
+                                                                                    id: labelnosucsesslab5
+                                                                                    visible: true
+                                                                                    anchors.bottom: btngettoken.top
+                                                                                    anchors.bottomMargin: 150
+                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                    font.family: "SF UI Display"
+                                                                                    font.pixelSize: 21
+                                                                                    text: "Чтобы получить доступ \nк вашм фото на Яндекс Диске, \nвойдите в аккаунт."
+                                                                                }
+
                                                                                 Button {
                                                                                     id:btngettoken
                                                                                     anchors.horizontalCenter: parent.horizontalCenter
@@ -984,6 +993,7 @@ ApplicationWindow {
                                                                                     font.family: "SF UI Display Light"
                                                                                     font.pixelSize: 21
                                                                                     flat: true
+
                                                                                     onClicked: {
                                                                                         browserlab5.url = "https://oauth.yandex.ru/authorize?response_type=token"
                                                                                                 +"&client_id=b90874f5afbc41c5a675b31f708dc772"
@@ -992,13 +1002,11 @@ ApplicationWindow {
                                                                                                 +"&redirect_uri=https://oauth.yandex.ru/verification_code"
                                                                                                 +"&force_confirm=yes"
                                                                                                 +"&state=get_token"
-                                                                                                +"&display=popup"
+                                                                                                +"&display=popup",
+                                                                                        labelnosucsesslab5.visible = false
                                                                                     }
                                                                                 }
                                                                             }
-
-
-
 
                                                                             Page{  //СТРАНИЦА ДЛЯ ШЕСТОЙ ЛАБОРАТОРНОЙ - REST API
                                                                                 id: page06
@@ -1111,7 +1119,7 @@ ApplicationWindow {
                                                                                         }
 
                                                                                         Label{
-                                                                                            text: size + " бит"
+                                                                                            text: size + " байт"
                                                                                             font.pixelSize: 13
                                                                                             font.family: "SF UI Display"
                                                                                         }
@@ -1162,8 +1170,6 @@ ApplicationWindow {
                                                                                         }
                                                                                         }
                                                                                         }
-
-
 
                                                                                             Page{  //СТРАНИЦА ДЛЯ СЕДЬМОЙ ЛАБОРАТОРНОЙ - ШИФРОВАНИЕ
                                                                                                 id: page07
@@ -1218,137 +1224,224 @@ ApplicationWindow {
                                                                                                     onClicked: cryptoController.do_crypt(textforkey.text, 1)
                                                                                                 }
 
-                                                                                                    Button{
-                                                                                                        id: chipherofflab7
-                                                                                                        anchors.horizontalCenter: parent.horizontalCenter
-                                                                                                        anchors.top: chipheronlab7.bottom
-                                                                                                        anchors.topMargin: 30
-                                                                                                        text: "Получить доступ"
-                                                                                                        font.family: "SF UI Display Light"
-                                                                                                        font.pixelSize: 15
-                                                                                                        flat: true
-                                                                                                        visible: if(fileDialoglab7.fileUrl == 0) false; else true
-                                                                                                        onClicked: cryptoController.do_crypt(textforkey.text, 0);
-                                                                                                    }
-
-
-
-                                                                                                    Button {
-                                                                                                        id: btnfordialoglab7
-                                                                                                        anchors.horizontalCenter: parent.horizontalCenter
-                                                                                                        font.pixelSize: 15
-                                                                                                        anchors.bottom: textforkey.top
-                                                                                                        anchors.bottomMargin: 100
-                                                                                                        anchors.leftMargin: 10
-                                                                                                        flat: true
-                                                                                                        text: "Выбрать файл"
-                                                                                                        onClicked: fileDialoglab7.open()
-
-                                                                                                        FileDialog {
-                                                                                                            id: fileDialoglab7
-                                                                                                            folder: shortcuts.home
-                                                                                                            onAccepted: cryptoController.get_name_file(fileDialoglab7.fileUrls);
-                                                                                                        }
-                                                                                                    }
-
+                                                                                                Button{
+                                                                                                    id: chipherofflab7
+                                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                                    anchors.top: chipheronlab7.bottom
+                                                                                                    anchors.topMargin: 30
+                                                                                                    text: "Получить доступ"
+                                                                                                    font.family: "SF UI Display Light"
+                                                                                                    font.pixelSize: 15
+                                                                                                    flat: true
+                                                                                                    visible: if(fileDialoglab7.fileUrl == 0) false; else true
+                                                                                                    onClicked: cryptoController.do_crypt(textforkey.text, 0);
                                                                                                 }
 
+                                                                                                Button {
+                                                                                                    id: btnfordialoglab7
+                                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                                    font.pixelSize: 15
+                                                                                                    anchors.bottom: textforkey.top
+                                                                                                    anchors.bottomMargin: 100
+                                                                                                    anchors.leftMargin: 10
+                                                                                                    flat: true
+                                                                                                    text: "Выбрать файл"
+                                                                                                    onClicked: fileDialoglab7.open()
 
-
-
-
-                                                                                            }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                                            Drawer{
-                                                                                                id: drawer
-                                                                                                width: 0.80 * parent.width
-                                                                                                height: parent.height
-                                                                                                dragMargin: 10 * Screen.pixelDensity
-                                                                                                GridLayout{
-                                                                                                    width: parent.width
-                                                                                                    columns: 1
-                                                                                                    Button{
-                                                                                                        text: "Элементы GUI"
-                                                                                                        flat: true
-                                                                                                        onClicked: {
-                                                                                                            swipeView.currentIndex = 0
-                                                                                                            drawer.close()
-                                                                                                        }
-                                                                                                    }
-
-                                                                                                    Button{
-                                                                                                        text: "Камера. Фото и видео"
-                                                                                                        flat: true
-                                                                                                        onClicked: {
-                                                                                                            swipeView.currentIndex = 1
-                                                                                                            drawer.close()
-                                                                                                        }
-                                                                                                    }
-                                                                                                    Button{
-                                                                                                        text: "Графические эффекты"
-                                                                                                        flat: true
-                                                                                                        onClicked: {
-                                                                                                            swipeView.currentIndex = 2
-                                                                                                            drawer.close()
-                                                                                                        }
-                                                                                                    }
-
-                                                                                                    Button{
-                                                                                                        text: "HTTP запросы"
-                                                                                                        flat: true
-                                                                                                        onClicked: {
-                                                                                                            swipeView.currentIndex = 3
-                                                                                                            drawer.close()
-                                                                                                        }
-                                                                                                    }
-
-                                                                                                    Button{
-                                                                                                        text: "Аутентификация OAuth2"
-                                                                                                        flat: true
-                                                                                                        onClicked: {
-                                                                                                            swipeView.currentIndex = 4
-                                                                                                            drawer.close()
-                                                                                                        }
-                                                                                                    }
-
-                                                                                                    Button{
-                                                                                                        text: "REST API"
-                                                                                                        flat: true
-                                                                                                        onClicked: {
-                                                                                                            swipeView.currentIndex = 5
-                                                                                                            drawer.close()
-                                                                                                        }
-                                                                                                    }
-
-                                                                                                    Button{
-                                                                                                        text: "Шифрование"
-                                                                                                        flat: true
-                                                                                                        onClicked: {
-                                                                                                            swipeView.currentIndex = 6
-                                                                                                            drawer.close()
-                                                                                                        }
+                                                                                                    FileDialog {
+                                                                                                        id: fileDialoglab7
+                                                                                                        folder: shortcuts.home
+                                                                                                        onAccepted: cryptoController.get_name_file(fileDialoglab7.fileUrls);
                                                                                                     }
                                                                                                 }
                                                                                             }
 
-                                                                                            /* footer: TabBar {
+
+                                                                                            /*Page{  //СТРАНИЦА ДЛЯ ВОСЬМОЙ ЛАБОРАТОРНОЙ - БАЗЫ ДАННЫХ И SQL-ЗАПРОСЫ
+                                                                                                id: page08
+                                                                                                header: ToolBar {
+                                                                                                    anchors.leftMargin: 10
+                                                                                                    anchors.left: parent.left;
+                                                                                                    layer.enabled: true
+                                                                                                    Material.background: "white"
+
+                                                                                                    Text {
+                                                                                                        font.family: "SF UI Display Bold"
+                                                                                                        text: "БД и SQL-запросы"
+                                                                                                        font.pointSize: 23
+                                                                                                        color: "black"
+                                                                                                        anchors.bottom: parent.bottom
+                                                                                                    }
+                                                                                                }
+
+                                                                                                Button {
+                                                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                                                    anchors.top: chipheronlab7.bottom
+                                                                                                    anchors.topMargin: 30
+                                                                                                    text: "Получить доступ"
+                                                                                                    font.family: "SF UI Display Light"
+                                                                                                    font.pixelSize: 15
+                                                                                                    flat: true
+                                                                                                }
+                                                                                            }*/
+
+                                                                                            Page{
+                                                                                                id: page09
+                                                                                                header: ToolBar {
+                                                                                                    anchors.leftMargin: 10
+                                                                                                    anchors.left: parent.left;
+                                                                                                    layer.enabled: true
+                                                                                                    Material.background: "white"
+
+                                                                                                    Text {
+                                                                                                        font.family: "SF UI Display Bold"
+                                                                                                        text: "Графики"
+                                                                                                        font.pointSize: 23
+                                                                                                        color: "black"
+                                                                                                        anchors.bottom: parent.bottom
+                                                                                                    }
+                                                                                                }
+
+                                                                                                ChartView {
+                                                                                                    id: chart
+                                                                                                    title: "Статистика ваших фото из Яндекс.Диск"
+                                                                                                    titleFont: Qt.font({pointSize: 13})
+                                                                                                    anchors.fill: parent
+                                                                                                    legend.alignment: Qt.AlignBottom
+                                                                                                    antialiasing: true
+                                                                                                    visible: if (labelfortoken.text == 0) false; else true
+
+                                                                                                    PieSeries {
+                                                                                                        id: statfileschart
+                                                                                                        PieSlice { id:statless1; label: "1МБ" }
+                                                                                                        PieSlice { id:statless2; label: "2МБ" }
+                                                                                                        PieSlice { id:statless3; label: "3МБ" }
+                                                                                                        PieSlice { id:statless4; label: "4МБ" }
+                                                                                                        PieSlice { id:statless5; label: "5МБ" }
+                                                                                                        PieSlice { id:statover5; label: ">5МБ" }
+                                                                                                    }
+                                                                                                }
+
+                                                                                                Label{
+                                                                                                    id: noaccesslab9
+                                                                                                    font.pixelSize: 17
+                                                                                                    font.family: "SF UI Display"
+                                                                                                    anchors.centerIn: parent
+                                                                                                    lineHeight: 1.5
+                                                                                                    text: "Пожалуйста, разрешите приложению \nправа на чтение Яндекс Диска, \nчтобы мы могли вывести \nстатистику по вашим изображениям."
+                                                                                                    visible: if (labelfortoken.text != 0) false; else true
+                                                                                                }
+                                                                                            }
+                                                                                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                        Drawer{
+                                                                                            id: drawer
+                                                                                            width: 0.80 * parent.width
+                                                                                            height: parent.height
+                                                                                            dragMargin: 10 * Screen.pixelDensity
+                                                                                            GridLayout{
+                                                                                                width: parent.width
+                                                                                                columns: 1
+                                                                                                Button{
+                                                                                                    text: "Элементы GUI"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 0
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+
+                                                                                                Button{
+                                                                                                    text: "Камера. Фото и видео"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 1
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+                                                                                                Button{
+                                                                                                    text: "Графические эффекты"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 2
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+
+                                                                                                Button{
+                                                                                                    text: "HTTP запросы"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 3
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+
+                                                                                                Button{
+                                                                                                    text: "Аутентификация OAuth2"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 4
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+
+                                                                                                Button{
+                                                                                                    text: "REST API"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 5
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+
+                                                                                                Button{
+                                                                                                    text: "Шифрование"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 6
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+
+                                                                                                /*Button{
+                                                                                                    text: "БД и SQL-запросы"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 7
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }*/
+
+                                                                                                Button{
+                                                                                                    text: "Графики"
+                                                                                                    flat: true
+                                                                                                    onClicked: {
+                                                                                                        swipeView.currentIndex = 8
+                                                                                                        drawer.close()
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+
+                                                                                        /* footer: TabBar {
                     id: tabBar
                     currentIndex: swipeView.currentIndex
                     font.family: "SF UI Display Light"
@@ -1362,4 +1455,4 @@ ApplicationWindow {
                         text: qsTr("Page 3")
                     }
                 }*/
-                                                                                        }
+                                                                                    }

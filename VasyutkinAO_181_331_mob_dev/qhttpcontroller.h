@@ -26,11 +26,15 @@ public slots:
     QString auth(QString urlforauth);
     bool authbool(QString urlforauth);
     QByteArray requestReceivingAPI(QString token);
-    void parseJSON(QByteArray source);
+    //void parseJSON(QByteArray source);
+
+    void database_read();
+    void database_write(QByteArray source);
 
 signals:
     void signalSendToQML(QString pReply, QString replayrete, QString currentratecost, QString currentratestate, bool boolforcolorlab_4, QString currentratedate);
     void signalSendToQML_2(QString currentratecostrub);
+    void signalSendToQML_3(int sizeLess1, int sizeLess2, int sizeLess3, int sizeLess4, int sizeLess5, int sizeOver5);
 };
 
 #endif // QHTTPCONTROLLER_H

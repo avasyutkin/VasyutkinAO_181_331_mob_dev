@@ -17,6 +17,11 @@
 #include <QUrlQuery>
 #include <QUrl>
 #include <QSqlDatabase>
+#include <QtWidgets/QTableView>
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlTableModel>
+#include <QtSql/QSqlError>
 
 QHTTPController::QHTTPController(QObject *parent) : QObject(parent)
 {
@@ -187,13 +192,14 @@ QByteArray QHTTPController::requestReceivingAPI(QString token)
                 request.header(QNetworkRequest::ContentTypeHeader);
 
 
-    parseJSON(replyString);
+    //parseJSON(replyString);
+    database_write(replyString);
 
     return "a";
 
 }
 
-void QHTTPController::parseJSON(QByteArray source)
+/*void QHTTPController::parseJSON(QByteArray source)
 {
     QJsonDocument jsonDoc = QJsonDocument::fromJson(source);  //распарсить json
 
@@ -235,10 +241,136 @@ void QHTTPController::parseJSON(QByteArray source)
         }
     }
 
-
-
-
     qDebug() << size << name << created << preview;
-
 }
+*/
+
+void QHTTPController::database_read()
+{
+    QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");  //добавляет базу данных в список соединений с базой данных
+    database.setHostName("files");
+    database.setDatabaseName("D:/QT Labs/files.db");
+    database.open();
+
+    int sizeLess1 = 0;
+    int sizeLess2 = 0;
+    int sizeLess3 = 0;
+    int sizeLess4 = 0;
+    int sizeLess5 = 0;
+    int sizeOver5 = 0;
+
+    if(database.isOpen())
+    {
+        if (fileModel.rowCount() > 0)
+        {
+            fileModel.clear();
+        }
+
+        QSqlQuery query;
+        if (query.exec("SELECT * FROM files"))
+        {
+            query.exec("SELECT * FROM files");
+
+            while (query.next())
+            {
+                QString name = query.value("File_name").toString();
+                QString size = query.value("File_size").toString();
+                QString created = query.value("File_created").toString();
+                QString preview = query.value("File_preview").toString();
+
+                if (size.toInt() < 1048576)
+                    sizeLess1++;
+                else if (size.toInt() > 1048576 && size.toInt() < 2097152)
+                    sizeLess2++;
+                else if (size.toInt() > 2097152 && size.toInt() < 3145728)
+                    sizeLess3++;
+                else if (size.toInt() > 3145728 && size.toInt() < 4194304)
+                    sizeLess4++;
+                else if (size.toInt() > 4194304 && size.toInt() < 5242880)
+                    sizeLess5++;
+                else if (size.toInt() > 5242880)
+                    sizeOver5++;
+
+                fileModel.addItem(FileObject(size.toInt(), name, created, preview));
+            }
+
+            QSqlDatabase::removeDatabase("QSQLITE");
+            database.close();
+        }
+    }
+
+    emit signalSendToQML_3(sizeLess1, sizeLess2, sizeLess3, sizeLess4, sizeLess5, sizeOver5);
+}
+
+void QHTTPController::database_write(QByteArray source)
+{
+    int size;
+    QString name;
+    QString created;
+    QString preview;
+
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(source);  //распарсить json
+    QJsonObject rootObject = jsonDoc.object();  //получние ссылки на корневой объект
+
+    QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setHostName("files");
+    database.setDatabaseName("D:/QT Labs/files.db");
+    database.open();
+    QSqlQuery query;
+    query.exec("DROP TABLE files");
+    query.exec("CREATE TABLE files("
+               "File_name varchar(255),"
+               "File_size varchar(255),"
+               "File_created varchar(255),"
+               "File_preview varchar(255))");
+
+    if (rootObject.contains("items") && rootObject["items"].isArray())
+    {
+        QJsonValue items = rootObject.value("items");
+        QJsonArray items_array = items.toArray();
+
+        foreach (const QJsonValue & item, items_array)
+        {
+            QJsonObject itemobj = item.toObject();
+
+            if (itemobj.contains("size"))
+            {
+                QJsonValue size_value = itemobj.value("size");
+                size = size_value.toInt();
+            }
+
+            if (itemobj.contains("name"))
+            {
+                QJsonValue name_value = itemobj.value("name");
+                name = name_value.toString();
+            }
+
+            if (itemobj.contains("created"))
+            {
+                QJsonValue created_value = itemobj.value("created");
+                created = created_value.toString().remove(9, 15);
+            }
+
+            if (itemobj.contains("file"))
+            {
+                QJsonValue preview_value = itemobj.value("file");
+                preview = preview_value.toString();
+            }
+
+            query.prepare("INSERT INTO files(File_name, File_size, File_created, File_preview)"
+                          "VALUES (:File_name, :File_size, :File_created, :File_preview)");
+            query.bindValue(":File_name", name);
+            query.bindValue(":File_size", size);
+            query.bindValue(":File_created", created);
+            query.bindValue(":File_preview", preview);
+            query.exec();
+        }
+    }
+
+    QSqlDatabase::removeDatabase("QSQLITE");  //удаляет соединение с БД
+    database.close();
+    database_read();
+}
+
+
 

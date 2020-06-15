@@ -1,4 +1,4 @@
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include "qhttpcontroller.h"
 #include "cryptocontroller.h"
@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     //просто настройка масштабирования экрана
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);   //отвечает за базовые свойства объектов (просто консолька)
 
-    QGuiApplication app(argc, argv);   //добавляет графические функции к приложению и позволяет работать с графикой (базовое приложение с графической областью)
+    QApplication app(argc, argv);   //добавляет графические функции к приложению и позволяет работать с графикой (базовое приложение с графической областью)
 
     QHTTPController httpController;
     httpController.GetNetworkValue();

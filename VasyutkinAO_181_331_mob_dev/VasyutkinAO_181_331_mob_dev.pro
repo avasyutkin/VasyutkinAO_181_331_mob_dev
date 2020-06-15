@@ -1,5 +1,6 @@
 QT += quick network   #список подключенных разделов библиотеки QT
 QT += core
+QT += charts
 CONFIG += c++11   #настройки компиляции
 QT += sql
 
