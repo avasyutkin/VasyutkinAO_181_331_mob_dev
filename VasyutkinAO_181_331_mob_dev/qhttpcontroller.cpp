@@ -26,6 +26,7 @@
 QHTTPController::QHTTPController(QObject *parent) : QObject(parent)
 {
     nam = new QNetworkAccessManager();
+    database_read();
 }
 
 void QHTTPController::GetNetworkValue()

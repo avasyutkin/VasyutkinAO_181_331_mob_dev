@@ -8,5 +8,16 @@
         <file>image/iconfinder_ic_play_circle_filled_white_48px_3669295.png</file>
         <file>image/iconfinder_205_CircledPause_183322.png</file>
         <file>image/bg_lab4.JPG</file>
+        <file>image/mymessage.png</file>
+        <file>image/servermessage.png</file>
+        <file>Page01.qml</file>
+        <file>Page02.qml</file>
+        <file>Page03.qml</file>
+        <file>Page04.qml</file>
+        <file>Page05.qml</file>
+        <file>Page06.qml</file>
+        <file>Page07.qml</file>
+        <file>Page09.qml</file>
+        <file>Page10.qml</file>
     </qresource>
 </RCC>
